@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SeaWise Voyager — Promo Video</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* YouTube Short frame: 1080x1920 scaled to fit screen */
+    .frame {
+      width: 1080px;
+      height: 1920px;
+      transform-origin: center center;
+      position: relative;
+      overflow: hidden;
+      background: #0a192f;
+      font-family: 'Outfit', sans-serif;
+      color: #e2e8f0;
+    }
+
+    /* --- WAVE BACKGROUND --- */
+    .wave-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .wave-bg::before, .wave-bg::after {
+      content: '';
+      position: absolute;
+      width: 250%;
+      height: 250%;
+      top: -75%;
+      left: -75%;
+      border-radius: 44%;
+      opacity: 0.07;
+      animation: wave-spin 20s linear infinite;
+    }
+
+    .wave-bg::before {
+      background: linear-gradient(135deg, #38bdf8, #2dd4bf);
+    }
+
+    .wave-bg::after {
+      background: linear-gradient(135deg, #2dd4bf, #10b981);
+      animation-duration: 28s;
+      animation-direction: reverse;
+      opacity: 0.05;
+    }
+
+    @keyframes wave-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* --- SCENES --- */
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 60px;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .scene.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    /* --- SCENE 1: LOGO INTRO --- */
+    .scene-1 .logo-img {
+      width: 280px;
+      height: 280px;
+      margin-bottom: 48px;
+      filter: drop-shadow(0 0 60px rgba(45, 212, 191, 0.4));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .scene-1 h1 {
+      font-size: 80px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .scene-1 .gradient-text {
+      background: linear-gradient(135deg, #38bdf8, #2dd4bf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .scene-1 .tagline {
+      font-size: 36px;
+      font-weight: 300;
+      color: #94a3b8;
+      line-height: 1.5;
+      max-width: 800px;
+    }
+
+    /* --- SCENE 2-5: FEATURE SCENES --- */
+    .feature-scene .feature-tag {
+      display: inline-block;
+      font-size: 24px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      padding: 12px 32px;
+      border-radius: 100px;
+      margin-bottom: 48px;
+    }
+
+    .tag-cyan { color: #38bdf8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .tag-green { color: #10b981; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .tag-purple { color: #a78bfa; background: rgba(167, 139, 250, 0.12); border: 1px solid rgba(167, 139, 250, 0.3); }
+    .tag-amber { color: #fbbf24; background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.3); }
+
+    .feature-scene h2 {
+      font-size: 64px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 32px;
+      max-width: 900px;
+    }
+
+    .feature-scene .feature-desc {
+      font-size: 32px;
+      font-weight: 400;
+      color: #94a3b8;
+      line-height: 1.6;
+      max-width: 800px;
+      margin-bottom: 60px;
+    }
+
+    .screenshot-mock {
+      width: 700px;
+      border-radius: 24px;
+      border: 3px solid #1e3a5f;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+      background: #112a45;
+    }
+
+    .screenshot-mock img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .screenshot-mock .placeholder {
+      width: 100%;
+      aspect-ratio: 9/16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #64748b;
+    }
+
+    /* --- SCENE 6: STATS --- */
+    .scene-6 .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      margin-top: 60px;
+    }
+
+    .stat-item {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .scene-6.active .stat-item:nth-child(1) { animation: slideUp 0.6s 0.3s forwards; }
+    .scene-6.active .stat-item:nth-child(2) { animation: slideUp 0.6s 0.6s forwards; }
+    .scene-6.active .stat-item:nth-child(3) { animation: slideUp 0.6s 0.9s forwards; }
+    .scene-6.active .stat-item:nth-child(4) { animation: slideUp 0.6s 1.2s forwards; }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stat-value {
+      font-size: 96px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .stat-value.cyan { color: #38bdf8; }
+    .stat-value.green { color: #10b981; }
+    .stat-value.teal { color: #2dd4bf; }
+    .stat-value.amber { color: #fbbf24; }
+
+    .stat-label {
+      font-size: 28px;
+      font-weight: 400;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-top: 8px;
+    }
+
+    /* --- SCENE 7: CTA --- */
+    .scene-7 .cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      background: #10b981;
+      color: #fff;
+      font-size: 36px;
+      font-weight: 700;
+      padding: 24px 56px;
+      border-radius: 16px;
+      margin-top: 60px;
+      box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+    }
+
+    .scene-7 .platforms {
+      margin-top: 48px;
+      font-size: 28px;
+      color: #64748b;
+    }
+
+    .scene-7 .company {
+      position: absolute;
+      bottom: 80px;
+      font-size: 22px;
+      color: #475569;
+      font-style: italic;
+    }
+
+    /* --- PROGRESS BAR --- */
+    .progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #38bdf8, #2dd4bf);
+      z-index: 100;
+      transition: width 0.1s linear;
+    }
+
+    /* --- CONTROLS --- */
+    .controls {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 200;
+    }
+
+    .controls button {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .controls button:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .controls .info {
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Fit to screen */
+    @media (max-height: 1920px) {
+      .frame {
+        transform: scale(calc(min(100vh / 1920, 100vw / 1080)));
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="frame" id="frame">
+    <div class="wave-bg"></div>
+    <div class="progress-bar" id="progress"></div>
+
+    <!-- SCENE 1: Logo Intro -->
+    <div class="scene scene-1 active" data-duration="4000">
+      <img src="images/logo.png" alt="SeaWise" class="logo-img" />
+      <h1>SeaWise <span class="gradient-text">Voyager</span></h1>
+      <p class="tagline">Your voyage, calculated to the nearest mile, minute and dollar.</p>
+    </div>
+
+    <!-- SCENE 2: Distance & Fuel -->
+    <div class="scene feature-scene scene-2" data-duration="4000">
+      <span class="feature-tag tag-cyan">Core Feature</span>
+      <h2>Port-to-Port Distance &amp; Fuel Calculator</h2>
+      <p class="feature-desc">Enter any two ports. Get exact distance in nautical miles, fuel consumption, and total cost.</p>
+      <div class="screenshot-mock">
+        <div class="placeholder">[ Voyage Results Screenshot ]</div>
+      </div>
+    </div>
+
+    <!-- SCENE 3: AI Routes -->
+    <div class="scene feature-scene scene-3" data-duration="4000">
+      <span class="feature-tag tag-purple">AI-Powered</span>
+      <h2>Intelligent Sea Route Planning</h2>
+      <p class="feature-desc">AI generates waypoints that follow real shipping lanes and avoid land.</p>
+      <div class="screenshot-mock">
+        <div class="placeholder">[ Route Map Screenshot ]</div>
+      </div>
+    </div>
+
+    <!-- SCENE 4: Fuel Market -->
+    <div class="scene feature-scene scene-4" data-duration="4000">
+      <span class="feature-tag tag-green">Real-Time</span>
+      <h2>Global Fuel Market Prices</h2>
+      <p class="feature-desc">Track bunker fuel prices at Rotterdam, Singapore, Fujairah, Houston and more.</p>
+      <div class="screenshot-mock">
+        <div class="placeholder">[ Fuel Market Screenshot ]</div>
+      </div>
+    </div>
+
+    <!-- SCENE 5: Vessel Profile -->
+    <div class="scene feature-scene scene-5" data-duration="4000">
+      <span class="feature-tag tag-amber">Configure</span>
+      <h2>Your Vessel, Your Data</h2>
+      <p class="feature-desc">Custom fuel curves, capacity settings, and performance analytics for your fleet.</p>
+      <div class="screenshot-mock">
+        <div class="placeholder">[ Vessel Profile Screenshot ]</div>
+      </div>
+    </div>
+
+    <!-- SCENE 6: Stats -->
+    <div class="scene scene-6" data-duration="5000">
+      <h2 style="font-size: 56px; font-weight: 800; margin-bottom: 0;">Built for Professionals</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value cyan">5,006 NM</div>
+          <div class="stat-label">London to Panama</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value green">166,883</div>
+          <div class="stat-label">Liters of Fuel Calculated</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value teal">17.4 Days</div>
+          <div class="stat-label">Voyage Duration</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value amber">$115,149</div>
+          <div class="stat-label">Total Cost Estimate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 7: CTA -->
+    <div class="scene scene-7" data-duration="5000">
+      <img src="images/logo.png" alt="SeaWise" style="width: 180px; height: 180px; margin-bottom: 40px; filter: drop-shadow(0 0 40px rgba(45,212,191,0.3));" />
+      <h2 style="font-size: 60px; font-weight: 800; line-height: 1.15;">Start Planning Your Next Voyage</h2>
+      <div class="cta-badge">seawise-voyager.vercel.app</div>
+      <p class="platforms">Web &bull; iOS &bull; Android</p>
+      <p class="company">A JK Yacht Ops company</p>
+    </div>
+  </div>
+
+  <!-- Controls (hidden during recording) -->
+  <div class="controls" id="controls">
+    <button onclick="restart()">Restart</button>
+    <button onclick="togglePause()">Pause / Play</button>
+    <span class="info">Open in browser &rarr; screen record at 1080x1920</span>
+  </div>
+
+  <script>
+    const scenes = document.querySelectorAll('.scene');
+    const progress = document.getElementById('progress');
+    let currentScene = 0;
+    let paused = false;
+    let timer = null;
+    let startTime = 0;
+    let elapsed = 0;
+
+    function getDuration() {
+      return parseInt(scenes[currentScene].dataset.duration) || 4000;
+    }
+
+    function showScene(index) {
+      scenes.forEach(s => s.classList.remove('active'));
+      scenes[index].classList.add('active');
+      currentScene = index;
+    }
+
+    function updateProgress() {
+      if (paused) return;
+      const now = Date.now();
+      elapsed = now - startTime;
+      const duration = getDuration();
+      const sceneProgress = Math.min(elapsed / duration, 1);
+
+      // Overall progress
+      const totalScenes = scenes.length;
+      const overallProgress = ((currentScene + sceneProgress) / totalScenes) * 100;
+      progress.style.width = overallProgress + '%';
+
+      if (elapsed >= duration) {
+        nextScene();
+      } else {
+        requestAnimationFrame(updateProgress);
+      }
+    }
+
+    function nextScene() {
+      if (currentScene < scenes.length - 1) {
+        currentScene++;
+        showScene(currentScene);
+        startTime = Date.now();
+        elapsed = 0;
+        requestAnimationFrame(updateProgress);
+      } else {
+        progress.style.width = '100%';
+      }
+    }
+
+    function restart() {
+      currentScene = 0;
+      showScene(0);
+      paused = false;
+      startTime = Date.now();
+      elapsed = 0;
+      requestAnimationFrame(updateProgress);
+    }
+
+    function togglePause() {
+      if (paused) {
+        paused = false;
+        startTime = Date.now() - elapsed;
+        requestAnimationFrame(updateProgress);
+      } else {
+        paused = true;
+      }
+    }
+
+    // Auto-scale frame to fit viewport
+    function scaleFrame() {
+      const frame = document.getElementById('frame');
+      const scaleX = window.innerWidth / 1080;
+      const scaleY = window.innerHeight / 1920;
+      const scale = Math.min(scaleX, scaleY, 1);
+      frame.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener('resize', scaleFrame);
+    scaleFrame();
+
+    // Start
+    startTime = Date.now();
+    requestAnimationFrame(updateProgress);
+  </script>
+
+</body>
+</html>

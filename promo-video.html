@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SeaWise Voyager â Promo Video</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SeaWise Voyager — Promo Video</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -308,75 +310,189 @@
 
     /* Scaling handled by JS */
   </style>
+<style>
+* { box-sizing: border-box; }
+.frame {
+  background: linear-gradient(180deg,#020d1a 0%,#041628 25%,#05213d 55%,#071f38 100%) !important;
+}
+/* Ocean wave blobs */
+.wave-bg::before {
+  background: radial-gradient(circle,#034e8c 0%,#021d3a 100%) !important;
+  opacity:0.14 !important; animation:wave-spin 18s linear infinite !important;
+}
+.wave-bg::after {
+  background: radial-gradient(circle,#0369a1 0%,#011528 100%) !important;
+  opacity:0.09 !important; animation:wave-spin 30s linear infinite reverse !important;
+}
+/* Particles */
+.bio-particle { position:absolute; border-radius:50%; animation:bio-pulse var(--dur,3s) ease-in-out infinite; opacity:0; }
+@keyframes bio-pulse { 0%{opacity:0;transform:scale(.5)} 50%{opacity:var(--op,.6);transform:scale(1.2)} 100%{opacity:0;transform:scale(.5)} }
+/* Bottom ocean waves */
+.wave-ocean { position:absolute;bottom:-80px;left:-10%;width:120%;height:340px;background:linear-gradient(180deg,transparent 0%,rgba(3,90,150,.18) 40%,rgba(2,60,100,.35) 100%);border-radius:50% 50% 0 0/80px 80px 0 0;animation:wave-bob 6s ease-in-out infinite;z-index:1; }
+.wave-ocean-2 { position:absolute;bottom:-120px;left:-15%;width:130%;height:280px;background:linear-gradient(180deg,transparent 0%,rgba(0,120,180,.10) 40%,rgba(1,50,90,.25) 100%);border-radius:50% 50% 0 0/60px 60px 0 0;animation:wave-bob2 8s ease-in-out infinite;z-index:1; }
+@keyframes wave-bob { 0%,100%{transform:translateY(0) scaleX(1)} 50%{transform:translateY(-28px) scaleX(1.02)} }
+@keyframes wave-bob2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+/* Vignette & film bars */
+.cinematic-vignette { position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 80% 70% at 50% 50%,transparent 40%,rgba(0,5,15,.55) 100%); }
+.film-bar-top,.film-bar-bottom { position:absolute;left:0;right:0;height:72px;background:rgba(0,0,0,.55);z-index:3;pointer-events:none; }
+.film-bar-top{top:0;} .film-bar-bottom{bottom:0;}
+/* Compass */
+.compass-rose { animation:compass-rotate 40s linear infinite; }
+@keyframes compass-rotate { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
+/* Horizon glow */
+.horizon-glow { position:absolute;left:0;right:0;pointer-events:none; }
+/* Sparkles */
+.sparkle { position:absolute;border-radius:50%;background:#fff;pointer-events:none;animation:sparkle-pop var(--dur,2s) ease-in-out infinite;opacity:0; }
+@keyframes sparkle-pop { 0%{opacity:0;transform:scale(0)} 30%{opacity:1;transform:scale(1.5)} 60%{opacity:.5;transform:scale(.8)} 100%{opacity:0;transform:scale(0)} }
+/* Ship wake */
+.ship-wake { position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:6px;height:300px;background:linear-gradient(0deg,rgba(56,189,248,.4),transparent);border-radius:3px;z-index:1;pointer-events:none;animation:wake-pulse 3s ease-in-out infinite; }
+@keyframes wake-pulse { 0%,100%{opacity:.4} 50%{opacity:.8} }
+/* Nautical divider */
+.nautical-divider { width:120px;height:4px;background:linear-gradient(90deg,transparent,#38bdf8,#2dd4bf,#38bdf8,transparent);border-radius:4px;margin:28px auto;animation:divider-shimmer 2s ease-in-out infinite; }
+@keyframes divider-shimmer { 0%,100%{opacity:.7} 50%{opacity:1} }
+/* Scene transitions */
+.scene { transition:none !important; }
+.scene:not(.active) { opacity:0 !important; pointer-events:none !important; }
+.scene.active { animation:splash-in .75s cubic-bezier(.34,1.4,.64,1) both !important; opacity:1 !important; transform:scale(1) !important; }
+@keyframes splash-in { 0%{opacity:0;transform:scale(.88) translateY(30px);filter:blur(4px)} 50%{opacity:1;transform:scale(1.025) translateY(-5px);filter:blur(0)} 75%{transform:scale(.995) translateY(2px)} 100%{opacity:1;transform:scale(1) translateY(0)} }
+/* Scene 1 */
+.scene-1 h1 { font-size:92px !important; text-shadow:0 0 80px rgba(56,189,248,.4) !important; }
+.scene-1 .tagline { color:#7ed4f7 !important; font-size:38px !important; }
+.scene-1 .logo-img { filter:drop-shadow(0 0 80px rgba(56,189,248,.7)) drop-shadow(0 0 30px rgba(45,212,191,.5)) !important; }
+/* Feature scenes */
+.feature-scene h2 { background:linear-gradient(135deg,#e2e8f0 0%,#7ed4f7 50%,#2dd4bf 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:64px !important;margin-bottom:20px !important; }
+.tag-cyan { box-shadow:0 0 20px rgba(56,189,248,.3); }
+.tag-green { box-shadow:0 0 20px rgba(16,185,129,.3); }
+.tag-purple { box-shadow:0 0 20px rgba(167,139,250,.3); }
+.tag-amber { box-shadow:0 0 20px rgba(251,191,36,.3); }
+/* Stats */
+.stat-value.cyan  { text-shadow:0 0 40px rgba(56,189,248,.7),0 0 80px rgba(56,189,248,.3); }
+.stat-value.green { text-shadow:0 0 40px rgba(16,185,129,.7),0 0 80px rgba(16,185,129,.3); }
+.stat-value.teal  { text-shadow:0 0 40px rgba(45,212,191,.7),0 0 80px rgba(45,212,191,.3); }
+.stat-value.amber { text-shadow:0 0 40px rgba(251,191,36,.7),0 0 80px rgba(251,191,36,.3); }
+/* CTA */
+.scene-7 h2 { font-size:76px !important;background:linear-gradient(135deg,#fff 0%,#38bdf8 50%,#2dd4bf 100%) !important;-webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important;background-clip:text !important; }
+.scene-7 .cta-badge { animation:cta-pulse 2.5s ease-in-out infinite !important; }
+@keyframes cta-pulse { 0%,100%{box-shadow:0 20px 60px rgba(16,185,129,.3),0 0 0 0 rgba(16,185,129,.3)} 50%{box-shadow:0 20px 80px rgba(16,185,129,.5),0 0 0 20px rgba(16,185,129,0)} }
+/* Progress bar */
+.progress-bar { background:linear-gradient(90deg,#0ea5e9,#2dd4bf,#38bdf8) !important;height:8px !important;box-shadow:0 0 12px rgba(56,189,248,.6) !important; }
+/* SCREENSHOTS — stable, large, sharp */
+.screenshot-mock { animation:none !important;transform:none !important;transition:none !important;width:940px !important;max-width:940px !important;border-radius:20px !important;border:2px solid rgba(56,189,248,.4) !important;box-shadow:0 0 0 1px rgba(56,189,248,.15),0 20px 60px rgba(0,0,0,.7),0 0 80px rgba(56,189,248,.12) !important;flex-shrink:0 !important; }
+.screenshot-mock img { width:100% !important;height:auto !important;display:block !important;filter:contrast(1.08) brightness(1.06) saturate(1.15) !important;transform:none !important;animation:none !important; }
+.feature-scene .feature-tag { margin-bottom:28px !important;font-size:22px !important;padding:10px 28px !important; }
+.feature-scene h2 { margin-bottom:20px !important;line-height:1.1 !important; }
+.feature-scene .feature-desc { font-size:30px !important;margin-bottom:36px !important; }
+.feature-scene { padding:80px 70px 60px !important;justify-content:flex-start !important; }
+/* Stars */
+.star { position:absolute;border-radius:50%;background:#fff;animation:star-twinkle var(--sdur,3s) ease-in-out infinite;animation-delay:var(--sdel,0s); }
+@keyframes star-twinkle { 0%,100%{opacity:.1;transform:scale(1)} 50%{opacity:.9;transform:scale(1.4)} }
+.aurora-band { position:absolute;left:-20%;width:140%;border-radius:50%;animation:aurora-wave 12s ease-in-out infinite; }
+@keyframes aurora-wave { 0%,100%{opacity:.03;transform:translateY(0) scaleX(1)} 50%{opacity:.09;transform:translateY(-30px) scaleX(1.05)} }
+/* Bubbles */
+@keyframes bubble-rise { 0%{transform:translateY(0) scale(1);opacity:var(--bop)} 100%{transform:translateY(-1000px) translateX(var(--bx,20px)) scale(.8);opacity:0} }
+.bubble { position:absolute;border-radius:50%;animation:bubble-rise var(--bdur,8s) ease-in infinite var(--bdel,0s);background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.8),rgba(56,189,248,.15));border:1px solid rgba(56,189,248,.25); }
+@keyframes float-debris { 0%,100%{transform:translateY(0) rotate(0deg)} 33%{transform:translateY(-30px) rotate(5deg)} 66%{transform:translateY(-15px) rotate(-3deg)} }
+.debris { position:absolute;animation:float-debris var(--ddur,7s) ease-in-out infinite var(--ddel,0s);pointer-events:none; }
+/* Moon glow */
+.moon-glow { border-radius:50%;background:radial-gradient(circle,rgba(255,255,220,.12) 0%,rgba(56,189,248,.06) 40%,transparent 70%);box-shadow:0 0 80px 30px rgba(56,189,248,.08),0 0 200px 60px rgba(56,189,248,.04);animation:moon-pulse 8s ease-in-out infinite; }
+@keyframes moon-pulse { 0%,100%{transform:scale(1);opacity:.7} 50%{transform:scale(1.15);opacity:1} }
+/* Horizon line */
+.horizon-line { position:absolute;left:0;right:0;height:2px;z-index:1;pointer-events:none;background:linear-gradient(90deg,transparent 5%,rgba(56,189,248,.35) 30%,rgba(45,212,191,.5) 50%,rgba(56,189,248,.35) 70%,transparent 95%);animation:horizon-glow-anim 5s ease-in-out infinite; }
+@keyframes horizon-glow-anim { 0%,100%{opacity:.5} 50%{opacity:1} }
+/* Ship & birds */
+@keyframes ship-sail { 0%{transform:translateX(-200px)} 100%{transform:translateX(1300px)} }
+.ship-silhouette { position:absolute;z-index:1;pointer-events:none;animation:ship-sail 20s linear infinite;opacity:.18; }
+@keyframes seagull-fly { 0%{transform:translateX(-100px) translateY(0)} 50%{transform:translateX(600px) translateY(-40px)} 100%{transform:translateX(1300px) translateY(-20px)} }
+.seagull { position:absolute;z-index:1;pointer-events:none;opacity:.15;animation:seagull-fly var(--sgdur,15s) linear infinite var(--sgdel,0s); }
+/* Orchestra bar */
+@keyframes orch-bounce { 0%{height:8px} 100%{height:var(--obh,40px)} }
+.orch-beat { width:10px;background:linear-gradient(0deg,#0ea5e9,#2dd4bf);border-radius:5px 5px 2px 2px;animation:orch-bounce var(--obdur,.6s) ease-in-out infinite alternate var(--obdel,0s);opacity:.65;box-shadow:0 0 6px rgba(56,189,248,.6); }
+.orchestra-bar { position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:flex-end;z-index:10;pointer-events:none; }
+
+</style>
+<style>
+#locked-player{position:fixed;bottom:16px;right:16px;z-index:99999;display:flex;align-items:center;gap:10px;background:rgba(5,18,38,.85);border:1.5px solid rgba(56,189,248,.3);border-radius:40px;padding:9px 18px 9px 14px;backdrop-filter:blur(14px);box-shadow:0 4px 24px rgba(0,0,0,.5),0 0 16px rgba(56,189,248,.08);font-family:'Outfit',sans-serif;}
+#lp-waveform{display:flex;align-items:flex-end;gap:2.5px;height:18px;}
+#lp-waveform span{width:3px;border-radius:2px;background:#38bdf8;opacity:.75;animation:lp-wave var(--d,.5s) ease-in-out infinite alternate;}
+@keyframes lp-wave{0%{height:3px}100%{height:var(--h,12px)}}
+#lp-label{color:#7dd3fc;font-size:12px;font-weight:500;letter-spacing:.05em;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#lp-mute{background:none;border:none;font-size:17px;cursor:pointer;padding:0 2px;line-height:1;transition:transform .15s;}
+#lp-mute:hover{transform:scale(1.2);}
+#lp-vol{-webkit-appearance:none;appearance:none;width:64px;height:3px;border-radius:2px;background:linear-gradient(90deg,#38bdf8 var(--v,75%),rgba(56,189,248,.2) var(--v,75%));outline:none;cursor:pointer;}
+#lp-vol::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:#38bdf8;box-shadow:0 0 5px rgba(56,189,248,.7);cursor:pointer;}
+#load-track-wrapper{position:fixed;bottom:62px;right:16px;z-index:99999;}
+#load-track-label{display:flex;align-items:center;gap:8px;background:rgba(14,165,233,.2);border:1.5px solid rgba(56,189,248,.5);border-radius:12px;padding:10px 20px;font-family:'Outfit',sans-serif;font-size:14px;color:#38bdf8;cursor:pointer;backdrop-filter:blur(10px);font-weight:600;letter-spacing:.04em;white-space:nowrap;animation:lp-prompt 2s ease-in-out infinite;}
+@keyframes lp-prompt{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.02)}}
+</style>
+<style>@keyframes lp-prompt{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.02)}}</style>
 </head>
 <body>
-
-  <div class="frame-wrapper" id="wrapper">
-  <div class="frame" id="frame">
+<div class="frame-wrapper" id="wrapper" style="width: 322.312px; height: 573px;">
+  <div class="frame" id="frame" style="transform: scale(0.298438);">
     <div class="wave-bg"></div>
-    <div class="progress-bar" id="progress"></div>
+    <div class="progress-bar" id="progress" style="width: 0.40625%;"></div>
 
     <!-- SCENE 1: Logo Intro -->
-    <div class="scene scene-1 active" data-duration="4000">
-      <img src="images/logo.png" alt="SeaWise" class="logo-img" />
+    <div class="scene scene-1 active" data-duration="4000" style="background: radial-gradient(100% 80% at 50% 80%, rgba(0, 80, 160, 0.22) 0%, transparent 70%);">
+      <img src="images/logo.png" alt="SeaWise" class="logo-img">
       <h1>SeaWise <span class="gradient-text">Voyager</span></h1>
       <p class="tagline">Your voyage, calculated to the nearest mile, minute and dollar.</p>
-    </div>
+    <div class="nautical-divider" style="margin-top: 40px;"></div><div style="font-size:22px;color:rgba(56,189,248,.6);letter-spacing:.4em;text-transform:uppercase;margin-top:16px;">⚓ Navigate the World ⚓</div><div class="ship-wake"></div></div>
 
     <!-- SCENE 2: Dashboard -->
-    <div class="scene feature-scene scene-2" data-duration="4000">
+    <div class="scene feature-scene scene-2" data-duration="4000" style="background: radial-gradient(100% 60% at 50% 100%, rgba(0, 100, 180, 0.18) 0%, transparent 60%);">
       <span class="feature-tag tag-cyan">Your Bridge</span>
       <h2>Your Bridge. Your Command.</h2>
       <p class="feature-desc">Professional maritime dashboard with everything you need at a glance.</p>
       <div class="screenshot-mock">
-        <img src="images/screenshots/01_hero_dashboard.png" alt="Dashboard" />
+        <img src="images/screenshots/01_hero_dashboard.png" alt="Dashboard">
       </div>
-    </div>
+    <div class="nautical-divider"></div><div style="font-size:20px;color:#38bdf8;letter-spacing:.3em;opacity:.7;text-transform:uppercase;margin-top:8px;">🎛️ BRIDGE COMMAND 🎛️</div></div>
 
     <!-- SCENE 3: AI Routes -->
-    <div class="scene feature-scene scene-3" data-duration="4000">
+    <div class="scene feature-scene scene-3" data-duration="4000" style="background: radial-gradient(100% 60% at 30% 70%, rgba(0, 130, 100, 0.15) 0%, transparent 60%);">
       <span class="feature-tag tag-purple">AI-Powered</span>
       <h2>Plot Any Route. Instantly.</h2>
       <p class="feature-desc">AI generates waypoints that follow real shipping lanes and avoid land.</p>
       <div class="screenshot-mock">
-        <img src="images/screenshots/02_route_planner.png" alt="Route Planner" />
+        <img src="images/screenshots/02_route_planner.png" alt="Route Planner">
       </div>
-    </div>
+    <div class="nautical-divider"></div><div style="font-size:20px;color:#10b981;letter-spacing:.3em;opacity:.7;text-transform:uppercase;margin-top:8px;">🗺️ CHART PLOTTING 🗺️</div></div>
 
     <!-- SCENE 4: Voyage Results -->
-    <div class="scene feature-scene scene-4" data-duration="4000">
+    <div class="scene feature-scene scene-4" data-duration="4000" style="background: radial-gradient(100% 60% at 70% 70%, rgba(80, 50, 180, 0.15) 0%, transparent 60%);">
       <span class="feature-tag tag-green">Precise</span>
       <h2>Distance. Fuel. Cost. Done.</h2>
       <p class="feature-desc">Get exact distance in nautical miles, fuel consumption, travel time and total cost.</p>
       <div class="screenshot-mock">
-        <img src="images/screenshots/03_voyage_results.png" alt="Voyage Results" />
+        <img src="images/screenshots/03_voyage_results.png" alt="Voyage Results">
       </div>
-    </div>
+    <div class="nautical-divider"></div><div style="font-size:20px;color:#a78bfa;letter-spacing:.3em;opacity:.7;text-transform:uppercase;margin-top:8px;">⚓ VOYAGE METRICS ⚓</div></div>
 
     <!-- SCENE 5: Vessel Performance -->
-    <div class="scene feature-scene scene-5" data-duration="4000">
+    <div class="scene feature-scene scene-5" data-duration="4000" style="background: radial-gradient(100% 60% at 50% 80%, rgba(180, 120, 0, 0.12) 0%, transparent 60%);">
       <span class="feature-tag tag-amber">Configure</span>
       <h2>Know Your Burn Rate</h2>
       <p class="feature-desc">Custom fuel curves, capacity settings, and performance analytics for your fleet.</p>
       <div class="screenshot-mock">
-        <img src="images/screenshots/04_vessel_performance.png" alt="Vessel Performance" />
+        <img src="images/screenshots/04_vessel_performance.png" alt="Vessel Performance">
       </div>
-    </div>
+    <div class="nautical-divider"></div><div style="font-size:20px;color:#fbbf24;letter-spacing:.3em;opacity:.7;text-transform:uppercase;margin-top:8px;">⛽ ENGINE ROOM ⛽</div></div>
 
     <!-- SCENE 5b: Fuel Market -->
-    <div class="scene feature-scene scene-5b" data-duration="4000">
+    <div class="scene feature-scene scene-5b" data-duration="4000" style="background: radial-gradient(100% 60% at 50% 80%, rgba(0, 80, 160, 0.18) 0%, transparent 60%);">
       <span class="feature-tag tag-green">Real-Time</span>
       <h2>Global Fuel Prices. Live.</h2>
       <p class="feature-desc">Track bunker fuel prices at Rotterdam, Singapore, Fujairah, Houston and more.</p>
       <div class="screenshot-mock">
-        <img src="images/screenshots/05_fuel_market.png" alt="Fuel Market" />
+        <img src="images/screenshots/05_fuel_market.png" alt="Fuel Market">
       </div>
-    </div>
+    <div class="nautical-divider"></div><div style="font-size:20px;color:#38bdf8;letter-spacing:.3em;opacity:.7;text-transform:uppercase;margin-top:8px;">🌊 BUNKER WATCH 🌊</div></div>
 
     <!-- SCENE 6: Stats -->
-    <div class="scene scene-6" data-duration="5000">
+    <div class="scene scene-6" data-duration="5000" style="background: radial-gradient(100% 60% at 50% 90%, rgba(0, 40, 120, 0.25) 0%, transparent 60%);">
       <h2 style="font-size: 56px; font-weight: 800; margin-bottom: 0;">Built for Professionals</h2>
-      <div class="stats-grid">
+      <div style="font-size:26px;color:rgba(56,189,248,.6);letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;">🌊 Real Voyage Data 🌊</div><div class="stats-grid">
         <div class="stat-item">
           <div class="stat-value cyan">5,006 NM</div>
           <div class="stat-label">London to Panama</div>
@@ -397,25 +513,26 @@
     </div>
 
     <!-- SCENE 7: CTA -->
-    <div class="scene scene-7" data-duration="5000">
-      <img src="images/logo.png" alt="SeaWise" style="width: 180px; height: 180px; margin-bottom: 40px; filter: drop-shadow(0 0 40px rgba(45,212,191,0.3));" />
+    <div class="scene scene-7" data-duration="5000" style="background: radial-gradient(100% 70% at 50% 90%, rgba(0, 80, 50, 0.2) 0%, transparent 70%);">
+      <img src="images/logo.png" alt="SeaWise" style="width: 180px; height: 180px; margin-bottom: 40px; filter: drop-shadow(0 0 40px rgba(45,212,191,0.3));">
       <h2 style="font-size: 60px; font-weight: 800; line-height: 1.15;">Start Planning Your Next Voyage</h2>
-      <div class="cta-badge">seawise-voyager.vercel.app</div>
-      <p class="platforms">Web &bull; iOS &bull; Android</p>
+      <div class="cta-badge">seawise-voyager.vercel.app</div><div style="font-size:30px;color:rgba(56,189,248,.7);letter-spacing:.25em;text-transform:uppercase;margin-top:36px;">⚓ Set Sail Today ⚓</div>
+      <p class="platforms">Web • iOS • Android</p>
       <p class="company">A JK Yacht Ops company</p>
-    </div>
+    <div class="nautical-divider" style="margin-top: 32px;"></div></div>
+  <div class="film-bar-top"></div><div class="film-bar-bottom"></div><div class="cinematic-vignette"></div><svg viewBox="0 0 200 200" fill="none" class="compass-rose" style="position:absolute;width:420px;height:420px;top:50%;left:50%;transform:translate(-50%,-50%) rotate(0deg);z-index:0;pointer-events:none;opacity:.04;"><circle cx="100" cy="100" r="95" stroke="#38bdf8" stroke-width="1.5"></circle><circle cx="100" cy="100" r="75" stroke="#38bdf8" stroke-width=".8"></circle><circle cx="100" cy="100" r="50" stroke="#38bdf8" stroke-width=".8"></circle><polygon points="100,5 107,100 100,90 93,100" fill="#38bdf8"></polygon><polygon points="100,195 107,100 100,110 93,100" fill="#94a3b8"></polygon><polygon points="195,100 100,107 110,100 100,93" fill="#94a3b8"></polygon><polygon points="5,100 100,107 90,100 100,93" fill="#94a3b8"></polygon><circle cx="100" cy="100" r="8" fill="#38bdf8" opacity=".5"></circle><circle cx="100" cy="100" r="3" fill="#fff"></circle><text x="94" y="25" fill="#38bdf8" font-size="16" font-family="sans-serif" font-weight="bold">N</text></svg><div class="wave-ocean"></div><div class="wave-ocean-2"></div><div class="horizon-glow" style="top:32%;background:radial-gradient(ellipse 60% 100% at 50% 0%,rgba(56,189,248,.15) 0%,transparent 100%);"></div><div style="position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:0;pointer-events:none;"><div class="moon-glow" style="width:140px;height:140px;"></div></div><div class="horizon-line" style="top: 38%;"></div><div id="bioluminescence-layer" style="position:absolute;inset:0;z-index:0;pointer-events:none;"><div class="bio-particle" style="left:55.3%;top:35.4%;width:3.0px;height:3.0px;background:rgba(56,189,248,.8);box-shadow:0 0 9px rgba(56,189,248,.8);--dur:2.1s;--op:0.50;animation-delay:1.4s;"></div><div class="bio-particle" style="left:9.1%;top:1.9%;width:5.8px;height:5.8px;background:rgba(45,212,191,.8);box-shadow:0 0 17px rgba(45,212,191,.8);--dur:4.8s;--op:0.50;animation-delay:0.8s;"></div><div class="bio-particle" style="left:48.8%;top:17.2%;width:4.7px;height:4.7px;background:rgba(148,228,255,.9);box-shadow:0 0 14px rgba(148,228,255,.9);--dur:5.3s;--op:0.62;animation-delay:2.7s;"></div><div class="bio-particle" style="left:54.6%;top:0.0%;width:2.2px;height:2.2px;background:rgba(14,165,233,.9);box-shadow:0 0 7px rgba(14,165,233,.9);--dur:5.1s;--op:0.67;animation-delay:3.8s;"></div><div class="bio-particle" style="left:67.7%;top:85.6%;width:6.2px;height:6.2px;background:rgba(56,189,248,.8);box-shadow:0 0 19px rgba(56,189,248,.8);--dur:2.7s;--op:0.48;animation-delay:3.2s;"></div><div class="bio-particle" style="left:51.8%;top:13.5%;width:5.6px;height:5.6px;background:rgba(45,212,191,.8);box-shadow:0 0 17px rgba(45,212,191,.8);--dur:2.0s;--op:0.57;animation-delay:4.3s;"></div><div class="bio-particle" style="left:78.0%;top:32.9%;width:5.6px;height:5.6px;background:rgba(148,228,255,.9);box-shadow:0 0 17px rgba(148,228,255,.9);--dur:2.5s;--op:0.64;animation-delay:3.9s;"></div><div class="bio-particle" style="left:38.4%;top:90.6%;width:2.3px;height:2.3px;background:rgba(14,165,233,.9);box-shadow:0 0 7px rgba(14,165,233,.9);--dur:3.1s;--op:0.46;animation-delay:0.7s;"></div><div class="bio-particle" style="left:93.2%;top:80.8%;width:6.0px;height:6.0px;background:rgba(56,189,248,.8);box-shadow:0 0 18px rgba(56,189,248,.8);--dur:2.6s;--op:0.52;animation-delay:4.6s;"></div><div class="bio-particle" style="left:11.1%;top:13.0%;width:3.5px;height:3.5px;background:rgba(45,212,191,.8);box-shadow:0 0 11px rgba(45,212,191,.8);--dur:4.0s;--op:0.39;animation-delay:2.8s;"></div><div class="bio-particle" style="left:10.0%;top:86.1%;width:5.3px;height:5.3px;background:rgba(148,228,255,.9);box-shadow:0 0 16px rgba(148,228,255,.9);--dur:3.8s;--op:0.54;animation-delay:4.8s;"></div><div class="bio-particle" style="left:65.0%;top:50.8%;width:2.6px;height:2.6px;background:rgba(14,165,233,.9);box-shadow:0 0 8px rgba(14,165,233,.9);--dur:3.6s;--op:0.50;animation-delay:3.7s;"></div><div class="bio-particle" style="left:60.3%;top:0.4%;width:3.7px;height:3.7px;background:rgba(56,189,248,.8);box-shadow:0 0 11px rgba(56,189,248,.8);--dur:4.5s;--op:0.68;animation-delay:4.8s;"></div><div class="bio-particle" style="left:67.0%;top:8.2%;width:6.2px;height:6.2px;background:rgba(45,212,191,.8);box-shadow:0 0 19px rgba(45,212,191,.8);--dur:4.6s;--op:0.50;animation-delay:4.1s;"></div><div class="bio-particle" style="left:4.5%;top:96.9%;width:6.6px;height:6.6px;background:rgba(148,228,255,.9);box-shadow:0 0 20px rgba(148,228,255,.9);--dur:3.8s;--op:0.50;animation-delay:1.6s;"></div><div class="bio-particle" style="left:80.1%;top:58.8%;width:6.4px;height:6.4px;background:rgba(14,165,233,.9);box-shadow:0 0 19px rgba(14,165,233,.9);--dur:5.8s;--op:0.68;animation-delay:3.8s;"></div><div class="bio-particle" style="left:92.7%;top:99.2%;width:2.6px;height:2.6px;background:rgba(56,189,248,.8);box-shadow:0 0 8px rgba(56,189,248,.8);--dur:5.6s;--op:0.65;animation-delay:4.2s;"></div><div class="bio-particle" style="left:33.4%;top:16.9%;width:5.0px;height:5.0px;background:rgba(45,212,191,.8);box-shadow:0 0 15px rgba(45,212,191,.8);--dur:5.9s;--op:0.50;animation-delay:2.5s;"></div><div class="bio-particle" style="left:83.6%;top:51.4%;width:2.4px;height:2.4px;background:rgba(148,228,255,.9);box-shadow:0 0 7px rgba(148,228,255,.9);--dur:3.2s;--op:0.43;animation-delay:2.7s;"></div><div class="bio-particle" style="left:37.6%;top:14.4%;width:3.8px;height:3.8px;background:rgba(14,165,233,.9);box-shadow:0 0 11px rgba(14,165,233,.9);--dur:2.0s;--op:0.76;animation-delay:1.3s;"></div><div class="bio-particle" style="left:31.5%;top:7.8%;width:5.4px;height:5.4px;background:rgba(56,189,248,.8);box-shadow:0 0 16px rgba(56,189,248,.8);--dur:5.2s;--op:0.37;animation-delay:3.8s;"></div><div class="bio-particle" style="left:17.5%;top:72.5%;width:4.6px;height:4.6px;background:rgba(45,212,191,.8);box-shadow:0 0 14px rgba(45,212,191,.8);--dur:3.9s;--op:0.65;animation-delay:2.3s;"></div><div class="bio-particle" style="left:37.8%;top:9.0%;width:5.4px;height:5.4px;background:rgba(148,228,255,.9);box-shadow:0 0 16px rgba(148,228,255,.9);--dur:2.4s;--op:0.47;animation-delay:4.6s;"></div><div class="bio-particle" style="left:1.4%;top:50.4%;width:4.0px;height:4.0px;background:rgba(14,165,233,.9);box-shadow:0 0 12px rgba(14,165,233,.9);--dur:3.1s;--op:0.67;animation-delay:4.7s;"></div><div class="bio-particle" style="left:37.2%;top:51.6%;width:7.0px;height:7.0px;background:rgba(56,189,248,.8);box-shadow:0 0 21px rgba(56,189,248,.8);--dur:5.4s;--op:0.37;animation-delay:3.8s;"></div><div class="bio-particle" style="left:83.9%;top:9.0%;width:5.1px;height:5.1px;background:rgba(45,212,191,.8);box-shadow:0 0 15px rgba(45,212,191,.8);--dur:4.3s;--op:0.39;animation-delay:4.1s;"></div><div class="bio-particle" style="left:14.9%;top:54.3%;width:2.0px;height:2.0px;background:rgba(148,228,255,.9);box-shadow:0 0 6px rgba(148,228,255,.9);--dur:2.2s;--op:0.37;animation-delay:3.2s;"></div><div class="bio-particle" style="left:15.3%;top:44.8%;width:5.2px;height:5.2px;background:rgba(14,165,233,.9);box-shadow:0 0 16px rgba(14,165,233,.9);--dur:5.9s;--op:0.69;animation-delay:3.3s;"></div><div class="bio-particle" style="left:70.3%;top:67.4%;width:3.6px;height:3.6px;background:rgba(56,189,248,.8);box-shadow:0 0 11px rgba(56,189,248,.8);--dur:3.4s;--op:0.76;animation-delay:4.7s;"></div><div class="bio-particle" style="left:50.0%;top:17.8%;width:2.3px;height:2.3px;background:rgba(45,212,191,.8);box-shadow:0 0 7px rgba(45,212,191,.8);--dur:5.8s;--op:0.57;animation-delay:0.7s;"></div><div class="bio-particle" style="left:71.9%;top:95.4%;width:2.4px;height:2.4px;background:rgba(148,228,255,.9);box-shadow:0 0 7px rgba(148,228,255,.9);--dur:3.5s;--op:0.79;animation-delay:4.3s;"></div><div class="bio-particle" style="left:33.0%;top:79.6%;width:4.7px;height:4.7px;background:rgba(14,165,233,.9);box-shadow:0 0 14px rgba(14,165,233,.9);--dur:2.7s;--op:0.68;animation-delay:0.1s;"></div><div class="bio-particle" style="left:58.8%;top:45.1%;width:5.3px;height:5.3px;background:rgba(56,189,248,.8);box-shadow:0 0 16px rgba(56,189,248,.8);--dur:2.2s;--op:0.58;animation-delay:3.1s;"></div><div class="bio-particle" style="left:33.1%;top:47.5%;width:6.6px;height:6.6px;background:rgba(45,212,191,.8);box-shadow:0 0 20px rgba(45,212,191,.8);--dur:2.4s;--op:0.48;animation-delay:1.0s;"></div><div class="bio-particle" style="left:22.3%;top:24.2%;width:5.1px;height:5.1px;background:rgba(148,228,255,.9);box-shadow:0 0 15px rgba(148,228,255,.9);--dur:3.7s;--op:0.79;animation-delay:4.0s;"></div><div class="bio-particle" style="left:46.4%;top:58.9%;width:2.5px;height:2.5px;background:rgba(14,165,233,.9);box-shadow:0 0 8px rgba(14,165,233,.9);--dur:2.2s;--op:0.66;animation-delay:0.2s;"></div><div class="bio-particle" style="left:1.2%;top:3.3%;width:2.9px;height:2.9px;background:rgba(56,189,248,.8);box-shadow:0 0 9px rgba(56,189,248,.8);--dur:5.7s;--op:0.66;animation-delay:3.5s;"></div><div class="bio-particle" style="left:73.3%;top:51.5%;width:6.0px;height:6.0px;background:rgba(45,212,191,.8);box-shadow:0 0 18px rgba(45,212,191,.8);--dur:2.8s;--op:0.66;animation-delay:2.1s;"></div><div class="bio-particle" style="left:17.6%;top:85.3%;width:3.9px;height:3.9px;background:rgba(148,228,255,.9);box-shadow:0 0 12px rgba(148,228,255,.9);--dur:5.7s;--op:0.74;animation-delay:0.7s;"></div><div class="bio-particle" style="left:29.0%;top:92.7%;width:5.3px;height:5.3px;background:rgba(14,165,233,.9);box-shadow:0 0 16px rgba(14,165,233,.9);--dur:2.6s;--op:0.72;animation-delay:1.7s;"></div><div class="bio-particle" style="left:36.7%;top:90.2%;width:2.5px;height:2.5px;background:rgba(56,189,248,.8);box-shadow:0 0 8px rgba(56,189,248,.8);--dur:2.4s;--op:0.64;animation-delay:2.9s;"></div><div class="bio-particle" style="left:31.6%;top:43.6%;width:4.7px;height:4.7px;background:rgba(45,212,191,.8);box-shadow:0 0 14px rgba(45,212,191,.8);--dur:3.3s;--op:0.70;animation-delay:2.3s;"></div><div class="bio-particle" style="left:49.3%;top:84.3%;width:2.9px;height:2.9px;background:rgba(148,228,255,.9);box-shadow:0 0 9px rgba(148,228,255,.9);--dur:5.5s;--op:0.67;animation-delay:1.3s;"></div><div class="bio-particle" style="left:61.8%;top:98.6%;width:6.1px;height:6.1px;background:rgba(14,165,233,.9);box-shadow:0 0 18px rgba(14,165,233,.9);--dur:2.5s;--op:0.74;animation-delay:4.6s;"></div><div class="bio-particle" style="left:2.1%;top:32.2%;width:2.7px;height:2.7px;background:rgba(56,189,248,.8);box-shadow:0 0 8px rgba(56,189,248,.8);--dur:2.6s;--op:0.76;animation-delay:4.7s;"></div><div class="bio-particle" style="left:27.4%;top:38.0%;width:4.1px;height:4.1px;background:rgba(45,212,191,.8);box-shadow:0 0 12px rgba(45,212,191,.8);--dur:4.6s;--op:0.76;animation-delay:0.8s;"></div><div class="bio-particle" style="left:84.7%;top:51.1%;width:6.4px;height:6.4px;background:rgba(148,228,255,.9);box-shadow:0 0 19px rgba(148,228,255,.9);--dur:4.8s;--op:0.62;animation-delay:3.7s;"></div><div class="bio-particle" style="left:45.9%;top:33.8%;width:4.2px;height:4.2px;background:rgba(14,165,233,.9);box-shadow:0 0 13px rgba(14,165,233,.9);--dur:4.0s;--op:0.76;animation-delay:2.6s;"></div><div class="bio-particle" style="left:44.3%;top:75.6%;width:2.3px;height:2.3px;background:rgba(56,189,248,.8);box-shadow:0 0 7px rgba(56,189,248,.8);--dur:3.2s;--op:0.70;animation-delay:3.8s;"></div><div class="bio-particle" style="left:90.7%;top:17.6%;width:3.7px;height:3.7px;background:rgba(45,212,191,.8);box-shadow:0 0 11px rgba(45,212,191,.8);--dur:5.1s;--op:0.76;animation-delay:2.0s;"></div><div class="bio-particle" style="left:53.0%;top:10.3%;width:3.7px;height:3.7px;background:rgba(148,228,255,.9);box-shadow:0 0 11px rgba(148,228,255,.9);--dur:2.1s;--op:0.64;animation-delay:4.0s;"></div><div class="bio-particle" style="left:56.9%;top:87.3%;width:6.9px;height:6.9px;background:rgba(14,165,233,.9);box-shadow:0 0 21px rgba(14,165,233,.9);--dur:2.6s;--op:0.48;animation-delay:0.2s;"></div><div class="bio-particle" style="left:4.4%;top:26.0%;width:6.7px;height:6.7px;background:rgba(56,189,248,.8);box-shadow:0 0 20px rgba(56,189,248,.8);--dur:5.6s;--op:0.39;animation-delay:2.9s;"></div><div class="bio-particle" style="left:46.5%;top:64.4%;width:4.8px;height:4.8px;background:rgba(45,212,191,.8);box-shadow:0 0 14px rgba(45,212,191,.8);--dur:2.5s;--op:0.55;animation-delay:2.7s;"></div><div class="bio-particle" style="left:23.3%;top:91.5%;width:3.7px;height:3.7px;background:rgba(148,228,255,.9);box-shadow:0 0 11px rgba(148,228,255,.9);--dur:5.9s;--op:0.48;animation-delay:0.1s;"></div></div><div class="sparkle" style="left:31.1%;top:23.9%;--dur:2.9s;animation-delay:1.6s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:9.6%;top:42.8%;--dur:4.2s;animation-delay:2.1s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:70.1%;top:73.8%;--dur:2.7s;animation-delay:3.5s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:91.1%;top:23.8%;--dur:3.0s;animation-delay:0.1s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:51.8%;top:19.4%;--dur:3.2s;animation-delay:3.7s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:61.8%;top:43.9%;--dur:2.0s;animation-delay:1.4s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:46.4%;top:87.2%;--dur:4.5s;animation-delay:0.6s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:50.3%;top:28.5%;--dur:2.1s;animation-delay:3.2s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:58.5%;top:40.7%;--dur:2.1s;animation-delay:0.7s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:37.6%;top:67.2%;--dur:4.0s;animation-delay:1.9s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:7.0%;top:75.9%;--dur:1.9s;animation-delay:1.3s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:15.4%;top:54.1%;--dur:2.4s;animation-delay:0.8s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:6.8%;top:63.5%;--dur:3.7s;animation-delay:0.9s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:55.5%;top:54.7%;--dur:3.3s;animation-delay:2.7s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:22.7%;top:89.8%;--dur:4.0s;animation-delay:3.5s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:82.2%;top:75.8%;--dur:4.1s;animation-delay:1.5s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:61.0%;top:22.7%;--dur:2.3s;animation-delay:1.1s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div class="sparkle" style="left:7.8%;top:57.5%;--dur:3.7s;animation-delay:1.9s;box-shadow:0 0 8px #fff;width:6px;height:6px;"></div><div id="sky-layer" style="position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;"><div class="star" style="left:43.0%;top:57.9%;width:1.3px;height:1.3px;--sdur:2.3s;--sdel:0.5s;"></div><div class="star" style="left:98.5%;top:4.7%;width:4.0px;height:4.0px;--sdur:1.7s;--sdel:2.9s;"></div><div class="star" style="left:87.9%;top:24.9%;width:1.3px;height:1.3px;--sdur:2.4s;--sdel:3.8s;"></div><div class="star" style="left:86.9%;top:1.9%;width:1.2px;height:1.2px;--sdur:4.4s;--sdel:2.6s;"></div><div class="star" style="left:65.9%;top:17.7%;width:3.4px;height:3.4px;--sdur:1.8s;--sdel:0.7s;"></div><div class="star" style="left:92.4%;top:9.9%;width:3.9px;height:3.9px;--sdur:3.6s;--sdel:4.8s;"></div><div class="star" style="left:77.0%;top:7.2%;width:1.5px;height:1.5px;--sdur:2.6s;--sdel:3.5s;"></div><div class="star" style="left:4.9%;top:17.5%;width:3.7px;height:3.7px;--sdur:2.0s;--sdel:4.3s;"></div><div class="star" style="left:8.5%;top:49.6%;width:1.1px;height:1.1px;--sdur:3.7s;--sdel:1.5s;"></div><div class="star" style="left:76.0%;top:38.5%;width:2.7px;height:2.7px;--sdur:2.2s;--sdel:2.7s;"></div><div class="star" style="left:87.6%;top:13.9%;width:2.0px;height:2.0px;--sdur:2.0s;--sdel:2.1s;"></div><div class="star" style="left:38.6%;top:42.7%;width:1.6px;height:1.6px;--sdur:2.0s;--sdel:4.3s;"></div><div class="star" style="left:29.5%;top:52.5%;width:2.9px;height:2.9px;--sdur:4.5s;--sdel:4.3s;"></div><div class="star" style="left:79.8%;top:1.9%;width:1.5px;height:1.5px;--sdur:4.4s;--sdel:0.5s;"></div><div class="star" style="left:85.0%;top:16.4%;width:3.0px;height:3.0px;--sdur:1.8s;--sdel:1.2s;"></div><div class="star" style="left:74.4%;top:37.3%;width:2.1px;height:2.1px;--sdur:2.4s;--sdel:3.9s;"></div><div class="star" style="left:72.7%;top:19.5%;width:1.1px;height:1.1px;--sdur:2.5s;--sdel:3.6s;"></div><div class="star" style="left:25.6%;top:21.2%;width:3.9px;height:3.9px;--sdur:3.5s;--sdel:0.4s;"></div><div class="star" style="left:68.9%;top:40.1%;width:1.4px;height:1.4px;--sdur:1.7s;--sdel:3.9s;"></div><div class="star" style="left:54.6%;top:51.8%;width:3.1px;height:3.1px;--sdur:3.8s;--sdel:3.1s;"></div><div class="star" style="left:83.9%;top:9.1%;width:3.3px;height:3.3px;--sdur:2.2s;--sdel:3.1s;"></div><div class="star" style="left:53.4%;top:1.2%;width:3.8px;height:3.8px;--sdur:2.6s;--sdel:2.1s;"></div><div class="star" style="left:18.4%;top:31.5%;width:1.9px;height:1.9px;--sdur:4.5s;--sdel:4.6s;"></div><div class="star" style="left:64.5%;top:31.5%;width:1.8px;height:1.8px;--sdur:4.5s;--sdel:0.5s;"></div><div class="star" style="left:23.0%;top:25.8%;width:2.6px;height:2.6px;--sdur:3.2s;--sdel:3.9s;"></div><div class="star" style="left:78.3%;top:12.3%;width:3.0px;height:3.0px;--sdur:3.0s;--sdel:0.0s;"></div><div class="star" style="left:17.0%;top:56.9%;width:2.0px;height:2.0px;--sdur:1.8s;--sdel:3.5s;"></div><div class="star" style="left:66.9%;top:35.7%;width:3.0px;height:3.0px;--sdur:3.0s;--sdel:0.8s;"></div><div class="star" style="left:56.4%;top:23.3%;width:2.0px;height:2.0px;--sdur:1.8s;--sdel:0.4s;"></div><div class="star" style="left:7.4%;top:31.5%;width:2.3px;height:2.3px;--sdur:3.6s;--sdel:3.0s;"></div><div class="star" style="left:5.4%;top:57.6%;width:2.7px;height:2.7px;--sdur:3.1s;--sdel:4.3s;"></div><div class="star" style="left:89.5%;top:48.2%;width:1.2px;height:1.2px;--sdur:3.3s;--sdel:1.2s;"></div><div class="star" style="left:65.5%;top:18.3%;width:3.8px;height:3.8px;--sdur:1.9s;--sdel:3.7s;"></div><div class="star" style="left:24.9%;top:14.0%;width:2.1px;height:2.1px;--sdur:2.3s;--sdel:4.8s;"></div><div class="star" style="left:53.7%;top:25.2%;width:1.8px;height:1.8px;--sdur:3.6s;--sdel:0.3s;"></div><div class="star" style="left:68.1%;top:11.8%;width:1.1px;height:1.1px;--sdur:4.3s;--sdel:1.9s;"></div><div class="star" style="left:40.0%;top:21.6%;width:1.8px;height:1.8px;--sdur:3.5s;--sdel:0.8s;"></div><div class="star" style="left:66.1%;top:17.0%;width:3.5px;height:3.5px;--sdur:2.9s;--sdel:3.3s;"></div><div class="star" style="left:49.0%;top:34.0%;width:3.7px;height:3.7px;--sdur:4.1s;--sdel:3.9s;"></div><div class="star" style="left:33.1%;top:12.3%;width:3.7px;height:3.7px;--sdur:1.6s;--sdel:2.8s;"></div><div class="star" style="left:89.9%;top:20.2%;width:1.0px;height:1.0px;--sdur:3.2s;--sdel:0.4s;"></div><div class="star" style="left:61.3%;top:54.5%;width:1.4px;height:1.4px;--sdur:2.7s;--sdel:1.0s;"></div><div class="star" style="left:86.1%;top:8.7%;width:1.4px;height:1.4px;--sdur:2.2s;--sdel:3.7s;"></div><div class="star" style="left:9.5%;top:4.1%;width:2.6px;height:2.6px;--sdur:3.9s;--sdel:4.5s;"></div><div class="star" style="left:64.9%;top:27.6%;width:1.7px;height:1.7px;--sdur:1.8s;--sdel:0.1s;"></div><div class="star" style="left:27.1%;top:9.5%;width:2.7px;height:2.7px;--sdur:4.4s;--sdel:3.5s;"></div><div class="star" style="left:97.4%;top:51.3%;width:3.3px;height:3.3px;--sdur:2.6s;--sdel:2.6s;"></div><div class="star" style="left:68.5%;top:11.3%;width:2.9px;height:2.9px;--sdur:4.4s;--sdel:0.6s;"></div><div class="star" style="left:31.0%;top:21.8%;width:3.1px;height:3.1px;--sdur:4.3s;--sdel:4.5s;"></div><div class="star" style="left:46.6%;top:53.7%;width:1.5px;height:1.5px;--sdur:3.2s;--sdel:2.9s;"></div><div class="star" style="left:37.0%;top:24.9%;width:2.8px;height:2.8px;--sdur:2.0s;--sdel:0.7s;"></div><div class="star" style="left:53.7%;top:42.0%;width:2.0px;height:2.0px;--sdur:3.1s;--sdel:0.6s;"></div><div class="star" style="left:8.1%;top:48.4%;width:3.8px;height:3.8px;--sdur:3.2s;--sdel:2.4s;"></div><div class="star" style="left:49.5%;top:57.3%;width:2.7px;height:2.7px;--sdur:3.7s;--sdel:2.2s;"></div><div class="star" style="left:54.9%;top:45.2%;width:3.0px;height:3.0px;--sdur:3.4s;--sdel:3.7s;"></div><div class="star" style="left:77.9%;top:9.3%;width:2.4px;height:2.4px;--sdur:4.1s;--sdel:3.6s;"></div><div class="star" style="left:14.1%;top:45.5%;width:1.4px;height:1.4px;--sdur:1.7s;--sdel:4.6s;"></div><div class="star" style="left:56.9%;top:4.7%;width:2.0px;height:2.0px;--sdur:3.0s;--sdel:2.1s;"></div><div class="star" style="left:35.5%;top:33.5%;width:3.2px;height:3.2px;--sdur:3.2s;--sdel:4.4s;"></div><div class="star" style="left:62.0%;top:45.0%;width:2.7px;height:2.7px;--sdur:4.3s;--sdel:1.7s;"></div><div class="star" style="left:60.4%;top:26.3%;width:2.7px;height:2.7px;--sdur:3.9s;--sdel:1.7s;"></div><div class="star" style="left:7.5%;top:13.4%;width:3.1px;height:3.1px;--sdur:3.9s;--sdel:3.8s;"></div><div class="star" style="left:25.7%;top:19.3%;width:3.3px;height:3.3px;--sdur:3.1s;--sdel:0.1s;"></div><div class="star" style="left:29.7%;top:15.0%;width:1.8px;height:1.8px;--sdur:3.2s;--sdel:3.4s;"></div><div class="star" style="left:2.5%;top:9.5%;width:2.8px;height:2.8px;--sdur:1.9s;--sdel:2.7s;"></div><div class="star" style="left:89.2%;top:26.3%;width:1.5px;height:1.5px;--sdur:3.3s;--sdel:0.5s;"></div><div class="star" style="left:96.8%;top:53.0%;width:2.9px;height:2.9px;--sdur:2.7s;--sdel:2.1s;"></div><div class="star" style="left:60.4%;top:4.0%;width:2.9px;height:2.9px;--sdur:2.8s;--sdel:3.6s;"></div><div class="star" style="left:72.2%;top:30.9%;width:1.9px;height:1.9px;--sdur:3.0s;--sdel:4.8s;"></div><div class="star" style="left:15.6%;top:57.5%;width:3.4px;height:3.4px;--sdur:3.9s;--sdel:3.1s;"></div><div class="star" style="left:13.4%;top:15.2%;width:2.4px;height:2.4px;--sdur:3.8s;--sdel:4.8s;"></div><div class="star" style="left:65.8%;top:13.5%;width:3.9px;height:3.9px;--sdur:1.7s;--sdel:1.7s;"></div><div class="star" style="left:9.1%;top:8.3%;width:1.5px;height:1.5px;--sdur:2.9s;--sdel:4.1s;"></div><div class="star" style="left:8.1%;top:10.7%;width:2.3px;height:2.3px;--sdur:3.6s;--sdel:4.6s;"></div><div class="star" style="left:38.1%;top:12.6%;width:1.7px;height:1.7px;--sdur:3.1s;--sdel:1.7s;"></div><div class="star" style="left:9.8%;top:51.8%;width:1.1px;height:1.1px;--sdur:3.2s;--sdel:4.6s;"></div><div class="star" style="left:65.4%;top:31.1%;width:2.4px;height:2.4px;--sdur:1.5s;--sdel:3.2s;"></div><div class="star" style="left:56.8%;top:27.7%;width:2.5px;height:2.5px;--sdur:3.4s;--sdel:2.3s;"></div><div class="star" style="left:42.6%;top:50.1%;width:2.3px;height:2.3px;--sdur:2.1s;--sdel:0.8s;"></div><div class="star" style="left:64.7%;top:57.2%;width:2.1px;height:2.1px;--sdur:3.7s;--sdel:1.4s;"></div><div class="aurora-band" style="top:8%;height:180px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.4),rgba(45,212,191,.5),rgba(56,189,248,.3),transparent);animation-delay:0s;"></div><div class="aurora-band" style="top:20%;height:180px;background:linear-gradient(90deg,transparent,rgba(16,185,129,.25),rgba(14,165,233,.4),transparent);animation-delay:4s;"></div><div class="aurora-band" style="top:32%;height:180px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.2),rgba(56,189,248,.3),transparent);animation-delay:8s;"></div></div><div id="bubble-layer" style="position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;"><div class="bubble" style="left:3.1%;bottom:32.5%;width:10.3px;height:10.3px;--bdur:8.6s;--bdel:5.9s;--bop:0.31;--bx:4px;"></div><div class="bubble" style="left:29.4%;bottom:9.8%;width:7.8px;height:7.8px;--bdur:12.0s;--bdel:0.1s;--bop:0.37;--bx:11px;"></div><div class="bubble" style="left:10.8%;bottom:19.1%;width:18.9px;height:18.9px;--bdur:13.2s;--bdel:6.1s;--bop:0.20;--bx:19px;"></div><div class="bubble" style="left:18.4%;bottom:27.5%;width:17.4px;height:17.4px;--bdur:13.5s;--bdel:7.3s;--bop:0.29;--bx:19px;"></div><div class="bubble" style="left:92.6%;bottom:34.7%;width:19.4px;height:19.4px;--bdur:9.9s;--bdel:5.3s;--bop:0.22;--bx:16px;"></div><div class="bubble" style="left:30.9%;bottom:30.6%;width:19.8px;height:19.8px;--bdur:7.7s;--bdel:5.5s;--bop:0.34;--bx:-18px;"></div><div class="bubble" style="left:65.4%;bottom:31.4%;width:17.7px;height:17.7px;--bdur:10.0s;--bdel:4.6s;--bop:0.17;--bx:-19px;"></div><div class="bubble" style="left:0.8%;bottom:11.0%;width:19.9px;height:19.9px;--bdur:7.4s;--bdel:2.1s;--bop:0.32;--bx:10px;"></div><div class="bubble" style="left:58.8%;bottom:6.8%;width:14.8px;height:14.8px;--bdur:7.6s;--bdel:4.4s;--bop:0.21;--bx:-6px;"></div><div class="bubble" style="left:6.1%;bottom:10.4%;width:8.5px;height:8.5px;--bdur:8.2s;--bdel:5.9s;--bop:0.10;--bx:17px;"></div><div class="bubble" style="left:20.1%;bottom:15.9%;width:11.8px;height:11.8px;--bdur:10.8s;--bdel:3.5s;--bop:0.27;--bx:3px;"></div><div class="bubble" style="left:35.8%;bottom:16.7%;width:18.1px;height:18.1px;--bdur:11.1s;--bdel:3.7s;--bop:0.15;--bx:-26px;"></div><div class="bubble" style="left:36.7%;bottom:14.4%;width:10.0px;height:10.0px;--bdur:9.2s;--bdel:2.6s;--bop:0.14;--bx:-20px;"></div><div class="bubble" style="left:3.2%;bottom:33.1%;width:8.3px;height:8.3px;--bdur:7.3s;--bdel:3.3s;--bop:0.18;--bx:8px;"></div><div class="bubble" style="left:37.9%;bottom:17.5%;width:17.4px;height:17.4px;--bdur:12.9s;--bdel:7.1s;--bop:0.22;--bx:-6px;"></div><div class="bubble" style="left:36.2%;bottom:18.3%;width:9.8px;height:9.8px;--bdur:8.7s;--bdel:5.4s;--bop:0.37;--bx:-22px;"></div><div class="bubble" style="left:17.3%;bottom:34.9%;width:20.0px;height:20.0px;--bdur:6.3s;--bdel:8.4s;--bop:0.09;--bx:19px;"></div><div class="bubble" style="left:61.7%;bottom:31.8%;width:10.7px;height:10.7px;--bdur:12.9s;--bdel:7.7s;--bop:0.27;--bx:-17px;"></div><div class="bubble" style="left:96.3%;bottom:14.1%;width:16.9px;height:16.9px;--bdur:11.3s;--bdel:4.4s;--bop:0.17;--bx:7px;"></div><div class="bubble" style="left:83.8%;bottom:7.8%;width:5.7px;height:5.7px;--bdur:6.8s;--bdel:8.8s;--bop:0.35;--bx:-3px;"></div><div class="bubble" style="left:53.4%;bottom:20.3%;width:13.2px;height:13.2px;--bdur:7.5s;--bdel:3.5s;--bop:0.13;--bx:7px;"></div><div class="bubble" style="left:65.3%;bottom:4.7%;width:5.7px;height:5.7px;--bdur:8.6s;--bdel:3.9s;--bop:0.33;--bx:-18px;"></div><div class="bubble" style="left:86.0%;bottom:22.0%;width:6.6px;height:6.6px;--bdur:10.0s;--bdel:4.1s;--bop:0.26;--bx:9px;"></div><div class="bubble" style="left:82.3%;bottom:8.7%;width:15.2px;height:15.2px;--bdur:8.4s;--bdel:2.8s;--bop:0.24;--bx:4px;"></div><div class="bubble" style="left:58.0%;bottom:25.7%;width:19.7px;height:19.7px;--bdur:11.7s;--bdel:3.1s;--bop:0.26;--bx:-6px;"></div><div class="debris" style="left:19.4%;top:5.0%;font-size:27px;color:rgba(56,189,248,.22);--ddur:9.0s;--ddel:1.3s;">⚓</div><div class="debris" style="left:67.9%;top:45.3%;font-size:29px;color:rgba(56,189,248,.22);--ddur:10.3s;--ddel:0.2s;">🌊</div><div class="debris" style="left:17.5%;top:75.9%;font-size:33px;color:rgba(56,189,248,.22);--ddur:11.6s;--ddel:2.6s;">🧭</div><div class="debris" style="left:64.6%;top:94.7%;font-size:28px;color:rgba(56,189,248,.22);--ddur:9.0s;--ddel:2.9s;">⛵</div><div class="debris" style="left:77.6%;top:72.3%;font-size:24px;color:rgba(56,189,248,.22);--ddur:8.6s;--ddel:0.3s;">🐚</div><div class="debris" style="left:70.9%;top:68.7%;font-size:29px;color:rgba(56,189,248,.22);--ddur:11.7s;--ddel:1.5s;">⚓</div><div class="debris" style="left:28.0%;top:94.4%;font-size:22px;color:rgba(56,189,248,.22);--ddur:11.5s;--ddel:5.8s;">🌊</div><div class="debris" style="left:11.3%;top:68.1%;font-size:35px;color:rgba(56,189,248,.22);--ddur:9.8s;--ddel:3.0s;">🧭</div><div class="debris" style="left:38.9%;top:46.1%;font-size:39px;color:rgba(56,189,248,.22);--ddur:6.7s;--ddel:3.9s;">⛵</div><div class="debris" style="left:59.0%;top:73.4%;font-size:25px;color:rgba(56,189,248,.22);--ddur:5.9s;--ddel:5.7s;">🐚</div></div><div class="ship-silhouette" style="bottom:22%;left:0;font-size:80px;">⛴</div><div class="seagull" style="top:15%;left:0;font-size:32px;--sgdur:13s;--sgdel:0s;">🕊</div><div class="seagull" style="top:23%;left:0;font-size:32px;--sgdur:17s;--sgdel:5s;">🕊</div><div class="seagull" style="top:31%;left:0;font-size:32px;--sgdur:21s;--sgdel:10s;">🕊</div><div class="orchestra-bar"><div class="orch-beat" style="--obdur:0.35s;--obdel:0.00s;--obh:20px;"></div><div class="orch-beat" style="--obdur:0.43s;--obdel:0.04s;--obh:35px;"></div><div class="orch-beat" style="--obdur:0.51s;--obdel:0.08s;--obh:55px;"></div><div class="orch-beat" style="--obdur:0.59s;--obdel:0.12s;--obh:70px;"></div><div class="orch-beat" style="--obdur:0.67s;--obdel:0.16s;--obh:90px;"></div><div class="orch-beat" style="--obdur:0.75s;--obdel:0.20s;--obh:65px;"></div><div class="orch-beat" style="--obdur:0.83s;--obdel:0.24s;--obh:40px;"></div><div class="orch-beat" style="--obdur:0.35s;--obdel:0.28s;--obh:80px;"></div><div class="orch-beat" style="--obdur:0.43s;--obdel:0.32s;--obh:55px;"></div><div class="orch-beat" style="--obdur:0.51s;--obdel:0.36s;--obh:95px;"></div><div class="orch-beat" style="--obdur:0.59s;--obdel:0.40s;--obh:70px;"></div><div class="orch-beat" style="--obdur:0.67s;--obdel:0.44s;--obh:45px;"></div><div class="orch-beat" style="--obdur:0.75s;--obdel:0.48s;--obh:85px;"></div><div class="orch-beat" style="--obdur:0.83s;--obdel:0.52s;--obh:60px;"></div><div class="orch-beat" style="--obdur:0.35s;--obdel:0.56s;--obh:40px;"></div><div class="orch-beat" style="--obdur:0.43s;--obdel:0.60s;--obh:75px;"></div><div class="orch-beat" style="--obdur:0.51s;--obdel:0.64s;--obh:90px;"></div><div class="orch-beat" style="--obdur:0.59s;--obdel:0.68s;--obh:55px;"></div><div class="orch-beat" style="--obdur:0.67s;--obdel:0.72s;--obh:35px;"></div><div class="orch-beat" style="--obdur:0.75s;--obdel:0.76s;--obh:70px;"></div><div class="orch-beat" style="--obdur:0.83s;--obdel:0.80s;--obh:50px;"></div><div class="orch-beat" style="--obdur:0.35s;--obdel:0.84s;--obh:80px;"></div><div class="orch-beat" style="--obdur:0.43s;--obdel:0.88s;--obh:45px;"></div><div class="orch-beat" style="--obdur:0.51s;--obdel:0.92s;--obh:25px;"></div></div><div style="position:absolute;bottom:0;left:0;right:0;height:220px;z-index:1;pointer-events:none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 220" style="position:absolute;bottom:0;left:0;width:100%;"><defs><linearGradient id="wg1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:rgba(14,165,233,.22)"></stop><stop offset="100%" style="stop-color:rgba(2,50,100,.45)"></stop></linearGradient></defs><path d="M0,80 C180,20 360,140 540,80 C720,20 900,140 1080,80 L1080,220 L0,220 Z" fill="url(#wg1)"><animateTransform attributeName="transform" type="translate" values="0,0;-80,0;0,0" dur="8s" repeatCount="indefinite"></animateTransform></path><path d="M0,120 C200,60 400,170 600,110 C800,50 1000,160 1080,120 L1080,220 L0,220 Z" fill="rgba(45,212,191,.1)"><animateTransform attributeName="transform" type="translate" values="0,0;70,0;0,0" dur="11s" repeatCount="indefinite"></animateTransform></path></svg></div></div>
+
   </div>
-
-  </div><!-- /frame-wrapper -->
-
-  <!-- Controls (hidden during recording) -->
-  <div class="controls" id="controls">
-    <button onclick="restart()">Restart</button>
-    <button onclick="togglePause()">Pause / Play</button>
-    <span class="info">Open in browser &rarr; screen record at 1080x1920</span>
+<div class="progress-bar" id="progress" style="width: 0.40625%;"></div>
+<div class="controls" id="controls">
+    <button>Restart</button>
+    <button>Pause / Play</button>
+    <span class="info">Open in browser → screen record at 1080x1920</span>
   </div>
-
-  <script>
+<div id="locked-player"><div id="lp-waveform"><span style="--d:0.42s;--h:6px;animation-delay:0.00s;"></span><span style="--d:0.6s;--h:14px;animation-delay:0.06s;"></span><span style="--d:0.35s;--h:9px;animation-delay:0.12s;"></span><span style="--d:0.55s;--h:18px;animation-delay:0.18s;"></span><span style="--d:0.48s;--h:11px;animation-delay:0.24s;"></span><span style="--d:0.38s;--h:16px;animation-delay:0.30s;"></span><span style="--d:0.65s;--h:8px;animation-delay:0.36s;"></span><span style="--d:0.44s;--h:13px;animation-delay:0.42s;"></span><span style="--d:0.5s;--h:7px;animation-delay:0.48s;"></span><span style="--d:0.58s;--h:15px;animation-delay:0.54s;"></span></div><div id="lp-label">♪ Seawise promo music</div><button id="lp-mute" title="Mute">🔊</button><input type="range" id="lp-vol" min="0" max="1" step="0.01" style="--v: 75%;"></div>
+<audio id="music-audio-locked" style="display:none;"></audio>
+<div id="load-track-wrapper" style="position:fixed;bottom:62px;right:16px;z-index:99999;"><label for="music-file-input" style="display:flex;align-items:center;gap:8px;background:rgba(14,165,233,.2);border:1.5px solid rgba(56,189,248,.5);border-radius:12px;padding:10px 20px;font-family:Outfit,sans-serif;font-size:14px;color:#38bdf8;cursor:pointer;backdrop-filter:blur(10px);font-weight:600;letter-spacing:.04em;white-space:nowrap;animation:lp-prompt 2s ease-in-out infinite;">🎵 Click to load your track</label><input type="file" id="music-file-input" accept="audio/*,video/mp4,.mp4,.m4a,.mp3,.wav,.aac" style="display:none;"></div>
+<script>
     const scenes = document.querySelectorAll('.scene');
     const progress = document.getElementById('progress');
     let currentScene = 0;
@@ -503,57 +620,53 @@
     // Start
     startTime = Date.now();
     requestAnimationFrame(updateProgress);
-  
-    // ── MUSIC: soft-loop with crossfade ──────────────────────────────────────
-    (function initMusic() {
-      const FADE_OUT_BEFORE = 2.0;
-      const FADE_IN_DURATION = 1.5;
-      let audio = document.getElementById('music-audio-locked');
-      if (!audio) return;
-      let targetVolume = audio.volume || 0.75;
-      let fadeOutActive = false;
-      function fadeVolume(from, to, durationSec, onDone) {
-        const steps = Math.max(1, Math.round(60 * durationSec));
-        const intervalMs = (durationSec * 1000) / steps;
-        const step = (to - from) / steps;
-        let count = 0;
-        audio.volume = Math.max(0, Math.min(1, from));
-        const timer = setInterval(function () {
-          count++;
-          audio.volume = Math.max(0, Math.min(1, audio.volume + step));
-          if (count >= steps) { clearInterval(timer); audio.volume = Math.max(0, Math.min(1, to)); if (onDone) onDone(); }
-        }, intervalMs);
-      }
-      function restartWithFadeIn() {
-        audio.currentTime = 0; audio.volume = 0; fadeOutActive = false;
-        audio.play().then(function () { fadeVolume(0, targetVolume, FADE_IN_DURATION, null); }).catch(function () { fadeOutActive = false; });
-      }
-      audio.addEventListener('timeupdate', function () {
-        if (!audio.duration || audio.paused) return;
-        const timeLeft = audio.duration - audio.currentTime;
-        if (!fadeOutActive && timeLeft > 0 && timeLeft <= FADE_OUT_BEFORE) {
-          fadeOutActive = true;
-          const vol = audio.volume;
-          vol > 0 ? fadeVolume(vol, 0, timeLeft, restartWithFadeIn) : setTimeout(restartWithFadeIn, timeLeft * 1000);
-        }
-      });
-      audio.addEventListener('ended', function () { fadeOutActive = false; restartWithFadeIn(); });
-      var volSlider = document.getElementById('lp-vol');
-      if (volSlider) volSlider.addEventListener('input', function () { targetVolume = parseFloat(volSlider.value); });
-      function startMusic() {
-        if (!audio.paused) return;
-        audio.volume = 0;
-        audio.play().then(function () { fadeVolume(0, targetVolume, 1.0, null); }).catch(function () {});
-      }
-      startMusic();
-      var unlocked = false;
-      function unlockOnce() { if (unlocked) return; unlocked = true; startMusic(); document.removeEventListener('click', unlockOnce); document.removeEventListener('touchstart', unlockOnce); document.removeEventListener('keydown', unlockOnce); }
-      document.addEventListener('click', unlockOnce);
-      document.addEventListener('touchstart', unlockOnce);
-      document.addEventListener('keydown', unlockOnce);
-    })();
-    // ── END MUSIC ─────────────────────────────────────────────────────────────
   </script>
-
+<script>(function() {
+  function resetBoth() {
+    var s = document.querySelectorAll(".scene");
+    s.forEach(function(x){ x.classList.remove("active"); });
+    s[0].classList.add("active");
+    currentScene = 0; paused = false; elapsed = 0; startTime = Date.now();
+    var pb = document.getElementById("progress"); if(pb) pb.style.width="0%";
+    requestAnimationFrame(updateProgress);
+    var a = document.getElementById("music-audio-locked");
+    if(a && a.src){ a.currentTime=0; a.play(); }
+  }
+  var rb = document.querySelector("[onclick=\"restart()\"]");
+  if(rb){ rb.removeAttribute("onclick"); rb.addEventListener("click",resetBoth); }
+  var pp = document.querySelector("[onclick=\"togglePause()\"]");
+  if(pp){ pp.removeAttribute("onclick"); pp.addEventListener("click",function(){
+    var a=document.getElementById("music-audio-locked");
+    if(paused){ paused=false; startTime=Date.now()-elapsed; requestAnimationFrame(updateProgress); if(a&&a.src) a.play(); }
+    else { paused=true; if(a&&a.src) a.pause(); }
+  }); }
+  var audioEl = document.getElementById("music-audio-locked");
+  if(audioEl){ audioEl.loop=false; audioEl.addEventListener("ended",resetBoth); }
+  var fi = document.getElementById("music-file-input");
+  if(fi){ fi.addEventListener("change",function(e){
+    var f=e.target.files[0]; if(!f) return;
+    var a=document.getElementById("music-audio-locked"); if(!a) return;
+    if(a._blobURL) URL.revokeObjectURL(a._blobURL);
+    var url=URL.createObjectURL(f); a._blobURL=url; a.src=url; a.volume=0.75; a.loop=false; a.currentTime=0;
+    a.addEventListener("canplaythrough",function onR(){ a.removeEventListener("canplaythrough",onR);
+      var n=f.name.replace(/\.[^.]+$/,""); if(n.length>22) n=n.substring(0,20)+"\u2026";
+      var lbl=document.getElementById("lp-label"); if(lbl) lbl.textContent="\u266a "+n;
+      var w=document.getElementById("load-track-wrapper"); if(w) w.remove();
+      resetBoth();
+    },{once:true});
+  }); }
+  var mb=document.getElementById("lp-mute");
+  if(mb){ mb.addEventListener("click",function(){
+    var a=document.getElementById("music-audio-locked"); if(!a) return;
+    a.muted=!a.muted; mb.textContent=a.muted?"\uD83D\uDD07":"\uD83D\uDD0A";
+    var wf=document.getElementById("lp-waveform"); if(wf) wf.style.opacity=a.muted?"0.25":"1";
+  }); }
+  var vs=document.getElementById("lp-vol");
+  if(vs){ vs.addEventListener("input",function(){
+    var a=document.getElementById("music-audio-locked"); if(!a) return;
+    a.volume=parseFloat(vs.value); vs.style.setProperty("--v",Math.round(vs.value*100)+"%");
+    if(parseFloat(vs.value)>0&&a.muted){ a.muted=false; if(mb) mb.textContent="\uD83D\uDD0A"; }
+  }); }
+})();</script>
 </body>
 </html>

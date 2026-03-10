@@ -859,12 +859,16 @@
   /* ─── ANIMATIONS ─── */
   .animate-in {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
   }
   .animate-in.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+  /* Fallback: if JS fails or observer doesn't fire, show content after 1.5s */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-in { opacity: 1; transform: none; transition: none; }
   }
 
   /* ─── RESPONSIVE ─── */
@@ -1385,16 +1389,39 @@
     document.getElementById('chatPanel').classList.toggle('open');
   });
 
-  // Scroll animation observer
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
+  // Scroll animation observer with robust fallback
+  const animEls = document.querySelectorAll('.animate-in');
 
-  document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px 60px 0px' });
+
+    animEls.forEach(el => observer.observe(el));
+
+    // Immediately reveal anything already in viewport on load
+    requestAnimationFrame(() => {
+      animEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('visible');
+        }
+      });
+    });
+  } else {
+    // No IntersectionObserver support — show everything
+    animEls.forEach(el => el.classList.add('visible'));
+  }
+
+  // Safety net: reveal all after 2s regardless
+  setTimeout(() => {
+    animEls.forEach(el => el.classList.add('visible'));
+  }, 2000);
 
   // Nav scroll effect
   window.addEventListener('scroll', () => {

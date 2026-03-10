@@ -168,14 +168,14 @@
     }
 
     .screenshot-mock {
-      width: 940px;
-      height: 1562px;
+      width: 100%;
+      height: 100%;
       flex-shrink: 0;
-      border-radius: 24px;
-      border: 3px solid #1e3a5f;
+      border-radius: 0;
+      
       overflow: hidden;
       flex-shrink: 0;
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+      
       background: #112a45;
     }
 
@@ -321,6 +321,21 @@
     /* Scaling handled by JS */
   </style>
 <style>
+/* PHONE SHELL */
+.phone-shell{position:relative;width:980px;height:1682px;background:linear-gradient(145deg,#1c1c1e 0%,#0d0d0f 40%,#111 100%);border-radius:56px;border:1.5px solid #2a2a2a;box-shadow:inset 0 0 0 2px #1a1a1a,0 0 0 1.5px #0a0a0a,0 30px 90px rgba(0,0,0,.85),0 0 80px rgba(56,189,248,.12);padding:72px 18px 52px;box-sizing:border-box;flex-shrink:0;transform-style:preserve-3d;will-change:transform;}
+.phone-shell.phone-spin{animation:phone-spin-y .7s cubic-bezier(.4,0,.2,1) forwards;}
+@keyframes phone-spin-y{0%{transform:rotateY(0) scale(1)}40%{transform:rotateY(90deg) scale(.92)}50%{transform:rotateY(180deg) scale(.88)}60%{transform:rotateY(270deg) scale(.92)}100%{transform:rotateY(360deg) scale(1)}}
+.phone-top-bar{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:200px;height:32px;background:#0a0a0c;border-radius:18px;display:flex;align-items:center;justify-content:center;gap:10px;z-index:10;}
+.phone-speaker{width:72px;height:5px;background:#1c1c1e;border-radius:3px;box-shadow:inset 0 1px 2px rgba(0,0,0,.8);}
+.phone-camera{width:11px;height:11px;background:radial-gradient(circle at 40% 40%,#1a3a5c,#050f1a);border-radius:50%;border:1px solid #0a1a2a;box-shadow:0 0 5px rgba(56,189,248,.35);}
+.phone-home-bar{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:130px;height:5px;background:rgba(255,255,255,.22);border-radius:3px;z-index:10;}
+.phone-side-btns{position:absolute;left:-4px;top:210px;display:flex;flex-direction:column;gap:18px;z-index:10;}
+.phone-vol-up,.phone-vol-down{width:4px;height:70px;background:linear-gradient(180deg,#2c2c2e,#1c1c1e);border-radius:3px 0 0 3px;}
+.phone-power-btn{position:absolute;right:-4px;top:270px;width:4px;height:88px;background:linear-gradient(180deg,#2c2c2e,#1c1c1e);border-radius:0 3px 3px 0;z-index:10;}
+.phone-shell::before{content:'';position:absolute;top:72px;left:18px;right:18px;bottom:52px;background:linear-gradient(135deg,rgba(255,255,255,.04) 0%,transparent 40%,transparent 70%,rgba(255,255,255,.015) 100%);pointer-events:none;z-index:6;}
+.feature-scene{perspective:2200px;}
+.feature-scene .nautical-divider,.feature-scene>div:last-child{display:none !important;}
+
 * { box-sizing: border-box; }
 .frame {
   background: linear-gradient(180deg,#020d1a 0%,#041628 25%,#05213d 55%,#071f38 100%) !important;
@@ -387,14 +402,13 @@
 /* Progress bar */
 .progress-bar { background:linear-gradient(90deg,#0ea5e9,#2dd4bf,#38bdf8) !important;height:8px !important;box-shadow:0 0 12px rgba(56,189,248,.6) !important; }
 /* SCREENSHOTS — stable, large, sharp */
-.screenshot-mock { animation:none !important;transform:none !important;transition:none !important;width:940px !important;height:1562px !important;max-width:940px !important;flex-shrink:0 !important;border-radius:20px !important;border:2px solid rgba(56,189,248,.4) !important;box-shadow:0 0 0 1px rgba(56,189,248,.15),0 20px 60px rgba(0,0,0,.7),0 0 80px rgba(56,189,248,.12) !important;position:relative !important;overflow:hidden !important; }
+.screenshot-mock { animation:none !important;transform:none !important;transition:none !important;width:100% !important;height:100% !important;max-width:none !important;flex-shrink:0 !important;border-radius:0 !important;border:none !important;box-shadow:none !important;position:relative !important;overflow:hidden !important; }
 .screenshot-mock img { position:static !important;top:auto !important;left:auto !important;width:100% !important;height:100% !important;display:block !important;object-fit:cover !important;object-position:50% 68% !important;filter:contrast(1.08) brightness(1.06) saturate(1.15) !important;transform:scale(1.3) !important;transform-origin:top center !important;animation:none !important; }
 .feature-scene .feature-tag { margin-bottom:16px !important;font-size:22px !important;padding:10px 28px !important; }
 .feature-scene h2 { margin-bottom:12px !important;line-height:1.1 !important; }
 .feature-scene .feature-desc { font-size:30px !important;margin-bottom:16px !important; }
-.feature-scene { padding:40px 70px 0 !important;justify-content:flex-start !important;display:flex !important;flex-direction:column !important;align-items:center !important; }
-.feature-scene .screenshot-mock { margin-top:auto !important; }
-.feature-scene .nautical-divider,.feature-scene>div:last-child { display:none !important; }
+.feature-scene { padding:40px 50px 0 !important;justify-content:flex-start !important;display:flex !important;flex-direction:column !important;align-items:center !important; }
+.feature-scene .phone-shell { margin-top:auto !important; }
 /* Stars */
 .star { position:absolute;border-radius:50%;background:#fff;animation:star-twinkle var(--sdur,3s) ease-in-out infinite;animation-delay:var(--sdel,0s); }
 @keyframes star-twinkle { 0%,100%{opacity:.1;transform:scale(1)} 50%{opacity:.9;transform:scale(1.4)} }
@@ -456,8 +470,14 @@
       <span class="feature-tag tag-cyan">Your Bridge</span>
       <h2>Your Bridge. Your Command.</h2>
       <p class="feature-desc">Professional maritime dashboard with everything you need at a glance.</p>
-      <div class="screenshot-mock">
+      <div class="phone-shell">
+        <div class="phone-top-bar"><div class="phone-speaker"></div><div class="phone-camera"></div></div>
+        <div class="phone-side-btns"><div class="phone-vol-up"></div><div class="phone-vol-down"></div></div>
+        <div class="phone-power-btn"></div>
+        <div class="screenshot-mock">
         <img src="images/screenshots/01_hero_dashboard.png" alt="Dashboard">
+      </div>
+        <div class="phone-home-bar"></div>
       </div>
     <div class="nautical-divider"></div><div style="font-size:20px;color:#38bdf8;letter-spacing:.3em;opacity:.7;text-transform:uppercase;margin-top:8px;">🎛️ BRIDGE COMMAND 🎛️</div></div>
 
@@ -466,8 +486,14 @@
       <span class="feature-tag tag-purple">AI-Powered</span>
       <h2>Plot Any Route. Instantly.</h2>
       <p class="feature-desc">AI generates waypoints that follow real shipping lanes and avoid land.</p>
-      <div class="screenshot-mock">
+      <div class="phone-shell">
+        <div class="phone-top-bar"><div class="phone-speaker"></div><div class="phone-camera"></div></div>
+        <div class="phone-side-btns"><div class="phone-vol-up"></div><div class="phone-vol-down"></div></div>
+        <div class="phone-power-btn"></div>
+        <div class="screenshot-mock">
         <img src="images/screenshots/02_route_planner.png" alt="Route Planner">
+      </div>
+        <div class="phone-home-bar"></div>
       </div>
     <div class="nautical-divider"></div><div style="font-size:20px;color:#10b981;letter-spacing:.3em;opacity:.7;text-transform:uppercase;margin-top:8px;">🗺️ CHART PLOTTING 🗺️</div></div>
 
@@ -476,8 +502,14 @@
       <span class="feature-tag tag-green">Precise</span>
       <h2>Distance. Fuel. Cost. Done.</h2>
       <p class="feature-desc">Get exact distance in nautical miles, fuel consumption, travel time and total cost.</p>
-      <div class="screenshot-mock">
+      <div class="phone-shell">
+        <div class="phone-top-bar"><div class="phone-speaker"></div><div class="phone-camera"></div></div>
+        <div class="phone-side-btns"><div class="phone-vol-up"></div><div class="phone-vol-down"></div></div>
+        <div class="phone-power-btn"></div>
+        <div class="screenshot-mock">
         <img src="images/screenshots/03_voyage_results.png" alt="Voyage Results">
+      </div>
+        <div class="phone-home-bar"></div>
       </div>
     <div class="nautical-divider"></div><div style="font-size:20px;color:#a78bfa;letter-spacing:.3em;opacity:.7;text-transform:uppercase;margin-top:8px;">⚓ VOYAGE METRICS ⚓</div></div>
 
@@ -486,8 +518,14 @@
       <span class="feature-tag tag-amber">Configure</span>
       <h2>Know Your Burn Rate</h2>
       <p class="feature-desc">Custom fuel curves, capacity settings, and performance analytics for your fleet.</p>
-      <div class="screenshot-mock">
+      <div class="phone-shell">
+        <div class="phone-top-bar"><div class="phone-speaker"></div><div class="phone-camera"></div></div>
+        <div class="phone-side-btns"><div class="phone-vol-up"></div><div class="phone-vol-down"></div></div>
+        <div class="phone-power-btn"></div>
+        <div class="screenshot-mock">
         <img src="images/screenshots/04_vessel_performance.png" alt="Vessel Performance">
+      </div>
+        <div class="phone-home-bar"></div>
       </div>
     <div class="nautical-divider"></div><div style="font-size:20px;color:#fbbf24;letter-spacing:.3em;opacity:.7;text-transform:uppercase;margin-top:8px;">⛽ ENGINE ROOM ⛽</div></div>
 
@@ -496,8 +534,14 @@
       <span class="feature-tag tag-green">Real-Time</span>
       <h2>Global Fuel Prices. Live.</h2>
       <p class="feature-desc">Track bunker fuel prices at Rotterdam, Singapore, Fujairah, Houston and more.</p>
-      <div class="screenshot-mock">
+      <div class="phone-shell">
+        <div class="phone-top-bar"><div class="phone-speaker"></div><div class="phone-camera"></div></div>
+        <div class="phone-side-btns"><div class="phone-vol-up"></div><div class="phone-vol-down"></div></div>
+        <div class="phone-power-btn"></div>
+        <div class="screenshot-mock">
         <img src="images/screenshots/05_fuel_market.png" alt="Fuel Market">
+      </div>
+        <div class="phone-home-bar"></div>
       </div>
     <div class="nautical-divider"></div><div style="font-size:20px;color:#38bdf8;letter-spacing:.3em;opacity:.7;text-transform:uppercase;margin-top:8px;">🌊 BUNKER WATCH 🌊</div></div>
 
@@ -902,6 +946,20 @@
   installMusicHandlers();
   tryPlay(FADE_IN_FIRST);
 })();
+
+  // Phone spin on scene transition
+  const _origShowScene = showScene;
+  showScene = function(n){
+    const nextEl = document.querySelectorAll('.scene')[n];
+    const currEl = document.querySelector('.scene.active');
+    const shell = currEl ? currEl.querySelector('.phone-shell') : null;
+    if(shell){
+      shell.classList.remove('phone-spin');
+      void shell.offsetWidth;
+      shell.classList.add('phone-spin');
+    }
+    _origShowScene(n);
+  };
 </script>
 </body>
 </html>

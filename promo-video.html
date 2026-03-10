@@ -582,7 +582,14 @@
       elapsed = 0;
       _loopTimer = setTimeout(updateProgress, 100);
     } else {
-      progress.style.width = '100%';
+      // Loop back to scene 1 automatically
+      currentScene = 0;
+      showScene(0);
+      paused = false;
+      startTime = Date.now();
+      elapsed = 0;
+      progress.style.width = '0%';
+      _loopTimer = setTimeout(updateProgress, 100);
     }
   }
 
@@ -837,23 +844,25 @@
     }
   }
 
-  // Wire up Restart button
-  var rb = document.querySelector('[onclick="restart()"]');
-  if (rb) { rb.removeAttribute('onclick'); rb.addEventListener('click', resetBoth); }
-
-  // Wire up Pause/Play button
-  var pp = document.querySelector('[onclick="togglePause()"]');
-  if (pp) { pp.removeAttribute('onclick'); pp.addEventListener('click', function () {
-    var a = getAudio();
-    if (paused) {
-      paused = false; startTime = Date.now() - elapsed;
-      _clearLoop(); _loopTimer = setTimeout(updateProgress, 100);
-      if (a && a.src) a.play().catch(function(){});
-    } else {
-      paused = true; _clearLoop();
-      if (a && a.src) a.pause();
+  // Wire up Restart button (select by text content)
+  var allBtns = document.querySelectorAll('#controls button');
+  allBtns.forEach(function(btn) {
+    if (btn.textContent.trim() === 'Restart') {
+      btn.addEventListener('click', resetBoth);
+    } else if (btn.textContent.trim() === 'Pause / Play') {
+      btn.addEventListener('click', function () {
+        var a = getAudio();
+        if (paused) {
+          paused = false; startTime = Date.now() - elapsed;
+          _clearLoop(); _loopTimer = setTimeout(updateProgress, 100);
+          if (a && a.src) a.play().catch(function(){});
+        } else {
+          paused = true; _clearLoop();
+          if (a && a.src) a.pause();
+        }
+      });
     }
-  }); }
+  });
 
   // Mute button
   var mb = getMuteBtn();

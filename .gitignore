@@ -18,6 +18,13 @@
 # Allow logo
 !seawise-logo.png
 
+# Allow store mockup files
+!Store screenshots etc/
+!Store screenshots etc/*.html
+
+# Allow index page
+!index.html
+
 # Allow this gitignore and README
 !.gitignore
 !README.md

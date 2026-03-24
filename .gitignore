@@ -1,33 +1,20 @@
 # Ignore everything by default
 *
 
-# Allow landing page HTML
-!Landing SeaWise Voyager — Maritime Distance & Fuel Calculator.html
-
-# Allow landing page assets directory and its contents
-!Landing SeaWise Voyager — Maritime Distance & Fuel Calculator_files/
-!Landing SeaWise Voyager — Maritime Distance & Fuel Calculator_files/**
-
-# Allow screenshot images used by landing page
-!01_hero_dashboard.png
-!02_route_planner.png
-!03_voyage_results.png
-!04_vessel_performance.png
-!05_fuel_market.png
-
-# Allow logo
-!seawise-logo.png
-
-# Allow store mockup files
-!Store screenshots etc/
-!Store screenshots etc/*.html
-
-# Allow index page
+# Allow clean landing page files
 !index.html
+!style.css
+!script.js
+!privacy.html
+!terms.html
+!support.html
 
-# Allow this gitignore and README
+# Allow images
+!images/
+!images/**
+
+# Allow this gitignore
 !.gitignore
-!README.md
 
 # Exclude .claude directories everywhere
 .claude/

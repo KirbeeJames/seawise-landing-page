@@ -1,336 +1,1584 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0a192f" />
-  <meta name="description" content="SeaWise — Port-to-port distance, fuel consumption, travel time and cost calculator for maritime professionals." />
-  <title>SeaWise — Maritime Distance &amp; Fuel Calculator</title>
-  <link rel="icon" type="image/png" href="images/logo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SeaWise — Maritime Distance & Fuel Calculator</title>
+<meta name="theme-color" content="#0a1628">
+<meta name="description" content="SeaWise — Port-to-port distance, fuel consumption, travel time and cost calculator for maritime professionals.">
+<meta name="keywords" content="maritime navigation, voyage planner, fuel calculator, sea route, nautical miles, bunker fuel prices, yacht operations">
+<meta property="og:title" content="SeaWise — Smart Voyage Planning">
+<meta property="og:description" content="AI-powered route planning, fuel estimation, and market intelligence for modern mariners.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="seawise-logo.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-card: #111d33;
+    --bg-card-hover: #162440;
+    --accent: #2dd4a8;
+    --accent-glow: rgba(45,212,168,0.25);
+    --text-primary: #e8edf5;
+    --text-secondary: #8899b4;
+    --text-muted: #5a6f8f;
+    --border: rgba(45,212,168,0.15);
+    --gradient-ocean: linear-gradient(135deg, #0a1628 0%, #0f2847 50%, #0a1628 100%);
+    --gradient-accent: linear-gradient(135deg, #2dd4a8, #1a9fdf);
+    --radius: 16px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(10,22,40,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text-primary);
+  }
+  .nav-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: contain;
+  }
+  .nav-wordmark {
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+  }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    margin: 5px 0;
+    border-radius: 1px;
+    transition: all 0.3s;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+
+  /* ─── BUTTONS ─── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-sm { padding: 8px 18px; font-size: 0.85rem; }
+  .btn-lg { padding: 14px 28px; font-size: 1rem; }
+  .btn-green {
+    background: var(--gradient-accent);
+    color: var(--bg-deep);
+  }
+  .btn-green:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(45,212,168,0.3);
+  }
+  .btn-outline {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--text-primary);
+    backdrop-filter: blur(8px);
+  }
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-2px);
+  }
+  .btn-full { width: 100%; justify-content: center; }
+
+  /* Store badges */
+  .store-badges {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 40px;
+  }
+  .store-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 12px 24px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .store-badge:hover {
+    background: rgba(255,255,255,0.14);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .store-badge svg { width: 24px; height: 24px; }
+  .store-badge .badge-label { font-size: 0.65rem; font-weight: 400; opacity: 0.7; display: block; line-height: 1; }
+  .store-badge .badge-store { font-size: 1rem; font-weight: 700; display: block; line-height: 1.2; }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 24px 60px;
+    background: var(--gradient-ocean);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 800px 400px at 20% 60%, rgba(45,212,168,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 600px 300px at 80% 30%, rgba(26,159,223,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Animated wave decoration */
+  .wave-deco {
+    position: absolute;
+    width: 200%;
+    height: 200px;
+    bottom: -40px;
+    left: -50%;
+    opacity: 0.07;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      var(--accent) 40px,
+      var(--accent) 42px
+    );
+    transform: rotate(-2deg);
+    animation: waveSlide 20s linear infinite;
+  }
+  @keyframes waveSlide {
+    from { transform: translateX(0) rotate(-2deg); }
+    to { transform: translateX(-80px) rotate(-2deg); }
+  }
+
+  .hero-logo {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-logo img {
+    width: 160px;
+    height: 160px;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px var(--accent-glow));
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
+  }
+  .text-gradient {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-tagline {
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 32px;
+    position: relative;
+    z-index: 2;
+    font-weight: 400;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 50px;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .hero-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+  .hero-stat-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* ─── SECTIONS ─── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: block;
+    text-align: center;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .section-header h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .section-desc {
+    color: var(--text-secondary);
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: 1rem;
+  }
+
+  /* ─── FEATURES ─── */
+  #features {
+    padding: 100px 0;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .feature-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gradient-accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .feature-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .feature-card:hover .feature-icon { transform: scale(1.08); }
+  .feature-icon-cyan {
+    background: linear-gradient(135deg, rgba(6,182,212,0.18) 0%, rgba(6,182,212,0.06) 100%);
+    box-shadow: 0 0 0 1px rgba(6,182,212,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+    color: #06b6d4;
+  }
+  .feature-card:hover .feature-icon-cyan { box-shadow: 0 0 24px rgba(6,182,212,0.25), 0 0 0 1px rgba(6,182,212,0.3); }
+  .feature-icon-green {
+    background: linear-gradient(135deg, rgba(16,185,129,0.18) 0%, rgba(16,185,129,0.06) 100%);
+    box-shadow: 0 0 0 1px rgba(16,185,129,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+    color: #10b981;
+  }
+  .feature-card:hover .feature-icon-green { box-shadow: 0 0 24px rgba(16,185,129,0.25), 0 0 0 1px rgba(16,185,129,0.3); }
+  .feature-icon-purple {
+    background: linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(139,92,246,0.06) 100%);
+    box-shadow: 0 0 0 1px rgba(139,92,246,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+    color: #8b5cf6;
+  }
+  .feature-card:hover .feature-icon-purple { box-shadow: 0 0 24px rgba(139,92,246,0.25), 0 0 0 1px rgba(139,92,246,0.3); }
+  .feature-icon-amber {
+    background: linear-gradient(135deg, rgba(245,158,11,0.18) 0%, rgba(245,158,11,0.06) 100%);
+    box-shadow: 0 0 0 1px rgba(245,158,11,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+    color: #f59e0b;
+  }
+  .feature-card:hover .feature-icon-amber { box-shadow: 0 0 24px rgba(245,158,11,0.25), 0 0 0 1px rgba(245,158,11,0.3); }
+  .feature-icon-blue {
+    background: linear-gradient(135deg, rgba(59,130,246,0.18) 0%, rgba(59,130,246,0.06) 100%);
+    box-shadow: 0 0 0 1px rgba(59,130,246,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+    color: #3b82f6;
+  }
+  .feature-card:hover .feature-icon-blue { box-shadow: 0 0 24px rgba(59,130,246,0.25), 0 0 0 1px rgba(59,130,246,0.3); }
+  .feature-icon-teal {
+    background: linear-gradient(135deg, rgba(20,184,166,0.18) 0%, rgba(20,184,166,0.06) 100%);
+    box-shadow: 0 0 0 1px rgba(20,184,166,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+    color: #14b8a6;
+  }
+  .feature-card:hover .feature-icon-teal { box-shadow: 0 0 24px rgba(20,184,166,0.25), 0 0 0 1px rgba(20,184,166,0.3); }
+
+  .feature-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .feature-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* ─── SCREENSHOTS ─── */
+  #screenshots {
+    padding: 100px 0;
+  }
+  .screenshots-track {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    padding: 0 12px 8px;
+  }
+  .screenshot-item {
+    flex: 1 1 0;
+    min-width: 160px;
+    text-align: center;
+  }
+  .screenshot-frame {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 2px solid var(--border);
+    background: var(--bg-card);
+    transition: border-color 0.3s;
+  }
+  .screenshot-frame:hover {
+    border-color: var(--accent);
+  }
+  .screenshot-frame img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .screenshot-caption {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  /* ─── PRICING ─── */
+  #pricing {
+    padding: 100px 0;
+  }
+  .pricing-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .pricing-toggle-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  .pricing-toggle-label.active {
+    color: var(--text-primary);
+  }
+  .pricing-toggle-switch {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    background: var(--border);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: none;
+    padding: 0;
+  }
+  .pricing-toggle-switch[aria-checked="true"] {
+    background: var(--accent);
+  }
+  .pricing-toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .pricing-toggle-switch[aria-checked="true"]::after {
+    transform: translateX(24px);
+  }
+  .pricing-save-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: rgba(45,212,168,0.15);
+    color: var(--accent);
+    padding: 3px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .pricing-card {
+    max-width: 420px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    text-align: center;
+  }
+  .pricing-badge {
+    display: inline-block;
+    background: rgba(45,212,168,0.1);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+  .pricing-amount {
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .pricing-amount-monthly,
+  .pricing-amount-yearly {
+    transition: opacity 0.35s, transform 0.35s;
+  }
+  .pricing-amount-yearly {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+  }
+  .pricing-amount-yearly.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    position: relative;
+  }
+  .pricing-amount-monthly.hidden {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  .pricing-currency {
+    font-size: 1.5rem;
+    font-weight: 700;
+    vertical-align: super;
+    color: var(--text-secondary);
+  }
+  .pricing-value {
+    font-size: 3.5rem;
+    font-weight: 900;
+  }
+  .pricing-period {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .pricing-equiv {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .pricing-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 32px;
+  }
+  .pricing-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .pricing-features li:last-child { border-bottom: none; }
+
+  /* ─── TESTIMONIALS ─── */
+  #testimonials {
+    padding: 100px 0;
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .testimonial-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+  .testimonial-stars {
+    color: #fbbf24;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .testimonial-card blockquote {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .testimonial-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(45,212,168,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+  .testimonial-author strong {
+    display: block;
+    font-size: 0.9rem;
+  }
+  .testimonial-author span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* ─── FAQ ─── */
+  #faq {
+    padding: 100px 0;
+  }
+  .faq-list {
+    max-width: 740px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .faq-item summary {
+    padding: 20px 24px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: color 0.3s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--accent);
+    transition: transform 0.3s;
+  }
+  .faq-item[open] summary::after {
+    content: '-';
+  }
+  .faq-item summary:hover { color: var(--accent); }
+  .faq-answer {
+    padding: 0 24px 20px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .faq-answer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .faq-answer a:hover { text-decoration: underline; }
+
+  /* ─── CTA ─── */
+  #cta {
+    padding: 100px 0;
+  }
+  .cta-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 600px 400px at 50% 50%, rgba(45,212,168,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-card h2 {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .cta-card p {
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    position: relative;
+  }
+  .cta-card .btn { position: relative; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 60px 0 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  .footer-brand { }
+  .footer-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .footer-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: contain;
+  }
+  .footer-wordmark {
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+  }
+  .footer-tagline {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .footer-company {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+  .footer-col h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+  .footer-col a {
+    display: block;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    padding: 4px 0;
+    transition: color 0.3s;
+  }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-col .store-badge {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+  .footer-col .store-badge svg { width: 16px; height: 16px; }
+  .footer-bottom {
+    padding: 24px 0;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* ─── CHAT WIDGET ─── */
+  .chat-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 999;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gradient-accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(45,212,168,0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .chat-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 28px rgba(45,212,168,0.5);
+  }
+  .chat-fab svg { width: 26px; height: 26px; fill: var(--bg-deep); }
+  .chat-fab .icon-close { display: none; }
+  .chat-fab.open .icon-chat { display: none; }
+  .chat-fab.open .icon-close { display: block; }
+
+  .chat-panel {
+    position: fixed;
+    bottom: 96px;
+    right: 28px;
+    z-index: 998;
+    width: 340px;
+    max-height: 420px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.4);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .chat-panel.open { display: flex; }
+
+  .chat-header {
+    padding: 20px;
+    background: rgba(45,212,168,0.06);
+    border-bottom: 1px solid var(--border);
+  }
+  .chat-header h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .chat-header p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .chat-body {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+  }
+  .chat-body .chat-msg {
+    background: rgba(45,212,168,0.08);
+    border-radius: 12px 12px 12px 4px;
+    padding: 12px 16px;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .chat-body .chat-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: var(--bg-deep);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .chat-body .chat-option:hover {
+    border-color: var(--accent);
+    background: rgba(45,212,168,0.06);
+    color: var(--accent);
+  }
+  .chat-body .chat-option svg {
+    width: 16px; height: 16px;
+    vertical-align: -3px;
+    margin-right: 8px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  @media (max-width: 768px) {
+    .chat-panel {
+      right: 12px;
+      left: 12px;
+      width: auto;
+      bottom: 88px;
+    }
+    .chat-fab { bottom: 20px; right: 20px; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .animate-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .animate-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Fallback: if JS fails or observer doesn't fire, show content after 1.5s */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-in { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0; right: 0;
+      background: rgba(10,22,40,0.95);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      padding: 16px 24px;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-links.open { display: flex; }
+
+    .hero { padding: 100px 20px 60px; }
+    .hero-stats { gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .hero-stat-value { font-size: 1.2rem; }
+    .hero-stat-divider { display: none; }
+
+    .features-grid { grid-template-columns: 1fr; }
+
+    .screenshot-item { max-width: 280px; }
+
+    .testimonials-grid { grid-template-columns: 1fr; }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .store-badges { flex-direction: column; align-items: center; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav id="nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-brand">
-        <img src="images/logo.png" alt="SeaWise" class="nav-logo" />
-        <span class="nav-wordmark">SEAWISE</span>
-      </a>
-      <button class="nav-toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#screenshots">Screenshots</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-        <a href="https://app.seawise.site" class="btn btn-sm btn-green" target="_blank" rel="noopener">Launch App</a>
-      </div>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="https://seawise.site/#" class="nav-brand">
+      <img src="seawise-logo.png" alt="SeaWise" class="nav-logo">
+      <span class="nav-wordmark">SEAWISE</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#screenshots">Screenshots</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://app.seawise.site/" class="btn btn-sm btn-green" target="_blank" rel="noopener">Launch App</a>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-bg">
-      <canvas id="smoke-canvas"></canvas>
-    </div>
-    <div class="hero-content animate-in">
-      <img src="images/logo.png" alt="SeaWise" class="hero-logo" />
-      <h1>SEAWISE</h1>
-      <p class="hero-tagline">Port-to-port distance, fuel consumption, travel time and cost &mdash; calculated to the nearest mile, minute and dollar.</p>
-      <div class="hero-actions">
-        <a href="https://app.seawise.site" class="btn btn-green btn-lg" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Launch Web App
-        </a>
-        <a href="#pricing" class="btn btn-outline btn-lg">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-          Get the App
-        </a>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="hero-stat-value">50,000+</span>
-          <span class="hero-stat-label">Routes Calculated</span>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-value">200+</span>
-          <span class="hero-stat-label">Global Ports</span>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-value">Real-time</span>
-          <span class="hero-stat-label">Fuel Prices</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <canvas id="smoke-canvas" style="position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;"></canvas>
 
-  <!-- FEATURES -->
-  <section id="features">
-    <div class="container">
-      <div class="section-header animate-in">
-        <span class="section-tag">Core Capabilities</span>
-        <h2>Everything You Need at Sea</h2>
-        <p class="section-desc">Professional-grade voyage planning tools powered by AI, built for captains and fleet managers.</p>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card animate-in">
-          <div class="feature-icon feature-icon-cyan">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-          </div>
-          <h3>Distance &amp; Fuel Calculator</h3>
-          <p>Calculate port-to-port distance in nautical miles with precise fuel consumption based on your vessel's fuel curve. Results you can trust.</p>
-        </div>
-        <div class="feature-card animate-in">
-          <div class="feature-icon feature-icon-green">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3>Travel Time &amp; Cost</h3>
-          <p>Get accurate voyage duration and total fuel cost estimates before you leave port. Plan budgets with confidence down to the dollar.</p>
-        </div>
-        <div class="feature-card animate-in">
-          <div class="feature-icon feature-icon-purple">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
-          </div>
-          <h3>AI Sea Route Planning</h3>
-          <p>Auto-generate maritime routes that follow real shipping lanes, navigate through straits and canals, and stay on water. Powered by Google Gemini.</p>
-        </div>
-        <div class="feature-card animate-in">
-          <div class="feature-icon feature-icon-amber">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          </div>
-          <h3>Global Fuel Market</h3>
-          <p>Track real-time bunker fuel prices at major ports worldwide &mdash; Rotterdam, Singapore, Fujairah, Houston and more. AI-powered price sync.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="hero-logo" style="position:relative;z-index:1;">
+    <img src="seawise-logo.png" alt="SeaWise">
+  </div>
 
-  <!-- SCREENSHOTS -->
-  <section id="screenshots" class="has-smoke">
-    <canvas class="smoke-bg" data-color="#38bdf8"></canvas>
-    <div class="container">
-      <div class="section-header animate-in">
-        <span class="section-tag">App Preview</span>
-        <h2>See It In Action</h2>
-        <p class="section-desc">Built with a professional maritime interface designed for efficiency at sea and ashore.</p>
-      </div>
-    </div>
-    <div class="screenshots-track animate-in">
-      <div class="screenshot-item">
-        <div class="screenshot-frame">
-          <img src="images/screenshots/01_hero_dashboard.png" alt="SeaWise Dashboard" loading="lazy" />
-        </div>
-        <p class="screenshot-caption">Your Bridge. Your Command.</p>
-      </div>
-      <div class="screenshot-item">
-        <div class="screenshot-frame">
-          <img src="images/screenshots/02_route_planner.png" alt="AI Route Planner" loading="lazy" />
-        </div>
-        <p class="screenshot-caption">Plot Any Route. Instantly.</p>
-      </div>
-      <div class="screenshot-item">
-        <div class="screenshot-frame">
-          <img src="images/screenshots/03_voyage_results.png" alt="Voyage Results" loading="lazy" />
-        </div>
-        <p class="screenshot-caption">Distance. Fuel. Cost. Done.</p>
-      </div>
-      <div class="screenshot-item">
-        <div class="screenshot-frame">
-          <img src="images/screenshots/04_vessel_performance.png" alt="Vessel Performance" loading="lazy" />
-        </div>
-        <p class="screenshot-caption">Know Your Burn Rate</p>
-      </div>
-      <div class="screenshot-item">
-        <div class="screenshot-frame">
-          <img src="images/screenshots/05_fuel_market.png" alt="Global Fuel Market" loading="lazy" />
-        </div>
-        <p class="screenshot-caption">Global Fuel Prices. Live.</p>
-      </div>
-    </div>
-  </section>
+  <h1 style="position:relative;z-index:1;">SEAWISE</h1>
 
-  <!-- PRICING -->
-  <section id="pricing">
-    <div class="container">
-      <div class="section-header animate-in">
-        <span class="section-tag">Subscription</span>
-        <h2>Simple Pricing</h2>
-        <p class="section-desc">One plan. Everything included. No hidden fees.</p>
+  <p class="hero-tagline">Port-to-port distance, fuel consumption, travel time and cost — calculated to the nearest mile, minute and dollar.</p>
+
+  <div class="hero-actions">
+    <a href="https://app.seawise.site/" class="btn btn-green btn-lg" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      Launch Web App
+    </a>
+    <a href="#pricing" class="btn btn-outline btn-lg">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+      Get the App
+    </a>
+  </div>
+
+  <div class="store-badges">
+    <a href="#" class="store-badge">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <div>
+        <span class="badge-label">Download on the</span>
+        <span class="badge-store">App Store</span>
       </div>
-      <div class="pricing-card animate-in">
-        <div class="pricing-badge">Full Access</div>
-        <div class="pricing-amount">
+    </a>
+    <a href="#" class="store-badge">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.67L14.32 12.53 3.18.34c-.27.12-.18.96-.18 1.2V22.5c0 .23-.09 1.03.18 1.17zM16.8 10.06L5.82 3.72l9.16 9.16L16.8 10.06zm.59 3.37l-1.83-1.83-9.16 9.16L16.8 14.42l.59-.99zM21.2 11.1l-3.39-1.98-2.09 2.09 2.09 2.09 3.39-1.98c.58-.34.58-1.88 0-2.22z"/></svg>
+      <div>
+        <span class="badge-label">Get it on</span>
+        <span class="badge-store">Google Play</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-value">50,000+</span>
+      <span class="hero-stat-label">Routes Calculated</span>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-value">200+</span>
+      <span class="hero-stat-label">Global Ports</span>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-value">Real-time</span>
+      <span class="hero-stat-label">Fuel Prices</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="section-tag">Core Capabilities</span>
+      <h2>Everything You Need at Sea</h2>
+      <p class="section-desc">Professional-grade voyage planning tools powered by AI, built for captains and fleet managers.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card animate-in">
+        <div class="feature-icon feature-icon-cyan">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.2" opacity="0.3"/>
+            <circle cx="16" cy="16" r="9" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 3"/>
+            <path d="M16 3C16 3 20.5 9 20.5 16S16 29 16 29" stroke="currentColor" stroke-width="1.3" opacity="0.5"/>
+            <path d="M16 3C16 3 11.5 9 11.5 16S16 29 16 29" stroke="currentColor" stroke-width="1.3" opacity="0.5"/>
+            <line x1="3" y1="16" x2="29" y2="16" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+            <circle cx="9" cy="13" r="2" fill="currentColor" opacity="0.6"/>
+            <circle cx="22" cy="19" r="2" fill="currentColor" opacity="0.6"/>
+            <path d="M9 13L14 11L18 15L22 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="9" cy="13" r="1" fill="currentColor"/>
+            <circle cx="22" cy="19" r="1" fill="currentColor"/>
+            <path d="M24.5 8.5L26 7M7.5 23.5L6 25" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+            <path d="M25 16h3M4 16H7" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25"/>
+          </svg>
+        </div>
+        <h3>Distance & Fuel Calculator</h3>
+        <p>Calculate port-to-port distance in nautical miles with precise fuel consumption based on your vessel's fuel curve. Results you can trust.</p>
+      </div>
+      <div class="feature-card animate-in">
+        <div class="feature-icon feature-icon-green">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="12.5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+            <path d="M16 6V16L21 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="16" cy="16" r="1.5" fill="currentColor"/>
+            <line x1="16" y1="3" x2="16" y2="5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="16" y1="26.5" x2="16" y2="29" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="3" y1="16" x2="5.5" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="26.5" y1="16" x2="29" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="16" cy="4.5" r="0.6" fill="currentColor" opacity="0.4"/>
+            <circle cx="16" cy="27.5" r="0.6" fill="currentColor" opacity="0.4"/>
+            <circle cx="4.5" cy="16" r="0.6" fill="currentColor" opacity="0.4"/>
+            <circle cx="27.5" cy="16" r="0.6" fill="currentColor" opacity="0.4"/>
+            <path d="M24.5 24.5L26.5 26.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="27" y1="27" x2="29" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="27" y1="27" x2="27" y2="29" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <text x="27.5" y="28.8" font-size="4.5" font-weight="700" fill="currentColor" text-anchor="middle">$</text>
+          </svg>
+        </div>
+        <h3>Travel Time & Cost</h3>
+        <p>Get accurate voyage duration and total fuel cost estimates before you leave port. Plan budgets with confidence down to the dollar.</p>
+      </div>
+      <div class="feature-card animate-in">
+        <div class="feature-icon feature-icon-purple">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="5" width="24" height="22" rx="3" stroke="currentColor" stroke-width="1.3" opacity="0.35"/>
+            <path d="M4 10h24" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+            <path d="M4 16h24" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+            <path d="M4 22h24" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+            <path d="M10 5v22" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+            <path d="M16 5v22" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+            <path d="M22 5v22" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+            <path d="M7 20C9 18 11 14 14 13C17 12 19 17 22 15C24 13.5 26 11 27 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="7" cy="20" r="1.5" fill="currentColor" opacity="0.7"/>
+            <circle cx="14" cy="13" r="1.5" fill="currentColor" opacity="0.7"/>
+            <circle cx="22" cy="15" r="1.5" fill="currentColor" opacity="0.7"/>
+            <circle cx="27" cy="10" r="1.5" fill="currentColor" opacity="0.7"/>
+            <path d="M22 4l1.8-1.5M24.5 3.8l-0.7 2.2M23 6l2 0.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+            <path d="M25 7l0.8-1M26.5 6.5l-0.3 1.2" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.45"/>
+          </svg>
+        </div>
+        <h3>AI Sea Route Planning</h3>
+        <p>Auto-generate maritime routes that follow real shipping lanes, navigate through straits and canals, and stay on water. Powered by Google Gemini.</p>
+      </div>
+      <div class="feature-card animate-in">
+        <div class="feature-icon feature-icon-amber">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 4C11 4 9 4 9 6V8H7C5.5 8 5 9.5 5 9.5V25C5 26.5 6.5 28 8 28H24C25.5 28 27 26.5 27 25V9.5C27 9.5 26.5 8 25 8H23V6C23 4 21 4 21 4" stroke="currentColor" stroke-width="1.4" opacity="0.35"/>
+            <rect x="9" y="3" width="4.5" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+            <rect x="18.5" y="3" width="4.5" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M9 6h14" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+            <path d="M8 13h16" stroke="currentColor" stroke-width="0.7" opacity="0.15"/>
+            <path d="M8 18h16" stroke="currentColor" stroke-width="0.7" opacity="0.15"/>
+            <path d="M8 23h16" stroke="currentColor" stroke-width="0.7" opacity="0.15"/>
+            <path d="M9 15L10 18L12 14L15 20L18 12L20.5 17L23 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 15L10 18L12 14L15 20L18 12L20.5 17L23 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.3" filter="blur(2px)"/>
+            <circle cx="15" cy="20" r="1.2" fill="currentColor"/>
+            <circle cx="18" cy="12" r="1.2" fill="currentColor"/>
+            <path d="M10 24h12" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+            <path d="M13 26h6" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25"/>
+          </svg>
+        </div>
+        <h3>Global Fuel Market</h3>
+        <p>Track real-time bunker fuel prices at major ports worldwide — Rotterdam, Singapore, Fujairah, Houston and more. AI-powered price sync.</p>
+      </div>
+      <div class="feature-card animate-in">
+        <div class="feature-icon feature-icon-blue">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 24C6 23.5 8 23 10 23.5S14 25 16 24.5 20 22.5 22 23S26 24 28 23.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.2"/>
+            <path d="M4 27C6 26.5 8 26 10 26.5S14 28 16 27.5 20 25.5 22 26S26 27 28 26.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.15"/>
+            <path d="M16 22L10 19L8 20V22L12 24H20L24 22V20L22 19Z" fill="currentColor" opacity="0.12"/>
+            <path d="M16 10V22" stroke="currentColor" stroke-width="1.2" opacity="0.3"/>
+            <path d="M10 19L16 22L22 19" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M8 20L10 19V22L16 24.5L22 22V19L24 20" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M16 10L22 12.5V16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+            <path d="M5 8L7 11L10 9L13 12L16 7L19 10L22 8L25 11L27 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 8L7 11L10 9L13 12L16 7L19 10L22 8L25 11L27 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.25" filter="blur(2px)"/>
+            <circle cx="16" cy="7" r="1.5" fill="currentColor" opacity="0.7"/>
+            <circle cx="13" cy="12" r="1" fill="currentColor" opacity="0.5"/>
+            <circle cx="22" cy="8" r="1" fill="currentColor" opacity="0.5"/>
+          </svg>
+        </div>
+        <h3>Vessel Fuel Curves</h3>
+        <p>Model fuel consumption at different RPM and speed settings with custom fuel curve profiles. Accurate range calculations for any vessel.</p>
+      </div>
+      <div class="feature-card animate-in">
+        <div class="feature-icon feature-icon-teal">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.3" opacity="0.3"/>
+            <rect x="17" y="3" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.3" opacity="0.3"/>
+            <rect x="3" y="17" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.3" opacity="0.3"/>
+            <rect x="17" y="17" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.3" opacity="0.3"/>
+            <rect x="6" y="11" width="2" height="1.5" rx="0.5" fill="currentColor" opacity="0.7"/>
+            <rect x="9" y="9.5" width="2" height="3" rx="0.5" fill="currentColor" opacity="0.8"/>
+            <rect x="12" y="7" width="2" height="5.5" rx="0.5" fill="currentColor"/>
+            <circle cx="23" cy="9" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M23 6.5V9L25 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="23" cy="9" r="0.8" fill="currentColor"/>
+            <path d="M6 22L9 20L12 23" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 22L9 20L12 23" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.25" filter="blur(1.5px)"/>
+            <circle cx="6" cy="22" r="1.2" fill="currentColor" opacity="0.6"/>
+            <circle cx="9" cy="20" r="1.2" fill="currentColor" opacity="0.8"/>
+            <circle cx="12" cy="23" r="1.2" fill="currentColor"/>
+            <path d="M20 22h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+            <path d="M20 24.5h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.35"/>
+            <path d="M20 27h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.2"/>
+            <text x="21" y="21" font-size="4" font-weight="700" fill="currentColor" opacity="0.8">#</text>
+          </svg>
+        </div>
+        <h3>Trip Analytics</h3>
+        <p>Track every voyage with comprehensive cost and distance data. Review trip history, analyze trends, and optimize your fleet operations over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section id="screenshots" style="position:relative;">
+  <canvas class="smoke-bg" data-color="#38bdf8" style="position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;opacity:0.5;"></canvas>
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="section-tag">App Preview</span>
+      <h2>See It In Action</h2>
+      <p class="section-desc">Built with a professional maritime interface designed for efficiency at sea and ashore.</p>
+    </div>
+  </div>
+  <div class="screenshots-track animate-in">
+    <div class="screenshot-item">
+      <div class="screenshot-frame">
+        <img src="01_hero_dashboard.png" alt="Hero Dashboard - Calculate Distance, Fuel, Time & Cost">
+      </div>
+      <p class="screenshot-caption">Calculate Distance, Fuel, Time & Cost</p>
+    </div>
+    <div class="screenshot-item">
+      <div class="screenshot-frame">
+        <img src="02_route_planner.png" alt="Route Planner - AI-Powered Sea Route Planning">
+      </div>
+      <p class="screenshot-caption">AI-Powered Sea Route Planning</p>
+    </div>
+    <div class="screenshot-item">
+      <div class="screenshot-frame">
+        <img src="03_voyage_results.png" alt="Voyage Results - Detailed Trip Analysis">
+      </div>
+      <p class="screenshot-caption">Voyage Results & Analysis</p>
+    </div>
+    <div class="screenshot-item">
+      <div class="screenshot-frame">
+        <img src="04_vessel_performance.png" alt="Initialize Bridge - Set Your Rank & Take Command">
+      </div>
+      <p class="screenshot-caption">Initialize Your Bridge</p>
+    </div>
+    <div class="screenshot-item">
+      <div class="screenshot-frame">
+        <img src="05_fuel_market.png" alt="Fuel Market - Track Global Fuel Prices">
+      </div>
+      <p class="screenshot-caption">Track Global Fuel Prices</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="section-tag">Subscription</span>
+      <h2>Simple Pricing</h2>
+      <p class="section-desc">One plan. Everything included. No hidden fees.</p>
+    </div>
+    <div class="pricing-toggle animate-in">
+      <span class="pricing-toggle-label active" data-plan="monthly">Monthly</span>
+      <button class="pricing-toggle-switch" role="switch" aria-checked="false" aria-label="Toggle annual pricing"></button>
+      <span class="pricing-toggle-label" data-plan="yearly">Yearly</span>
+      <span class="pricing-save-badge">Save 17%</span>
+    </div>
+    <div class="pricing-card animate-in">
+      <div class="pricing-badge">Full Access</div>
+      <div class="pricing-amount">
+        <div class="pricing-amount-monthly active">
           <span class="pricing-currency">$</span>
-          <span class="pricing-value">X.XX</span>
+          <span class="pricing-value">9.99</span>
           <span class="pricing-period">/ month</span>
         </div>
-        <ul class="pricing-features">
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Unlimited route calculations</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> AI sea route generation</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Global fuel price tracking</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Vessel fuel curve analysis</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Trip history &amp; analytics</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Cloud sync across devices</li>
-        </ul>
-        <a href="https://app.seawise.site" class="btn btn-green btn-lg btn-full" target="_blank" rel="noopener">Start Planning</a>
+        <div class="pricing-amount-yearly">
+          <span class="pricing-currency">$</span>
+          <span class="pricing-value">99</span>
+          <span class="pricing-period">/ year</span>
+          <span class="pricing-equiv">That&rsquo;s just $8.25/mo</span>
+        </div>
+      </div>
+      <ul class="pricing-features">
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Unlimited route calculations</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> AI sea route generation</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Global fuel price tracking</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Vessel fuel curve analysis</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Trip history & analytics</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Cloud sync across devices</li>
+      </ul>
+      <a href="https://app.seawise.site/" class="btn btn-green btn-lg btn-full" target="_blank" rel="noopener">Start Planning</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" style="position:relative;">
+  <canvas class="smoke-bg" data-color="#a78bfa" style="position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;opacity:0.5;"></canvas>
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="section-tag">Reviews</span>
+      <h2>Trusted by Mariners</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card animate-in">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>&ldquo;SeaWise has transformed how we plan our voyages. The fuel calculations alone save us thousands per trip. Indispensable tool for any fleet operation.&rdquo;</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">PL</div>
+          <div>
+            <strong>Captain Peter Lombaard</strong>
+            <span>Master Mariner</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-in">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>&ldquo;Finally, accurate port-to-port distances with realistic fuel burn estimates. We switched from spreadsheets and never looked back. Essential tool.&rdquo;</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">TC</div>
+          <div>
+            <strong>Captain Teh Chung</strong>
+            <span>Master Mariner</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-in">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>&ldquo;The AI route planning is impressive — it knows every strait and shipping lane. Combined with live fuel pricing, it&rsquo;s the complete voyage planning package.&rdquo;</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JK</div>
+          <div>
+            <strong>James Kirby</strong>
+            <span>Fleet Manager</span>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- TESTIMONIALS -->
-  <section id="testimonials" class="has-smoke">
-    <canvas class="smoke-bg" data-color="#a78bfa"></canvas>
-    <div class="container">
-      <div class="section-header animate-in">
-        <span class="section-tag">Reviews</span>
-        <h2>Trusted by Mariners</h2>
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="section-tag">Support</span>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list animate-in">
+      <details class="faq-item">
+        <summary>What is SeaWise?</summary>
+        <div class="faq-answer">
+          <p>SeaWise is a port-to-port distance and fuel consumption calculator built for maritime professionals. Enter your origin and destination ports, configure your vessel's speed and fuel burn rate, and get precise calculations for distance (nautical miles), fuel consumption (liters or gallons), estimated travel time, and total voyage cost. It also includes AI-powered sea route generation and a global fuel price tracker.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>How accurate are the distance calculations?</summary>
+        <div class="faq-answer">
+          <p>SeaWise uses AI-powered route generation with Google Search grounding to plot realistic maritime routes that follow established shipping lanes, navigate through straits and canals, and avoid land. Distance is calculated using the Haversine formula along the generated waypoints, giving you nautical mile accuracy that reflects actual sailing routes rather than straight-line estimates.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>How does AI route planning work?</summary>
+        <div class="faq-answer">
+          <p>When you enter origin and destination ports, our AI analyzes the route and generates maritime waypoints that follow real shipping lanes. It accounts for major chokepoints like the English Channel, Strait of Gibraltar, Suez Canal, Malacca Strait, and Panama Canal. The AI uses Google Search grounding to access real geographic data, ensuring waypoints stay on navigable water.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What devices is SeaWise available on?</summary>
+        <div class="faq-answer">
+          <p>SeaWise is available as a web app accessible from any modern browser at <a href="https://app.seawise.site/" target="_blank" rel="noopener">app.seawise.site</a>. Native iOS and Android apps are coming soon to the Apple App Store and Google Play Store. Your data syncs seamlessly across all your devices via cloud storage.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I track fuel prices?</summary>
+        <div class="faq-answer">
+          <p>The Global Fuel Market feature tracks bunker fuel prices at major ports worldwide including Rotterdam, Singapore, Fujairah, Houston, Gibraltar, Panama Canal, and Miami. Prices are updated via AI-powered sync that pulls the latest rates from global fuel suppliers. You can view prices per liter or per gallon, compare across ports, and factor live pricing into your voyage cost estimates.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section id="cta" style="position:relative;">
+  <canvas class="smoke-bg" data-color="#10b981" style="position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;opacity:0.5;"></canvas>
+  <div class="container">
+    <div class="cta-card animate-in">
+      <h2>Ready to Plan Your Next Voyage?</h2>
+      <p>Calculate distance, fuel, time and cost for any port-to-port route in seconds.</p>
+      <a href="https://app.seawise.site/" class="btn btn-green btn-lg" target="_blank" rel="noopener">Launch SeaWise</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <img src="seawise-logo.png" alt="SeaWise" class="footer-logo">
+          <span class="footer-wordmark">SEAWISE</span>
+        </div>
+        <p class="footer-tagline">Port-to-port distance and fuel consumption calculator for maritime professionals.</p>
+        <p class="footer-company">A JK Yacht Ops company</p>
       </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card animate-in">
-          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <blockquote>&ldquo;SeaWise has transformed how we plan our voyages. The fuel calculations alone save us thousands per trip. Indispensable tool for any fleet operation.&rdquo;</blockquote>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">JM</div>
-            <div>
-              <strong>Captain J. Morrison</strong>
-              <span>Fleet Manager, Atlantic Shipping Co.</span>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card animate-in">
-          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <blockquote>&ldquo;Finally, accurate port-to-port distances with realistic fuel burn estimates. We switched from spreadsheets and never looked back. Essential tool.&rdquo;</blockquote>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">MS</div>
-            <div>
-              <strong>Maria Santos</strong>
-              <span>Operations Director, Pacific Logistics</span>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card animate-in">
-          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <blockquote>&ldquo;The AI route planning is impressive &mdash; it knows every strait and shipping lane. Combined with live fuel pricing, it&rsquo;s the complete voyage planning package.&rdquo;</blockquote>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">HL</div>
-            <div>
-              <strong>Henrik Larsson</strong>
-              <span>Master Mariner, Nordic Vessel Group</span>
-            </div>
-          </div>
-        </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="https://seawise.site/#features">Features</a>
+        <a href="https://seawise.site/#screenshots">Screenshots</a>
+        <a href="https://seawise.site/#pricing">Pricing</a>
+        <a href="https://seawise.site/#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="https://seawise.site/privacy.html">Privacy Policy</a>
+        <a href="https://seawise.site/terms.html">Terms of Service</a>
+        <a href="https://seawise.site/support.html">Support</a>
+        <a href="mailto:service@seawise.site">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Download</h4>
+        <a href="#" class="store-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"></path></svg>
+          App Store — Coming Soon
+        </a>
+        <a href="#" class="store-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.67L14.32 12.53 3.18.34c-.27.12-.18.96-.18 1.2V22.5c0 .23-.09 1.03.18 1.17zM16.8 10.06L5.82 3.72l9.16 9.16L16.8 10.06zm.59 3.37l-1.83-1.83-9.16 9.16L16.8 14.42l.59-.99zM21.2 11.1l-3.39-1.98-2.09 2.09 2.09 2.09 3.39-1.98c.58-.34.58-1.88 0-2.22z"></path></svg>
+          Google Play — Coming Soon
+        </a>
       </div>
     </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="container">
-      <div class="section-header animate-in">
-        <span class="section-tag">Support</span>
-        <h2>Frequently Asked Questions</h2>
-      </div>
-      <div class="faq-list animate-in">
-        <details class="faq-item">
-          <summary>What is SeaWise?</summary>
-          <div class="faq-answer">
-            <p>SeaWise is a port-to-port distance and fuel consumption calculator built for maritime professionals. Enter your origin and destination ports, configure your vessel's speed and fuel burn rate, and get precise calculations for distance (nautical miles), fuel consumption (liters or gallons), estimated travel time, and total voyage cost. It also includes AI-powered sea route generation and a global fuel price tracker.</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>How accurate are the distance calculations?</summary>
-          <div class="faq-answer">
-            <p>SeaWise uses AI-powered route generation with Google Search grounding to plot realistic maritime routes that follow established shipping lanes, navigate through straits and canals, and avoid land. Distance is calculated using the Haversine formula along the generated waypoints, giving you nautical mile accuracy that reflects actual sailing routes rather than straight-line estimates.</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>How does AI route planning work?</summary>
-          <div class="faq-answer">
-            <p>When you enter origin and destination ports, our AI analyzes the route and generates maritime waypoints that follow real shipping lanes. It accounts for major chokepoints like the English Channel, Strait of Gibraltar, Suez Canal, Malacca Strait, and Panama Canal. The AI uses Google Search grounding to access real geographic data, ensuring waypoints stay on navigable water.</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>What devices is SeaWise available on?</summary>
-          <div class="faq-answer">
-            <p>SeaWise is available as a web app accessible from any modern browser at <a href="https://app.seawise.site" target="_blank" rel="noopener">app.seawise.site</a>. Native iOS and Android apps are coming soon to the Apple App Store and Google Play Store. Your data syncs seamlessly across all your devices via cloud storage.</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>How do I track fuel prices?</summary>
-          <div class="faq-answer">
-            <p>The Global Fuel Market feature tracks bunker fuel prices at major ports worldwide including Rotterdam, Singapore, Fujairah, Houston, Gibraltar, Panama Canal, and Miami. Prices are updated via AI-powered sync that pulls the latest rates from global fuel suppliers. You can view prices per liter or per gallon, compare across ports, and factor live pricing into your voyage cost estimates.</p>
-          </div>
-        </details>
-      </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 JK Yacht Ops. All rights reserved.</p>
+      <p>SeaWise v2.4.1</p>
     </div>
-  </section>
+  </div>
+</footer>
 
-  <!-- CTA BANNER -->
-  <section id="cta" class="has-smoke">
-    <canvas class="smoke-bg" data-color="#10b981"></canvas>
-    <div class="container">
-      <div class="cta-card animate-in">
-        <h2>Ready to Plan Your Next Voyage?</h2>
-        <p>Calculate distance, fuel, time and cost for any port-to-port route in seconds.</p>
-        <a href="https://app.seawise.site" class="btn btn-green btn-lg" target="_blank" rel="noopener">Launch SeaWise</a>
-      </div>
-    </div>
-  </section>
+<!-- CHAT WIDGET -->
+<button class="chat-fab" id="chatFab" aria-label="Chat with us">
+  <svg class="icon-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="var(--bg-deep)" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</button>
 
-  <!-- FOOTER -->
-  <footer id="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo-row">
-            <img src="images/logo.png" alt="SeaWise" class="footer-logo" />
-            <span class="footer-wordmark">SEAWISE</span>
-          </div>
-          <p class="footer-tagline">Port-to-port distance and fuel consumption calculator for maritime professionals.</p>
-          <p class="footer-company">A JK Yacht Ops company</p>
-        </div>
-        <div class="footer-col">
-          <h4>Product</h4>
-          <a href="#features">Features</a>
-          <a href="#screenshots">Screenshots</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#faq">FAQ</a>
-        </div>
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms of Service</a>
-          <a href="support.html">Support</a>
-          <a href="mailto:contact@seawise.site">Contact</a>
-        </div>
-        <div class="footer-col">
-          <h4>Download</h4>
-          <a href="#" class="store-badge">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            App Store — Coming Soon
-          </a>
-          <a href="#" class="store-badge">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.67L14.32 12.53 3.18.34c-.27.12-.18.96-.18 1.2V22.5c0 .23-.09 1.03.18 1.17zM16.8 10.06L5.82 3.72l9.16 9.16L16.8 10.06zm.59 3.37l-1.83-1.83-9.16 9.16L16.8 14.42l.59-.99zM21.2 11.1l-3.39-1.98-2.09 2.09 2.09 2.09 3.39-1.98c.58-.34.58-1.88 0-2.22z"/></svg>
-            Google Play — Coming Soon
-          </a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 JK Yacht Ops. All rights reserved.</p>
-        <p>SeaWise v2.4.1</p>
-      </div>
-    </div>
-  </footer>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <h4>SeaWise Support</h4>
+    <p>How can we help you today?</p>
+  </div>
+  <div class="chat-body">
+    <div class="chat-msg">Hi there! Choose an option below or email us directly.</div>
+    <a href="mailto:service@seawise.site?subject=SeaWise%20Support%20Request" class="chat-option">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Email us at service@seawise.site
+    </a>
+    <a href="https://app.seawise.site/" target="_blank" rel="noopener" class="chat-option">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Launch the Web App
+    </a>
+    <a href="#faq" class="chat-option" onclick="document.getElementById('chatFab').click()">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      View FAQ
+    </a>
+  </div>
+</div>
 
-  <script src="smoke.js"></script>
-  <script src="script.js"></script>
+<script>
+  // Chat widget toggle
+  document.getElementById('chatFab').addEventListener('click', function() {
+    this.classList.toggle('open');
+    document.getElementById('chatPanel').classList.toggle('open');
+  });
+
+  // Scroll animation observer with robust fallback
+  const animEls = document.querySelectorAll('.animate-in');
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px 60px 0px' });
+
+    animEls.forEach(el => observer.observe(el));
+
+    // Immediately reveal anything already in viewport on load
+    requestAnimationFrame(() => {
+      animEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('visible');
+        }
+      });
+    });
+  } else {
+    // No IntersectionObserver support — show everything
+    animEls.forEach(el => el.classList.add('visible'));
+  }
+
+  // Safety net: reveal all after 2s regardless
+  setTimeout(() => {
+    animEls.forEach(el => el.classList.add('visible'));
+  }, 2000);
+
+  // Pricing toggle (monthly ↔ yearly)
+  const pricingSwitch = document.querySelector('.pricing-toggle-switch');
+  const monthlyLabel = document.querySelector('.pricing-toggle-label[data-plan="monthly"]');
+  const yearlyLabel = document.querySelector('.pricing-toggle-label[data-plan="yearly"]');
+  const monthlyAmount = document.querySelector('.pricing-amount-monthly');
+  const yearlyAmount = document.querySelector('.pricing-amount-yearly');
+
+  if (pricingSwitch) {
+    pricingSwitch.addEventListener('click', () => {
+      const isYearly = pricingSwitch.getAttribute('aria-checked') === 'true';
+      const newState = !isYearly;
+      pricingSwitch.setAttribute('aria-checked', String(newState));
+      monthlyLabel.classList.toggle('active', !newState);
+      yearlyLabel.classList.toggle('active', newState);
+      monthlyAmount.classList.toggle('hidden', newState);
+      monthlyAmount.classList.toggle('active', !newState);
+      yearlyAmount.classList.toggle('active', newState);
+    });
+    // Allow clicking the labels too
+    monthlyLabel.addEventListener('click', () => {
+      if (pricingSwitch.getAttribute('aria-checked') === 'true') pricingSwitch.click();
+    });
+    yearlyLabel.addEventListener('click', () => {
+      if (pricingSwitch.getAttribute('aria-checked') !== 'true') pricingSwitch.click();
+    });
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.background =
+      window.scrollY > 50 ? 'rgba(10,22,40,0.95)' : 'rgba(10,22,40,0.85)';
+  });
+</script>
+
+<!-- SMOKE BACKDROP -->
+<style>
+  .hero > *:not(canvas) { position: relative; z-index: 1; }
+  #screenshots > .container, #testimonials > .container, #cta > .container { position: relative; z-index: 1; }
+</style>
+<script>
+(function(){
+  var frag='#version 300 es\nprecision highp float;\nout vec4 O;\nuniform float time;\nuniform vec2 resolution;\nuniform vec3 u_color;\n#define FC gl_FragCoord.xy\n#define R resolution\n#define T (time+660.)\nfloat rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}\nfloat noise(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);return mix(mix(rnd(i),rnd(i+vec2(1,0)),u.x),mix(rnd(i+vec2(0,1)),rnd(i+1.),u.x),u.y);}\nfloat fbm(vec2 p){float t=.0,a=1.;for(int i=0;i<5;i++){t+=a*noise(p);p*=mat2(1,-1.2,.2,1.2)*2.;a*=.5;}return t;}\nvoid main(){\n  vec2 uv=(FC-.5*R)/R.y;\n  vec3 col=vec3(1);\n  uv.x+=.25;\n  uv*=vec2(2,1);\n  float n=fbm(uv*.28-vec2(T*.01,0));\n  n=noise(uv*3.+n*2.);\n  col.r-=fbm(uv+vec2(0,T*.015)+n);\n  col.g-=fbm(uv*1.003+vec2(0,T*.015)+n+.003);\n  col.b-=fbm(uv*1.006+vec2(0,T*.015)+n+.006);\n  col=mix(col,u_color,dot(col,vec3(.21,.71,.07)));\n  col=mix(vec3(.04,.10,.19),col,min(time*.1,1.));\n  col=clamp(col,.04,1.);\n  O=vec4(col,1);\n}';
+  var vert='#version 300 es\nprecision highp float;\nin vec4 position;\nvoid main(){gl_Position=position;}';
+  function hex(h){var r=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h);return r?[parseInt(r[1],16)/255,parseInt(r[2],16)/255,parseInt(r[3],16)/255]:[.5,.5,.5];}
+  function make(c,color){var gl=c.getContext('webgl2');if(!gl){c.style.display='none';return null;}function comp(t,s){var sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}var vs=comp(gl.VERTEX_SHADER,vert),fs=comp(gl.FRAGMENT_SHADER,frag),p=gl.createProgram();gl.attachShader(p,vs);gl.attachShader(p,fs);gl.linkProgram(p);var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,1,-1,-1,1,1,1,-1]),gl.STATIC_DRAW);var pos=gl.getAttribLocation(p,'position');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);var uR=gl.getUniformLocation(p,'resolution'),uT=gl.getUniformLocation(p,'time'),uC=gl.getUniformLocation(p,'u_color'),rgb=hex(color);return{resize:function(){var d=Math.min(devicePixelRatio||1,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;gl.viewport(0,0,c.width,c.height);},render:function(now){gl.clearColor(0,0,0,1);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(p);gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.uniform2f(uR,c.width,c.height);gl.uniform1f(uT,now*.001);gl.uniform3fv(uC,rgb);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);}};}
+  var rs=[];var hero=document.getElementById('smoke-canvas');if(hero){var h=make(hero,'#2dd4bf');if(h)rs.push(h);}var bgs=document.querySelectorAll('.smoke-bg');for(var i=0;i<bgs.length;i++){var r=make(bgs[i],bgs[i].getAttribute('data-color')||'#2dd4bf');if(r)rs.push(r);}if(!rs.length)return;function ra(){for(var i=0;i<rs.length;i++)rs[i].resize();}ra();window.addEventListener('resize',ra);function loop(n){for(var i=0;i<rs.length;i++)rs[i].render(n);requestAnimationFrame(loop);}requestAnimationFrame(loop);
+})();
+</script>
+
 </body>
 </html>

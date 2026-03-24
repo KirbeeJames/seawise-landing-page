@@ -230,36 +230,10 @@ body {
   overflow: hidden;
 }
 
-.hero-wave {
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  top: -50%;
-  left: -50%;
-  border-radius: 45%;
-  opacity: 0.08;
-}
-
-.hero-wave-1 {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-teal));
-  animation: wave-rotate 25s linear infinite;
-}
-
-.hero-wave-2 {
-  background: linear-gradient(135deg, var(--accent-teal), var(--accent-green));
-  animation: wave-rotate 30s linear infinite reverse;
-  opacity: 0.05;
-}
-
-.hero-wave-3 {
-  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-  animation: wave-rotate 35s linear infinite;
-  opacity: 0.04;
-}
-
-@keyframes wave-rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.hero-bg canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .hero-content {

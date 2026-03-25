@@ -1096,18 +1096,22 @@
       <div class="feature-card animate-in">
         <div class="feature-icon feature-icon-cyan">
           <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.2" opacity="0.3"/>
-            <circle cx="16" cy="16" r="9" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 3"/>
-            <path d="M16 3C16 3 20.5 9 20.5 16S16 29 16 29" stroke="currentColor" stroke-width="1.3" opacity="0.5"/>
-            <path d="M16 3C16 3 11.5 9 11.5 16S16 29 16 29" stroke="currentColor" stroke-width="1.3" opacity="0.5"/>
-            <line x1="3" y1="16" x2="29" y2="16" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-            <circle cx="9" cy="13" r="2" fill="currentColor" opacity="0.6"/>
-            <circle cx="22" cy="19" r="2" fill="currentColor" opacity="0.6"/>
-            <path d="M9 13L14 11L18 15L22 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="9" cy="13" r="1" fill="currentColor"/>
-            <circle cx="22" cy="19" r="1" fill="currentColor"/>
-            <path d="M24.5 8.5L26 7M7.5 23.5L6 25" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
-            <path d="M25 16h3M4 16H7" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25"/>
+            <!-- Compass body -->
+            <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="0.6" opacity="0.25"/>
+            <!-- Cardinal ticks -->
+            <line x1="16" y1="3" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="16" y1="26" x2="16" y2="29" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="3" y1="16" x2="6" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="26" y1="16" x2="29" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- N marker -->
+            <text x="16" y="9.5" font-size="4" font-weight="800" fill="currentColor" text-anchor="middle">N</text>
+            <!-- Compass needle north (filled) -->
+            <polygon points="16,10.5 14,17 16,16 18,17" fill="currentColor"/>
+            <!-- Compass needle south (outline) -->
+            <polygon points="16,21.5 14,17 16,16 18,17" stroke="currentColor" stroke-width="0.6" fill="currentColor" opacity="0.25"/>
+            <!-- Center pin -->
+            <circle cx="16" cy="16" r="1.2" fill="currentColor"/>
           </svg>
         </div>
         <h3>Distance & Fuel Calculator</h3>
@@ -1116,22 +1120,23 @@
       <div class="feature-card animate-in">
         <div class="feature-icon feature-icon-green">
           <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="16" cy="16" r="12.5" stroke="currentColor" stroke-width="1.5"/>
-            <circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
-            <path d="M16 6V16L21 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="16" cy="16" r="1.5" fill="currentColor"/>
-            <line x1="16" y1="3" x2="16" y2="5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="16" y1="26.5" x2="16" y2="29" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="3" y1="16" x2="5.5" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="26.5" y1="16" x2="29" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="16" cy="4.5" r="0.6" fill="currentColor" opacity="0.4"/>
-            <circle cx="16" cy="27.5" r="0.6" fill="currentColor" opacity="0.4"/>
-            <circle cx="4.5" cy="16" r="0.6" fill="currentColor" opacity="0.4"/>
-            <circle cx="27.5" cy="16" r="0.6" fill="currentColor" opacity="0.4"/>
-            <path d="M24.5 24.5L26.5 26.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="27" y1="27" x2="29" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="27" y1="27" x2="27" y2="29" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <text x="27.5" y="28.8" font-size="4.5" font-weight="700" fill="currentColor" text-anchor="middle">$</text>
+            <!-- Ship's chronometer / stopwatch -->
+            <circle cx="16" cy="17" r="12" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="16" cy="17" r="10" stroke="currentColor" stroke-width="0.6" opacity="0.2"/>
+            <!-- Crown/button -->
+            <rect x="14.5" y="2" width="3" height="4" rx="1" stroke="currentColor" stroke-width="1.3"/>
+            <!-- Hour hand -->
+            <path d="M16 17V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <!-- Minute hand -->
+            <path d="M16 17L22 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="16" cy="17" r="1.5" fill="currentColor"/>
+            <!-- Tick marks -->
+            <line x1="16" y1="5.5" x2="16" y2="7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="16" y1="26.5" x2="16" y2="28.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="4.5" y1="17" x2="6.5" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="25.5" y1="17" x2="27.5" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Dollar sign -->
+            <text x="16" y="25" font-size="5" font-weight="800" fill="currentColor" text-anchor="middle" opacity="0.6">$</text>
           </svg>
         </div>
         <h3>Travel Time & Cost</h3>
@@ -1140,20 +1145,23 @@
       <div class="feature-card animate-in">
         <div class="feature-icon feature-icon-purple">
           <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="5" width="24" height="22" rx="3" stroke="currentColor" stroke-width="1.3" opacity="0.35"/>
-            <path d="M4 10h24" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
-            <path d="M4 16h24" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
-            <path d="M4 22h24" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
-            <path d="M10 5v22" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
-            <path d="M16 5v22" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
-            <path d="M22 5v22" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
-            <path d="M7 20C9 18 11 14 14 13C17 12 19 17 22 15C24 13.5 26 11 27 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="7" cy="20" r="1.5" fill="currentColor" opacity="0.7"/>
-            <circle cx="14" cy="13" r="1.5" fill="currentColor" opacity="0.7"/>
-            <circle cx="22" cy="15" r="1.5" fill="currentColor" opacity="0.7"/>
-            <circle cx="27" cy="10" r="1.5" fill="currentColor" opacity="0.7"/>
-            <path d="M22 4l1.8-1.5M24.5 3.8l-0.7 2.2M23 6l2 0.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
-            <path d="M25 7l0.8-1M26.5 6.5l-0.3 1.2" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.45"/>
+            <!-- Vessel hull -->
+            <path d="M4 22L6 26H26L28 22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 26L7 24H25L26 26" fill="currentColor" opacity="0.1"/>
+            <!-- Superstructure -->
+            <rect x="10" y="16" width="12" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/>
+            <rect x="12" y="17.5" width="3" height="3" rx="0.5" fill="currentColor" opacity="0.3"/>
+            <rect x="17" y="17.5" width="3" height="3" rx="0.5" fill="currentColor" opacity="0.3"/>
+            <!-- Bridge -->
+            <rect x="13" y="12" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.3"/>
+            <rect x="14.5" y="13" width="3" height="2" rx="0.5" fill="currentColor" opacity="0.4"/>
+            <!-- Mast -->
+            <line x1="16" y1="12" x2="16" y2="7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <!-- AI sparkles -->
+            <path d="M23 8l1-2.5 1 2.5-2.5 1 2.5 1-1 2.5-1-2.5-2.5-1z" fill="currentColor" opacity="0.6"/>
+            <path d="M7 12l0.6-1.5 0.6 1.5-1.5 0.6 1.5 0.6-0.6 1.5-0.6-1.5-1.5-0.6z" fill="currentColor" opacity="0.4"/>
+            <!-- Water waves -->
+            <path d="M2 28c2-1 4-1 6 0s4 1 6 0 4-1 6 0 4 1 6 0" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25"/>
           </svg>
         </div>
         <h3>AI Sea Route Planning</h3>
@@ -1162,19 +1170,22 @@
       <div class="feature-card animate-in">
         <div class="feature-icon feature-icon-amber">
           <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 4C11 4 9 4 9 6V8H7C5.5 8 5 9.5 5 9.5V25C5 26.5 6.5 28 8 28H24C25.5 28 27 26.5 27 25V9.5C27 9.5 26.5 8 25 8H23V6C23 4 21 4 21 4" stroke="currentColor" stroke-width="1.4" opacity="0.35"/>
-            <rect x="9" y="3" width="4.5" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
-            <rect x="18.5" y="3" width="4.5" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
-            <path d="M9 6h14" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-            <path d="M8 13h16" stroke="currentColor" stroke-width="0.7" opacity="0.15"/>
-            <path d="M8 18h16" stroke="currentColor" stroke-width="0.7" opacity="0.15"/>
-            <path d="M8 23h16" stroke="currentColor" stroke-width="0.7" opacity="0.15"/>
-            <path d="M9 15L10 18L12 14L15 20L18 12L20.5 17L23 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 15L10 18L12 14L15 20L18 12L20.5 17L23 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.3" filter="blur(2px)"/>
-            <circle cx="15" cy="20" r="1.2" fill="currentColor"/>
-            <circle cx="18" cy="12" r="1.2" fill="currentColor"/>
-            <path d="M10 24h12" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
-            <path d="M13 26h6" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.25"/>
+            <!-- Fuel pump body -->
+            <rect x="5" y="10" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <!-- Pump display/meter -->
+            <rect x="8" y="13" width="8" height="5" rx="1" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <text x="12" y="17" font-size="4" font-weight="700" fill="currentColor" text-anchor="middle" opacity="0.6">$</text>
+            <!-- Nozzle -->
+            <path d="M19 15H22V10C22 8 24 8 24 8V19C24 20 23 20 23 20H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Hose curve -->
+            <path d="M24 19C26 19 27 17 27 15V12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+            <!-- Fuel drop -->
+            <path d="M27 9C27 9 29 12 29 13.5C29 15 28 15.5 27 15.5S25 15 25 13.5C25 12 27 9 27 9Z" fill="currentColor" opacity="0.5"/>
+            <!-- Pump base -->
+            <rect x="3" y="28" width="18" height="2" rx="1" fill="currentColor" opacity="0.3"/>
+            <!-- Price display lines -->
+            <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+            <line x1="8" y1="23.5" x2="14" y2="23.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.2"/>
           </svg>
         </div>
         <h3>Global Fuel Market</h3>
@@ -1183,18 +1194,24 @@
       <div class="feature-card animate-in">
         <div class="feature-icon feature-icon-blue">
           <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 24C6 23.5 8 23 10 23.5S14 25 16 24.5 20 22.5 22 23S26 24 28 23.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.2"/>
-            <path d="M4 27C6 26.5 8 26 10 26.5S14 28 16 27.5 20 25.5 22 26S26 27 28 26.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.15"/>
-            <path d="M16 22L10 19L8 20V22L12 24H20L24 22V20L22 19Z" fill="currentColor" opacity="0.12"/>
-            <path d="M16 10V22" stroke="currentColor" stroke-width="1.2" opacity="0.3"/>
-            <path d="M10 19L16 22L22 19" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-            <path d="M8 20L10 19V22L16 24.5L22 22V19L24 20" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-            <path d="M16 10L22 12.5V16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
-            <path d="M5 8L7 11L10 9L13 12L16 7L19 10L22 8L25 11L27 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M5 8L7 11L10 9L13 12L16 7L19 10L22 8L25 11L27 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.25" filter="blur(2px)"/>
-            <circle cx="16" cy="7" r="1.5" fill="currentColor" opacity="0.7"/>
-            <circle cx="13" cy="12" r="1" fill="currentColor" opacity="0.5"/>
-            <circle cx="22" cy="8" r="1" fill="currentColor" opacity="0.5"/>
+            <!-- Engine gauge / tachometer -->
+            <path d="M16 29C8.8 29 3 23.2 3 16S8.8 3 16 3s13 5.8 13 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="0.6" opacity="0.2"/>
+            <!-- Gauge markings -->
+            <line x1="16" y1="5.5" x2="16" y2="7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="7" y1="10" x2="8.5" y2="11.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="5.5" y1="16" x2="7.5" y2="16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="7" y1="22" x2="8.5" y2="20.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="25" y1="10" x2="23.5" y2="11.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <!-- RPM labels -->
+            <text x="16" y="9.5" font-size="3" fill="currentColor" text-anchor="middle" opacity="0.4">RPM</text>
+            <!-- Needle pointing to high RPM -->
+            <path d="M16 16L24 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="16" cy="16" r="2" fill="currentColor"/>
+            <!-- Red zone arc -->
+            <path d="M24 22C26.5 19.5 28 16.5 28 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+            <!-- Speed/burn readout -->
+            <text x="16" y="24" font-size="3.5" font-weight="600" fill="currentColor" text-anchor="middle" opacity="0.5">kn/L</text>
           </svg>
         </div>
         <h3>Vessel Fuel Curves</h3>
@@ -1203,25 +1220,23 @@
       <div class="feature-card animate-in">
         <div class="feature-icon feature-icon-teal">
           <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="3" y="3" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.3" opacity="0.3"/>
-            <rect x="17" y="3" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.3" opacity="0.3"/>
-            <rect x="3" y="17" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.3" opacity="0.3"/>
-            <rect x="17" y="17" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.3" opacity="0.3"/>
-            <rect x="6" y="11" width="2" height="1.5" rx="0.5" fill="currentColor" opacity="0.7"/>
-            <rect x="9" y="9.5" width="2" height="3" rx="0.5" fill="currentColor" opacity="0.8"/>
-            <rect x="12" y="7" width="2" height="5.5" rx="0.5" fill="currentColor"/>
-            <circle cx="23" cy="9" r="4.5" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M23 6.5V9L25 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="23" cy="9" r="0.8" fill="currentColor"/>
-            <path d="M6 22L9 20L12 23" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6 22L9 20L12 23" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.25" filter="blur(1.5px)"/>
-            <circle cx="6" cy="22" r="1.2" fill="currentColor" opacity="0.6"/>
-            <circle cx="9" cy="20" r="1.2" fill="currentColor" opacity="0.8"/>
-            <circle cx="12" cy="23" r="1.2" fill="currentColor"/>
-            <path d="M20 22h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
-            <path d="M20 24.5h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.35"/>
-            <path d="M20 27h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.2"/>
-            <text x="21" y="21" font-size="4" font-weight="700" fill="currentColor" opacity="0.8">#</text>
+            <!-- Captain's logbook -->
+            <rect x="5" y="3" width="22" height="26" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <!-- Spine -->
+            <line x1="10" y1="3" x2="10" y2="29" stroke="currentColor" stroke-width="1.5"/>
+            <!-- Binding rings -->
+            <circle cx="10" cy="9" r="1.5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <circle cx="10" cy="16" r="1.5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <circle cx="10" cy="23" r="1.5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <!-- Log entries -->
+            <line x1="13" y1="8" x2="24" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+            <line x1="13" y1="11" x2="22" y2="11" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+            <line x1="13" y1="14" x2="24" y2="14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+            <line x1="13" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+            <line x1="13" y1="20" x2="24" y2="20" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+            <line x1="13" y1="23" x2="21" y2="23" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+            <!-- Anchor watermark -->
+            <path d="M19 12V20M16 17H22M19 20C17 20 15.5 19 15.5 17.5M19 20C21 20 22.5 19 22.5 17.5" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.12"/>
           </svg>
         </div>
         <h3>Trip Analytics</h3>

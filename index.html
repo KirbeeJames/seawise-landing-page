@@ -1019,6 +1019,45 @@
 
     .store-badges { flex-direction: column; align-items: center; }
   }
+
+  /* Coming Soon Popup */
+  .coming-soon-bubble {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background: linear-gradient(135deg, #0d2137 0%, #112a45 100%);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 12px;
+    padding: 14px 22px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(56, 189, 248, 0.1);
+  }
+  .coming-soon-bubble.show {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    pointer-events: auto;
+  }
+  .coming-soon-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: rgba(56, 189, 248, 0.3);
+  }
+  .coming-soon-text {
+    color: #38bdf8;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+  .store-badge { position: relative; }
 </style>
 </head>
 <body>
@@ -1067,14 +1106,14 @@
   </div>
 
   <div class="store-badges">
-    <a href="#" class="store-badge">
+    <a href="javascript:void(0)" class="store-badge" onclick="showComingSoon(this)">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
       <div>
         <span class="badge-label">Download on the</span>
         <span class="badge-store">App Store</span>
       </div>
     </a>
-    <a href="#" class="store-badge">
+    <a href="javascript:void(0)" class="store-badge" onclick="showComingSoon(this)">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.67L14.32 12.53 3.18.34c-.27.12-.18.96-.18 1.2V22.5c0 .23-.09 1.03.18 1.17zM16.8 10.06L5.82 3.72l9.16 9.16L16.8 10.06zm.59 3.37l-1.83-1.83-9.16 9.16L16.8 14.42l.59-.99zM21.2 11.1l-3.39-1.98-2.09 2.09 2.09 2.09 3.39-1.98c.58-.34.58-1.88 0-2.22z"/></svg>
       <div>
         <span class="badge-label">Get it on</span>
@@ -1460,11 +1499,11 @@
       </div>
       <div class="footer-col">
         <h4>Download</h4>
-        <a href="#" class="store-badge">
+        <a href="javascript:void(0)" class="store-badge" onclick="showComingSoon(this)">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"></path></svg>
           App Store — Coming Soon
         </a>
-        <a href="#" class="store-badge">
+        <a href="javascript:void(0)" class="store-badge" onclick="showComingSoon(this)">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.67L14.32 12.53 3.18.34c-.27.12-.18.96-.18 1.2V22.5c0 .23-.09 1.03.18 1.17zM16.8 10.06L5.82 3.72l9.16 9.16L16.8 10.06zm.59 3.37l-1.83-1.83-9.16 9.16L16.8 14.42l.59-.99zM21.2 11.1l-3.39-1.98-2.09 2.09 2.09 2.09 3.39-1.98c.58-.34.58-1.88 0-2.22z"></path></svg>
           Google Play — Coming Soon
         </a>
@@ -1593,6 +1632,30 @@
   function make(c,color){var gl=c.getContext('webgl2');if(!gl){c.style.display='none';return null;}function comp(t,s){var sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}var vs=comp(gl.VERTEX_SHADER,vert),fs=comp(gl.FRAGMENT_SHADER,frag),p=gl.createProgram();gl.attachShader(p,vs);gl.attachShader(p,fs);gl.linkProgram(p);var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,1,-1,-1,1,1,1,-1]),gl.STATIC_DRAW);var pos=gl.getAttribLocation(p,'position');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);var uR=gl.getUniformLocation(p,'resolution'),uT=gl.getUniformLocation(p,'time'),uC=gl.getUniformLocation(p,'u_color'),rgb=hex(color);return{resize:function(){var d=Math.min(devicePixelRatio||1,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;gl.viewport(0,0,c.width,c.height);},render:function(now){gl.clearColor(0,0,0,1);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(p);gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.uniform2f(uR,c.width,c.height);gl.uniform1f(uT,now*.001);gl.uniform3fv(uC,rgb);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);}};}
   var rs=[];var hero=document.getElementById('smoke-canvas');if(hero){var h=make(hero,'#2dd4bf');if(h)rs.push(h);}var bgs=document.querySelectorAll('.smoke-bg');for(var i=0;i<bgs.length;i++){var r=make(bgs[i],bgs[i].getAttribute('data-color')||'#2dd4bf');if(r)rs.push(r);}if(!rs.length)return;function ra(){for(var i=0;i<rs.length;i++)rs[i].resize();}ra();window.addEventListener('resize',ra);function loop(n){for(var i=0;i<rs.length;i++)rs[i].render(n);requestAnimationFrame(loop);}requestAnimationFrame(loop);
 })();
+</script>
+
+<script>
+function showComingSoon(el) {
+  // Remove any existing bubbles
+  document.querySelectorAll('.coming-soon-bubble').forEach(function(b) { b.remove(); });
+  // Create bubble
+  var bubble = document.createElement('div');
+  bubble.className = 'coming-soon-bubble';
+  bubble.innerHTML = '<span class="coming-soon-text">Coming April 2026</span>';
+  el.style.position = 'relative';
+  el.appendChild(bubble);
+  // Animate in
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      bubble.classList.add('show');
+    });
+  });
+  // Auto-hide after 3 seconds
+  setTimeout(function() {
+    bubble.classList.remove('show');
+    setTimeout(function() { bubble.remove(); }, 300);
+  }, 3000);
+}
 </script>
 
 </body>

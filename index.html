@@ -450,42 +450,126 @@
   #screenshots {
     padding: 100px 0;
   }
-  .screenshots-track {
+  .carousel-wrapper {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .carousel-stage {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-    padding: 0 12px 8px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .screenshot-item {
-    flex: 1 1 0;
-    min-width: 160px;
-    text-align: center;
+  .carousel-slide {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
   }
-  .screenshot-frame {
+  .carousel-slide .screenshot-frame {
     width: 100%;
+    max-width: 360px;
     aspect-ratio: 9 / 16;
     border-radius: var(--radius);
     overflow: hidden;
     border: 2px solid var(--border);
     background: var(--bg-card);
     transition: border-color 0.3s;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(100,255,218,0.08);
   }
-  .screenshot-frame:hover {
-    border-color: var(--accent);
-  }
-  .screenshot-frame img {
+  .carousel-slide .screenshot-frame img {
     width: 100%;
     height: 100%;
     display: block;
     object-fit: cover;
     object-position: top center;
   }
-  .screenshot-caption {
-    margin-top: 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
+  .carousel-caption {
+    margin-top: 24px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+  }
+  .carousel-subcaption {
+    margin-top: 8px;
+    font-size: 0.85rem;
     color: var(--text-secondary);
+    max-width: 400px;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 32px;
+  }
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
+  }
+  .carousel-dot.active {
+    background: var(--accent-cyan);
+    box-shadow: 0 0 12px rgba(56,189,248,0.5);
+    transform: scale(1.2);
+  }
+  .carousel-progress {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .carousel-progress-bar {
+    height: 100%;
+    background: var(--accent-cyan);
+    border-radius: 3px;
+    animation: carouselProgress 5s linear infinite;
+  }
+  @keyframes carouselProgress {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-70%);
+    background: rgba(17,42,69,0.8);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 20px;
+    z-index: 5;
+  }
+  .carousel-arrow:hover {
+    background: rgba(56,189,248,0.2);
+    border-color: var(--accent-cyan);
+    color: var(--text-primary);
+  }
+  .carousel-arrow.left { left: 8px; }
+  .carousel-arrow.right { right: 8px; }
+  @media (max-width: 768px) {
+    .carousel-arrow { display: none; }
+    .carousel-slide .screenshot-frame { max-width: 280px; }
   }
 
   /* ─── PRICING ─── */
@@ -1003,7 +1087,7 @@
 
     .features-grid { grid-template-columns: 1fr; }
 
-    .screenshot-item { max-width: 280px; }
+    .carousel-slide .screenshot-frame { max-width: 260px; }
 
     .testimonials-grid { grid-template-columns: 1fr; }
 
@@ -1295,37 +1379,38 @@
       <p class="section-desc">Built with a professional maritime interface designed for efficiency at sea and ashore.</p>
     </div>
   </div>
-  <div class="screenshots-track animate-in">
-    <div class="screenshot-item">
-      <div class="screenshot-frame">
-        <img src="01_hero_dashboard.png" alt="Hero Dashboard - Calculate Distance, Fuel, Time & Cost">
+  <div class="carousel-wrapper animate-in">
+    <button class="carousel-arrow left" onclick="carouselPrev()" aria-label="Previous">&#8249;</button>
+    <button class="carousel-arrow right" onclick="carouselNext()" aria-label="Next">&#8250;</button>
+    <div class="carousel-stage" id="carouselStage">
+      <div class="carousel-slide">
+        <div class="screenshot-frame"><img src="01_hero_dashboard.png" alt="Bridge Dashboard"></div>
+        <p class="carousel-caption">Your Bridge. Your Command.</p>
+        <p class="carousel-subcaption">The command center for voyage planning — quick access to routes, trip catalog, fuel market, and vessel profile.</p>
       </div>
-      <p class="screenshot-caption">Calculate Distance, Fuel, Time & Cost</p>
-    </div>
-    <div class="screenshot-item">
-      <div class="screenshot-frame">
-        <img src="02_route_planner.png" alt="Route Planner - AI-Powered Sea Route Planning">
+      <div class="carousel-slide">
+        <div class="screenshot-frame"><img src="02_route_planner.png" alt="Route Planner"></div>
+        <p class="carousel-caption">Plot Any Route. Instantly.</p>
+        <p class="carousel-subcaption">AI-powered sea route generation follows real shipping lanes through straits, canals, and open ocean. Add waypoints with a click.</p>
       </div>
-      <p class="screenshot-caption">AI-Powered Sea Route Planning</p>
-    </div>
-    <div class="screenshot-item">
-      <div class="screenshot-frame">
-        <img src="03_voyage_results.png" alt="Voyage Results - Detailed Trip Analysis">
+      <div class="carousel-slide">
+        <div class="screenshot-frame"><img src="03_voyage_results.png" alt="Voyage Results"></div>
+        <p class="carousel-caption">Distance. Fuel. Cost. Done.</p>
+        <p class="carousel-subcaption">Get precise calculations — total distance in nautical miles, fuel consumption based on your vessel's curve, estimated cost, and travel time.</p>
       </div>
-      <p class="screenshot-caption">Voyage Results & Analysis</p>
-    </div>
-    <div class="screenshot-item">
-      <div class="screenshot-frame">
-        <img src="04_vessel_performance.png" alt="Initialize Bridge - Set Your Rank & Take Command">
+      <div class="carousel-slide">
+        <div class="screenshot-frame"><img src="04_vessel_performance.png" alt="Vessel Profile"></div>
+        <p class="carousel-caption">Know Your Burn Rate</p>
+        <p class="carousel-subcaption">Configure your vessel's fuel curve with RPM, speed, and burn rate data points. AI analyzes efficiency and visualizes performance.</p>
       </div>
-      <p class="screenshot-caption">Initialize Your Bridge</p>
-    </div>
-    <div class="screenshot-item">
-      <div class="screenshot-frame">
-        <img src="05_fuel_market.png" alt="Fuel Market - Track Global Fuel Prices">
+      <div class="carousel-slide">
+        <div class="screenshot-frame"><img src="05_fuel_market.png" alt="Fuel Market"></div>
+        <p class="carousel-caption">Global Fuel Prices. Live.</p>
+        <p class="carousel-subcaption">Track bunker fuel prices at major ports worldwide — MGO, VLSFO, HFO. Set price alerts and get AI-powered port intelligence.</p>
       </div>
-      <p class="screenshot-caption">Track Global Fuel Prices</p>
     </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+    <div class="carousel-progress"><div class="carousel-progress-bar" id="carouselProgressBar"></div></div>
   </div>
 </section>
 
@@ -1656,6 +1741,64 @@ function showComingSoon(el) {
     setTimeout(function() { bubble.remove(); }, 300);
   }, 3000);
 }
+</script>
+
+<script>
+// ── Screenshot Carousel ──
+(function() {
+  var current = 0;
+  var stage = document.getElementById('carouselStage');
+  var dotsEl = document.getElementById('carouselDots');
+  var bar = document.getElementById('carouselProgressBar');
+  if (!stage) return;
+  var slides = stage.children;
+  var total = slides.length;
+  var interval = 5000;
+  var timer;
+
+  // Create dots
+  for (var i = 0; i < total; i++) {
+    var dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+    dot.dataset.index = i;
+    dot.onclick = function() { goTo(parseInt(this.dataset.index)); };
+    dotsEl.appendChild(dot);
+  }
+
+  function goTo(idx) {
+    current = idx;
+    stage.style.transform = 'translateX(-' + (current * 100) + '%)';
+    var dots = dotsEl.children;
+    for (var j = 0; j < dots.length; j++) {
+      dots[j].className = 'carousel-dot' + (j === current ? ' active' : '');
+    }
+    resetProgress();
+  }
+
+  function resetProgress() {
+    if (bar) {
+      bar.style.animation = 'none';
+      bar.offsetHeight; // trigger reflow
+      bar.style.animation = 'carouselProgress ' + interval + 'ms linear infinite';
+    }
+    clearInterval(timer);
+    timer = setInterval(function() { goTo((current + 1) % total); }, interval);
+  }
+
+  window.carouselNext = function() { goTo((current + 1) % total); };
+  window.carouselPrev = function() { goTo((current - 1 + total) % total); };
+
+  // Touch/swipe support
+  var startX = 0;
+  stage.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, {passive: true});
+  stage.addEventListener('touchend', function(e) {
+    var diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? carouselNext() : carouselPrev(); }
+  }, {passive: true});
+
+  resetProgress();
+})();
 </script>
 
 </body>

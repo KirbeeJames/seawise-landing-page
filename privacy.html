@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a192f" />
+  <title>Privacy Policy — SeaWise</title>
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .legal-content { max-width: 720px; margin: 0 auto; padding: 140px 24px 80px; }
+    .legal-content h1 { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+    .legal-content .legal-date { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 40px; }
+    .legal-content h2 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; margin-top: 40px; margin-bottom: 12px; color: var(--accent-cyan); }
+    .legal-content p, .legal-content ul { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-bottom: 16px; }
+    .legal-content ul { padding-left: 24px; }
+    .legal-content li { margin-bottom: 8px; }
+    .legal-content a { color: var(--accent-cyan); text-decoration: none; }
+    .legal-content a:hover { text-decoration: underline; }
+    .legal-back { display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; margin-bottom: 32px; transition: color 0.2s; }
+    .legal-back:hover { color: var(--accent-cyan); }
+  </style>
+</head>
+<body>
+
+  <nav id="nav" class="scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="images/logo.png" alt="SeaWise" class="nav-logo" />
+        <span class="nav-wordmark">SEAWISE</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="https://app.seawise.site" class="btn btn-sm btn-green" target="_blank" rel="noopener">Launch App</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="legal-content">
+    <a href="index.html" class="legal-back">&larr; Back to Home</a>
+    <h1>Privacy Policy</h1>
+    <p class="legal-date">Effective Date: March 2026</p>
+
+    <h2>1. Introduction</h2>
+    <p>JK Yacht Ops ("we", "us", "our") operates SeaWise, a maritime distance, fuel consumption, travel time and cost calculator available as a web application and mobile app. This Privacy Policy explains how we collect, use, and protect your information when you use our service.</p>
+
+    <h2>2. Information We Collect</h2>
+    <p>When you create an account and use SeaWise, we may collect the following information:</p>
+    <ul>
+      <li><strong>Account information:</strong> Email address and password (used for authentication)</li>
+      <li><strong>Vessel specifications:</strong> Vessel name, fuel capacity, fuel curve data (RPM, speed, burn rate)</li>
+      <li><strong>Route data:</strong> Origin and destination ports, generated waypoints, route calculations</li>
+      <li><strong>Trip history:</strong> Saved voyage records including distance, fuel consumption, cost estimates, and dates</li>
+      <li><strong>Fuel market data:</strong> Fuel prices you track or sync for specific ports</li>
+    </ul>
+
+    <h2>3. How We Use Your Information</h2>
+    <p>We use your information to:</p>
+    <ul>
+      <li>Provide and operate the SeaWise service</li>
+      <li>Calculate port-to-port distances, fuel consumption, travel times, and voyage costs</li>
+      <li>Generate AI-powered maritime route suggestions</li>
+      <li>Sync your data across devices via cloud storage</li>
+      <li>Improve and develop new features for the service</li>
+    </ul>
+
+    <h2>4. AI Processing Disclosure</h2>
+    <p>SeaWise uses Google Gemini AI to generate maritime route waypoints and provide port coordinate lookups. When you request a route or port lookup:</p>
+    <ul>
+      <li>Only port names and geographic coordinates are sent to the AI service</li>
+      <li>No personal information, account data, or vessel specifications are transmitted to Google</li>
+      <li>AI requests are processed via a secure serverless proxy and are not stored by Google for training purposes</li>
+    </ul>
+
+    <h2>5. Data Storage &amp; Security</h2>
+    <p>Your data is stored securely in a Supabase cloud database with the following protections:</p>
+    <ul>
+      <li>Row-level security (RLS) ensures you can only access your own data</li>
+      <li>All data is encrypted in transit via HTTPS/TLS</li>
+      <li>Authentication is handled by Supabase Auth with secure password hashing</li>
+      <li>We do not store your password in plain text</li>
+    </ul>
+
+    <h2>6. Third-Party Services</h2>
+    <p>SeaWise uses the following third-party services to operate:</p>
+    <ul>
+      <li><strong>Google Gemini API:</strong> AI-powered route generation and port lookups</li>
+      <li><strong>Supabase:</strong> User authentication and cloud database</li>
+      <li><strong>Vercel:</strong> Web application hosting and serverless API functions</li>
+    </ul>
+    <p>We do not use any advertising networks. We do not sell, rent, or share your personal data with third parties for marketing purposes.</p>
+
+    <h2>7. Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li><strong>Access</strong> your personal data stored in SeaWise</li>
+      <li><strong>Correct</strong> any inaccurate information in your account or vessel profiles</li>
+      <li><strong>Delete</strong> your account and all associated data at any time</li>
+      <li><strong>Export</strong> your trip history and vessel data</li>
+    </ul>
+    <p>To exercise these rights, you can manage your data directly within the application or contact us at the email below.</p>
+
+    <h2>8. Guest Access</h2>
+    <p>SeaWise offers guest access without account creation. Guest users can use the calculator and route planning features, but their data is stored locally in the browser only and is not synced to the cloud. No personal information is collected from guest users.</p>
+
+    <h2>9. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date. We encourage you to review this policy periodically.</p>
+
+    <h2>10. Contact</h2>
+    <p>If you have questions about this Privacy Policy or your data, please contact us:</p>
+    <p><strong>Email:</strong> <a href="mailto:contact@seawise.site">contact@seawise.site</a></p>
+    <p><strong>Company:</strong> JK Yacht Ops</p>
+  </div>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 JK Yacht Ops. All rights reserved.</p>
+        <p><a href="index.html" style="color: var(--text-muted); text-decoration: none;">SeaWise</a></p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

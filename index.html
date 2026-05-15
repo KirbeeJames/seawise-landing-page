@@ -469,8 +469,8 @@
   }
   .carousel-slide .screenshot-frame {
     width: 100%;
-    max-width: 360px;
-    aspect-ratio: 9 / 16;
+    max-width: 420px;
+    aspect-ratio: 3 / 4;
     border-radius: var(--radius);
     overflow: hidden;
     border: 2px solid var(--border);
@@ -569,7 +569,7 @@
   .carousel-arrow.right { right: 8px; }
   @media (max-width: 768px) {
     .carousel-arrow { display: none; }
-    .carousel-slide .screenshot-frame { max-width: 280px; }
+    .carousel-slide .screenshot-frame { max-width: 320px; }
   }
 
   /* ─── PRICING ─── */
@@ -774,6 +774,97 @@
   .testimonial-author span {
     font-size: 0.8rem;
     color: var(--text-muted);
+  }
+
+  /* ─── BLOG ─── */
+  #blog {
+    padding: 100px 0;
+  }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+  }
+  .blog-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    border-color: rgba(56,189,248,0.3);
+  }
+  .blog-card-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--bg-deep) 0%, #0d2140 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .blog-card-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 200px 120px at 30% 60%, rgba(56,189,248,0.1) 0%, transparent 70%);
+  }
+  .blog-card-img svg {
+    width: 52px;
+    height: 52px;
+    position: relative;
+    z-index: 1;
+  }
+  .blog-card-body {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .blog-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-cyan);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .blog-card-body h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+  .blog-card:hover h3 { color: var(--accent-cyan); }
+  .blog-card-body p {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 20px;
+  }
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-top: 16px;
+  }
+  .blog-meta .dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; flex-shrink: 0; }
+  @media (max-width: 768px) {
+    .blog-grid { grid-template-columns: 1fr; }
   }
 
   /* ─── FAQ ─── */
@@ -1160,6 +1251,7 @@
       <a href="#features">Features</a>
       <a href="#screenshots">Screenshots</a>
       <a href="#pricing">Pricing</a>
+      <a href="#blog">Blog</a>
       <a href="#faq">FAQ</a>
       <a href="https://app.seawise.site/" class="btn btn-sm btn-green" target="_blank" rel="noopener">Launch App</a>
     </div>
@@ -1384,29 +1476,54 @@
     <button class="carousel-arrow right" onclick="carouselNext()" aria-label="Next">&#8250;</button>
     <div class="carousel-stage" id="carouselStage">
       <div class="carousel-slide">
-        <div class="screenshot-frame"><img src="01_hero_dashboard.png" alt="Bridge Dashboard"></div>
-        <p class="carousel-caption">Your Bridge. Your Command.</p>
-        <p class="carousel-subcaption">The command center for voyage planning — quick access to routes, trip catalog, fuel market, and vessel profile.</p>
+        <div class="screenshot-frame"><img src="screenshots/01-hero-ipad-2064x2752.png" alt="Know the voyage cost instantly" loading="lazy"></div>
+        <p class="carousel-caption">Know the Voyage Cost</p>
+        <p class="carousel-subcaption">Instantly see distance, fuel, time and cost for any port-to-port route. Calculated to the nearest mile, minute and dollar.</p>
       </div>
       <div class="carousel-slide">
-        <div class="screenshot-frame"><img src="02_route_planner.png" alt="Route Planner"></div>
-        <p class="carousel-caption">Plot Any Route. Instantly.</p>
-        <p class="carousel-subcaption">AI-powered sea route generation follows real shipping lanes through straits, canals, and open ocean. Add waypoints with a click.</p>
+        <div class="screenshot-frame"><img src="screenshots/02-ai-routes-ipad-2064x2752.png" alt="Routes built by AI and captains experience" loading="lazy"></div>
+        <p class="carousel-caption">Routes Built for Real Seas</p>
+        <p class="carousel-subcaption">AI-powered routing follows real shipping lanes through every strait, canal and chokepoint — driven by captains' experience and real-world data.</p>
       </div>
       <div class="carousel-slide">
-        <div class="screenshot-frame"><img src="03_voyage_results.png" alt="Voyage Results"></div>
-        <p class="carousel-caption">Distance. Fuel. Cost. Done.</p>
-        <p class="carousel-subcaption">Get precise calculations — total distance in nautical miles, fuel consumption based on your vessel's curve, estimated cost, and travel time.</p>
+        <div class="screenshot-frame"><img src="screenshots/03-fuel-calc-ipad-2064x2752.png" alt="Complete voyage data in seconds" loading="lazy"></div>
+        <p class="carousel-caption">Voyage Data in Seconds</p>
+        <p class="carousel-subcaption">A smooth, fast app experience that delivers complete voyage data personalised to your vessel — in seconds, not spreadsheets.</p>
       </div>
       <div class="carousel-slide">
-        <div class="screenshot-frame"><img src="04_vessel_performance.png" alt="Vessel Profile"></div>
-        <p class="carousel-caption">Know Your Burn Rate</p>
-        <p class="carousel-subcaption">Configure your vessel's fuel curve with RPM, speed, and burn rate data points. AI analyzes efficiency and visualizes performance.</p>
+        <div class="screenshot-frame"><img src="screenshots/04-fuel-market-ipad-2064x2752.png" alt="Vessel profile and voyage logs" loading="lazy"></div>
+        <p class="carousel-caption">Build Your Vessel Profile</p>
+        <p class="carousel-subcaption">Set up your vessel once. Keep complete voyage logs for a full history of every route, fuel burn and cost across your fleet.</p>
       </div>
       <div class="carousel-slide">
-        <div class="screenshot-frame"><img src="05_fuel_market.png" alt="Fuel Market"></div>
-        <p class="carousel-caption">Global Fuel Prices. Live.</p>
-        <p class="carousel-subcaption">Track bunker fuel prices at major ports worldwide — MGO, VLSFO, HFO. Set price alerts and get AI-powered port intelligence.</p>
+        <div class="screenshot-frame"><img src="screenshots/05-vessel-profile-ipad-2064x2752.png" alt="Your vessel's fuel curve in your palm" loading="lazy"></div>
+        <p class="carousel-caption">Your Fuel Curve. Your Numbers.</p>
+        <p class="carousel-subcaption">Model your vessel's real-world fuel consumption at any speed or RPM. Your burn rate, your data — always in your palm.</p>
+      </div>
+      <div class="carousel-slide">
+        <div class="screenshot-frame"><img src="screenshots/06-waypoints-ipad-2064x2752.png" alt="Generate your complete sea route and edit waypoints" loading="lazy"></div>
+        <p class="carousel-caption">Edit Waypoints Your Way</p>
+        <p class="carousel-subcaption">Instantly generate a complete sea route, then refine it with your finger. Add, move or remove waypoints to match your exact passage plan.</p>
+      </div>
+      <div class="carousel-slide">
+        <div class="screenshot-frame"><img src="screenshots/07-voyage-cost-ipad-2064x2752.png" alt="Discover the dollar cost between docks" loading="lazy"></div>
+        <p class="carousel-caption">The Dollar Cost Between Docks</p>
+        <p class="carousel-subcaption">Know your voyage cost before you leave or arrive. Full breakdown of fuel, distance and time — so there are no surprises at the dock.</p>
+      </div>
+      <div class="carousel-slide">
+        <div class="screenshot-frame"><img src="screenshots/08-eight-hubs-ipad-2064x2752.png" alt="Multiple ports, fuel types and live bunker prices" loading="lazy"></div>
+        <p class="carousel-caption">Global Fuel Market. Live.</p>
+        <p class="carousel-subcaption">Compare MGO, VLSFO and HFO prices across multiple major ports. Choose the best bunker option or add your own port to the list.</p>
+      </div>
+      <div class="carousel-slide">
+        <div class="screenshot-frame"><img src="screenshots/09-trust-ipad-2064x2752.png" alt="Created for mariners by mariners" loading="lazy"></div>
+        <p class="carousel-caption">Created for Mariners, by Mariners</p>
+        <p class="carousel-subcaption">Built from behind the helm and the fleet manager's console — by people who understand what it actually takes to run a vessel.</p>
+      </div>
+      <div class="carousel-slide">
+        <div class="screenshot-frame"><img src="screenshots/10-everything-ipad-2064x2752.png" alt="Everything you need at sea" loading="lazy"></div>
+        <p class="carousel-caption">Everything You Need at Sea</p>
+        <p class="carousel-subcaption">Routes, fuel curves, bunker prices, voyage logs, cost breakdowns — all in one place, always ready when you need it.</p>
       </div>
     </div>
     <div class="carousel-dots" id="carouselDots"></div>
@@ -1502,6 +1619,90 @@
   </div>
 </section>
 
+<!-- BLOG -->
+<section id="blog">
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="section-tag">From the Helm</span>
+      <h2>Maritime Insights</h2>
+      <p class="section-desc">Practical guides and industry intelligence for fleet managers, captains, and vessel operators.</p>
+    </div>
+    <div class="blog-grid">
+
+      <a href="#" class="blog-card animate-in">
+        <div class="blog-card-img">
+          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="26" r="20" stroke="#38bdf8" stroke-width="1.2" opacity="0.3"/>
+            <circle cx="26" cy="26" r="14" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3 4" opacity="0.4"/>
+            <path d="M14 22L18 18L22 21L26 14L30 19L34 16L38 22" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 30L18 26L22 29L26 22L30 27L34 24L38 30" stroke="#0ea5e9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+            <circle cx="26" cy="14" r="2" fill="#38bdf8" opacity="0.8"/>
+            <circle cx="38" cy="22" r="2" fill="#38bdf8" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Fuel Management</span>
+          <h3>How to Calculate Voyage Fuel Costs Like a Pro</h3>
+          <p>Most fuel estimates are wrong before the vessel even leaves the dock. Here's how to use fuel curves, real bunker prices and weather routing to build a number you can actually budget around.</p>
+          <div class="blog-meta">
+            <span>May 2026</span>
+            <span class="dot"></span>
+            <span>5 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card animate-in">
+        <div class="blog-card-img">
+          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="12" y="10" width="28" height="32" rx="3" stroke="#0ea5e9" stroke-width="1.2" opacity="0.3"/>
+            <path d="M12 18h28" stroke="#0ea5e9" stroke-width="0.8" opacity="0.2"/>
+            <path d="M17 24h8" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M17 28h14" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <path d="M17 32h10" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+            <circle cx="36" cy="14" r="6" fill="#0a1628" stroke="#f59e0b" stroke-width="1.5"/>
+            <path d="M36 11.5V14L37.5 15.5" stroke="#f59e0b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Market Intelligence</span>
+          <h3>Understanding Bunker Fuel Prices: What Every Captain Should Know</h3>
+          <p>Rotterdam, Singapore, Fujairah — bunker prices swing daily and vary thousands of dollars per tonne between ports. Understanding what drives the spread can save your operation real money on every voyage.</p>
+          <div class="blog-meta">
+            <span>May 2026</span>
+            <span class="dot"></span>
+            <span>7 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card animate-in">
+        <div class="blog-card-img">
+          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="26" r="18" stroke="#8b5cf6" stroke-width="1.2" opacity="0.3"/>
+            <path d="M16 30C18 28 20 24 22 23C24 22 26 27 28 25C30 23.5 32 20 33 19" stroke="#8b5cf6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+            <path d="M14 36C17 34 20 32 23 33C26 34 29 32 32 31C35 30 37 31 38 30" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="23" cy="33" r="2.5" fill="#38bdf8" opacity="0.8"/>
+            <circle cx="38" cy="30" r="2.5" fill="#38bdf8" opacity="0.8"/>
+            <path d="M24 18L26 14L28 18" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Technology</span>
+          <h3>From Paper Charts to AI: The Evolution of Maritime Route Planning</h3>
+          <p>For centuries, route planning meant dead reckoning, paper charts, and hard-won experience. Today, AI generates precise waypoints through every strait and canal in seconds. How did we get here — and what's next?</p>
+          <div class="blog-meta">
+            <span>Apr 2026</span>
+            <span class="dot"></span>
+            <span>6 min read</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
@@ -1573,6 +1774,7 @@
         <a href="https://seawise.site/#features">Features</a>
         <a href="https://seawise.site/#screenshots">Screenshots</a>
         <a href="https://seawise.site/#pricing">Pricing</a>
+        <a href="https://seawise.site/#blog">Blog</a>
         <a href="https://seawise.site/#faq">FAQ</a>
       </div>
       <div class="footer-col">

@@ -429,33 +429,48 @@
     line-height: 1.5;
   }
 
-  /* ─── SCREENSHOTS ─── */
+  /* ─── SCREENSHOTS (rolling carousel) ─── */
   #screenshots {
     padding: 100px 0;
   }
+  .screenshots-carousel-wrap {
+    overflow: hidden;
+    width: 100%;
+    padding: 8px 0 24px;
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
   .screenshots-track {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-    padding: 0 12px 8px;
+    gap: 20px;
+    width: max-content;
+    animation: scrollScreenshots 60s linear infinite;
+  }
+  .screenshots-track:hover {
+    animation-play-state: paused;
+  }
+  @keyframes scrollScreenshots {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
   .screenshot-item {
-    flex: 1 1 0;
-    min-width: 160px;
+    flex: 0 0 auto;
+    width: 240px;
     text-align: center;
   }
   .screenshot-frame {
     width: 100%;
-    aspect-ratio: 9 / 16;
+    aspect-ratio: 3 / 4;
     border-radius: var(--radius);
     overflow: hidden;
     border: 2px solid var(--border);
     background: var(--bg-card);
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
   }
-  .screenshot-frame:hover {
+  .screenshot-item:hover .screenshot-frame {
     border-color: var(--accent);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(45,212,168,0.15);
   }
   .screenshot-frame img {
     width: 100%;
@@ -465,11 +480,100 @@
     object-position: top center;
   }
   .screenshot-caption {
-    margin-top: 12px;
-    font-size: 0.8rem;
+    margin-top: 10px;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-secondary);
+    letter-spacing: 0.02em;
   }
+
+  /* ─── BLOG ─── */
+  #blog {
+    padding: 100px 0;
+  }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+  }
+  .blog-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    border-color: rgba(45,212,168,0.3);
+  }
+  .blog-card-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--bg-deep) 0%, #0f2847 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .blog-card-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 200px 120px at 30% 60%, rgba(45,212,168,0.12) 0%, transparent 70%);
+  }
+  .blog-card-img svg {
+    width: 52px;
+    height: 52px;
+    position: relative;
+    z-index: 1;
+  }
+  .blog-card-body {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .blog-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .blog-card-body h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+  .blog-card:hover h3 { color: var(--accent); }
+  .blog-card-body p {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 20px;
+  }
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-top: 16px;
+  }
+  .blog-meta .dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; }
 
   /* ─── PRICING ─── */
   #pricing {
@@ -986,9 +1090,11 @@
 
     .features-grid { grid-template-columns: 1fr; }
 
-    .screenshot-item { max-width: 280px; }
+    .screenshot-item { width: 180px; }
 
     .testimonials-grid { grid-template-columns: 1fr; }
+
+    .blog-grid { grid-template-columns: 1fr; }
 
     .footer-grid {
       grid-template-columns: 1fr;
@@ -1020,6 +1126,7 @@
       <a href="#features">Features</a>
       <a href="#screenshots">Screenshots</a>
       <a href="#pricing">Pricing</a>
+      <a href="#blog">Blog</a>
       <a href="#faq">FAQ</a>
       <a href="https://app.seawise.site/" class="btn btn-sm btn-green" target="_blank" rel="noopener">Launch App</a>
     </div>
@@ -1237,39 +1344,133 @@
     <div class="section-header animate-in">
       <span class="section-tag">App Preview</span>
       <h2>See It In Action</h2>
-      <p class="section-desc">Built with a professional maritime interface designed for efficiency at sea and ashore.</p>
+      <p class="section-desc">Built with a professional maritime interface designed for efficiency at sea and ashore. Hover to pause.</p>
     </div>
   </div>
-  <div class="screenshots-track animate-in">
-    <div class="screenshot-item">
-      <div class="screenshot-frame">
-        <img src="01_hero_dashboard.png" alt="Hero Dashboard - Calculate Distance, Fuel, Time & Cost">
+  <div class="screenshots-carousel-wrap animate-in">
+    <div class="screenshots-track">
+      <!-- Original set -->
+      <div class="screenshot-item">
+        <div class="screenshot-frame">
+          <img src="screenshots/01-hero-ipad-2064x2752.png" alt="Know the voyage cost instantly" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Know the Voyage Cost</p>
       </div>
-      <p class="screenshot-caption">Calculate Distance, Fuel, Time & Cost</p>
-    </div>
-    <div class="screenshot-item">
-      <div class="screenshot-frame">
-        <img src="02_route_planner.png" alt="Route Planner - AI-Powered Sea Route Planning">
+      <div class="screenshot-item">
+        <div class="screenshot-frame">
+          <img src="screenshots/02-ai-routes-ipad-2064x2752.png" alt="Routes built by AI and captains' experience" loading="lazy">
+        </div>
+        <p class="screenshot-caption">AI Route Planning</p>
       </div>
-      <p class="screenshot-caption">AI-Powered Sea Route Planning</p>
-    </div>
-    <div class="screenshot-item">
-      <div class="screenshot-frame">
-        <img src="03_voyage_results.png" alt="Voyage Results - Detailed Trip Analysis">
+      <div class="screenshot-item">
+        <div class="screenshot-frame">
+          <img src="screenshots/03-fuel-calc-ipad-2064x2752.png" alt="Complete voyage data in seconds" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Complete Voyage Data</p>
       </div>
-      <p class="screenshot-caption">Voyage Results & Analysis</p>
-    </div>
-    <div class="screenshot-item">
-      <div class="screenshot-frame">
-        <img src="04_vessel_performance.png" alt="Initialize Bridge - Set Your Rank & Take Command">
+      <div class="screenshot-item">
+        <div class="screenshot-frame">
+          <img src="screenshots/04-fuel-market-ipad-2064x2752.png" alt="Build your vessel profile" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Vessel Profile</p>
       </div>
-      <p class="screenshot-caption">Initialize Your Bridge</p>
-    </div>
-    <div class="screenshot-item">
-      <div class="screenshot-frame">
-        <img src="05_fuel_market.png" alt="Fuel Market - Track Global Fuel Prices">
+      <div class="screenshot-item">
+        <div class="screenshot-frame">
+          <img src="screenshots/05-vessel-profile-ipad-2064x2752.png" alt="Your vessel's fuel curve in your palm" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Fuel Curve & Performance</p>
       </div>
-      <p class="screenshot-caption">Track Global Fuel Prices</p>
+      <div class="screenshot-item">
+        <div class="screenshot-frame">
+          <img src="screenshots/06-waypoints-ipad-2064x2752.png" alt="Generate your complete sea route" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Edit Waypoints</p>
+      </div>
+      <div class="screenshot-item">
+        <div class="screenshot-frame">
+          <img src="screenshots/07-voyage-cost-ipad-2064x2752.png" alt="Discover the dollar cost between docks" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Voyage Cost Breakdown</p>
+      </div>
+      <div class="screenshot-item">
+        <div class="screenshot-frame">
+          <img src="screenshots/08-eight-hubs-ipad-2064x2752.png" alt="Live bunker prices at every port" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Global Fuel Market</p>
+      </div>
+      <div class="screenshot-item">
+        <div class="screenshot-frame">
+          <img src="screenshots/09-trust-ipad-2064x2752.png" alt="Created for mariners by mariners" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Built for Mariners</p>
+      </div>
+      <div class="screenshot-item">
+        <div class="screenshot-frame">
+          <img src="screenshots/10-everything-ipad-2064x2752.png" alt="Everything you need at sea" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Everything You Need</p>
+      </div>
+      <!-- Duplicated set for seamless loop -->
+      <div class="screenshot-item" aria-hidden="true">
+        <div class="screenshot-frame">
+          <img src="screenshots/01-hero-ipad-2064x2752.png" alt="" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Know the Voyage Cost</p>
+      </div>
+      <div class="screenshot-item" aria-hidden="true">
+        <div class="screenshot-frame">
+          <img src="screenshots/02-ai-routes-ipad-2064x2752.png" alt="" loading="lazy">
+        </div>
+        <p class="screenshot-caption">AI Route Planning</p>
+      </div>
+      <div class="screenshot-item" aria-hidden="true">
+        <div class="screenshot-frame">
+          <img src="screenshots/03-fuel-calc-ipad-2064x2752.png" alt="" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Complete Voyage Data</p>
+      </div>
+      <div class="screenshot-item" aria-hidden="true">
+        <div class="screenshot-frame">
+          <img src="screenshots/04-fuel-market-ipad-2064x2752.png" alt="" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Vessel Profile</p>
+      </div>
+      <div class="screenshot-item" aria-hidden="true">
+        <div class="screenshot-frame">
+          <img src="screenshots/05-vessel-profile-ipad-2064x2752.png" alt="" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Fuel Curve & Performance</p>
+      </div>
+      <div class="screenshot-item" aria-hidden="true">
+        <div class="screenshot-frame">
+          <img src="screenshots/06-waypoints-ipad-2064x2752.png" alt="" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Edit Waypoints</p>
+      </div>
+      <div class="screenshot-item" aria-hidden="true">
+        <div class="screenshot-frame">
+          <img src="screenshots/07-voyage-cost-ipad-2064x2752.png" alt="" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Voyage Cost Breakdown</p>
+      </div>
+      <div class="screenshot-item" aria-hidden="true">
+        <div class="screenshot-frame">
+          <img src="screenshots/08-eight-hubs-ipad-2064x2752.png" alt="" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Global Fuel Market</p>
+      </div>
+      <div class="screenshot-item" aria-hidden="true">
+        <div class="screenshot-frame">
+          <img src="screenshots/09-trust-ipad-2064x2752.png" alt="" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Built for Mariners</p>
+      </div>
+      <div class="screenshot-item" aria-hidden="true">
+        <div class="screenshot-frame">
+          <img src="screenshots/10-everything-ipad-2064x2752.png" alt="" loading="lazy">
+        </div>
+        <p class="screenshot-caption">Everything You Need</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1361,6 +1562,90 @@
   </div>
 </section>
 
+<!-- BLOG -->
+<section id="blog">
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="section-tag">From the Helm</span>
+      <h2>Maritime Insights</h2>
+      <p class="section-desc">Practical guides and industry intelligence for fleet managers, captains, and vessel operators.</p>
+    </div>
+    <div class="blog-grid">
+
+      <a href="#" class="blog-card animate-in">
+        <div class="blog-card-img">
+          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="26" r="20" stroke="#2dd4a8" stroke-width="1.2" opacity="0.3"/>
+            <circle cx="26" cy="26" r="14" stroke="#2dd4a8" stroke-width="1" stroke-dasharray="3 4" opacity="0.4"/>
+            <path d="M14 22L18 18L22 21L26 14L30 19L34 16L38 22" stroke="#2dd4a8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 30L18 26L22 29L26 22L30 27L34 24L38 30" stroke="#1a9fdf" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+            <circle cx="26" cy="14" r="2" fill="#2dd4a8" opacity="0.8"/>
+            <circle cx="38" cy="22" r="2" fill="#2dd4a8" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Fuel Management</span>
+          <h3>How to Calculate Voyage Fuel Costs Like a Pro</h3>
+          <p>Most fuel estimates are wrong before the vessel even leaves the dock. Here's how to use fuel curves, real bunker prices and weather routing to build a number you can actually budget around.</p>
+          <div class="blog-meta">
+            <span>May 2026</span>
+            <span class="dot"></span>
+            <span>5 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card animate-in">
+        <div class="blog-card-img">
+          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="12" y="10" width="28" height="32" rx="3" stroke="#1a9fdf" stroke-width="1.2" opacity="0.3"/>
+            <path d="M12 18h28" stroke="#1a9fdf" stroke-width="0.8" opacity="0.2"/>
+            <path d="M17 24h8" stroke="#2dd4a8" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M17 28h14" stroke="#2dd4a8" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <path d="M17 32h10" stroke="#2dd4a8" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+            <circle cx="36" cy="14" r="6" fill="#0a1628" stroke="#f59e0b" stroke-width="1.5"/>
+            <path d="M36 11.5V14L37.5 15.5" stroke="#f59e0b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Market Intelligence</span>
+          <h3>Understanding Bunker Fuel Prices: What Every Captain Should Know</h3>
+          <p>Rotterdam, Singapore, Fujairah — bunker prices swing daily and vary thousands of dollars per tonne between ports. Understanding what drives the spread can save your operation real money on every voyage.</p>
+          <div class="blog-meta">
+            <span>May 2026</span>
+            <span class="dot"></span>
+            <span>7 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="blog-card animate-in">
+        <div class="blog-card-img">
+          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="26" r="18" stroke="#8b5cf6" stroke-width="1.2" opacity="0.3"/>
+            <path d="M16 30C18 28 20 24 22 23C24 22 26 27 28 25C30 23.5 32 20 33 19" stroke="#8b5cf6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+            <path d="M14 36C17 34 20 32 23 33C26 34 29 32 32 31C35 30 37 31 38 30" stroke="#2dd4a8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="23" cy="33" r="2.5" fill="#2dd4a8" opacity="0.8"/>
+            <circle cx="38" cy="30" r="2.5" fill="#2dd4a8" opacity="0.8"/>
+            <path d="M24 18L26 14L28 18" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Technology</span>
+          <h3>From Paper Charts to AI: The Evolution of Maritime Route Planning</h3>
+          <p>For centuries, route planning meant dead reckoning, paper charts, and hard-won experience. Today, AI generates precise waypoints through every strait and canal in seconds. How did we get here — and what's next?</p>
+          <div class="blog-meta">
+            <span>Apr 2026</span>
+            <span class="dot"></span>
+            <span>6 min read</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
@@ -1431,6 +1716,7 @@
         <a href="https://seawise.site/#features">Features</a>
         <a href="https://seawise.site/#screenshots">Screenshots</a>
         <a href="https://seawise.site/#pricing">Pricing</a>
+        <a href="https://seawise.site/#blog">Blog</a>
         <a href="https://seawise.site/#faq">FAQ</a>
       </div>
       <div class="footer-col">

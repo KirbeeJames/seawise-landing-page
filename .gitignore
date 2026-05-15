@@ -15,6 +15,10 @@
 !04_vessel_performance.png
 !05_fuel_market.png
 
+# Allow iPad screenshots folder
+!screenshots/
+!screenshots/*.png
+
 # Allow logo
 !seawise-logo.png
 

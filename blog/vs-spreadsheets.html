@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SeaWise vs. Spreadsheets: Why Maritime Pros Are Making the Switch — SeaWise Blog</title>
+<meta name="theme-color" content="#0a1628">
+<meta name="description" content="Honest comparison of spreadsheet-based voyage planning vs. dedicated tools. Where spreadsheets win, where they fail, and the real cost of errors.">
+<meta property="og:title" content="SeaWise vs. Spreadsheets: Why Maritime Pros Are Making the Switch">
+<meta property="og:description" content="An honest comparison of spreadsheet-based voyage planning vs. SeaWise — including where spreadsheets still win.">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/png" href="../seawise-logo.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --bg-deep:#0a1628; --bg-card:#111d33; --accent:#2dd4a8; --accent-glow:rgba(45,212,168,0.25); --text-primary:#e8edf5; --text-secondary:#8899b4; --text-muted:#5a6f8f; --border:rgba(45,212,168,0.15); --radius:16px; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg-deep); color:var(--text-primary); overflow-x:hidden; line-height:1.7; }
+  nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(10,22,40,0.85); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.06); }
+  .nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+  .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text-primary); }
+  .nav-logo { width:32px; height:32px; border-radius:8px; object-fit:contain; }
+  .nav-wordmark { font-weight:800; font-size:1rem; letter-spacing:0.1em; }
+  .nav-links { display:flex; align-items:center; gap:24px; }
+  .nav-links a { color:var(--text-secondary); text-decoration:none; font-size:0.875rem; font-weight:500; }
+  .nav-links a:hover { color:var(--accent); }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-size:0.875rem; font-weight:600; text-decoration:none; transition:all 0.2s; }
+  .btn-green { background:var(--accent); color:#0a1628; }
+  .btn-green:hover { background:#20b892; }
+  .btn-sm { padding:8px 16px; font-size:0.8rem; }
+  .article { max-width:760px; margin:0 auto; padding:100px 24px 80px; }
+  .article-header { margin-bottom:40px; }
+  .article-tag { display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; font-weight:600; text-transform:uppercase; background:var(--accent-glow); color:var(--accent); margin-bottom:16px; }
+  .article-header h1 { font-size:clamp(1.75rem,4vw,2.5rem); font-weight:800; line-height:1.2; margin:16px 0; }
+  .article-meta { display:flex; align-items:center; gap:16px; color:var(--text-muted); font-size:0.875rem; }
+  .article-body { font-size:1.0625rem; }
+  .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--text-muted); text-decoration:none; font-size:0.875rem; margin-bottom:40px; transition:color 0.2s; }
+  .back-link:hover { color:var(--accent); }
+  .article-body h2 { font-size:1.5rem; font-weight:700; margin:40px 0 16px; padding-top:24px; border-top:1px solid var(--border); }
+  .article-body h3 { font-size:1.25rem; font-weight:600; margin:32px 0 12px; }
+  .article-body p { margin-bottom:16px; color:var(--text-secondary); }
+  .article-body strong { color:var(--text-primary); }
+  .article-body table { width:100%; border-collapse:collapse; margin:24px 0; font-size:0.9rem; }
+  .article-body th { background:var(--bg-card); color:var(--accent); padding:12px 16px; text-align:left; font-weight:600; border-bottom:2px solid var(--border); }
+  .article-body td { padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.06); color:var(--text-secondary); }
+  .article-body tr:hover td { background:rgba(255,255,255,0.02); }
+  .article-body ul, .article-body ol { margin:16px 0; padding-left:24px; }
+  .article-body li { margin-bottom:8px; color:var(--text-secondary); }
+  .article-body a { color:var(--accent); text-decoration:none; }
+  .article-body a:hover { text-decoration:underline; }
+  .article-body blockquote { border-left:3px solid var(--accent); padding:16px 24px; margin:24px 0; background:var(--bg-card); border-radius:0 8px 8px 0; color:var(--text-secondary); font-style:italic; }
+  .faq { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin:16px 0; }
+  .faq h4 { font-size:1rem; font-weight:600; margin-bottom:8px; color:var(--accent); }
+  .faq p { color:var(--text-secondary); font-size:0.95rem; }
+  .article-cta { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:32px; margin:48px 0; text-align:center; }
+  .article-cta h3 { font-size:1.25rem; font-weight:700; margin-bottom:8px; }
+  .article-cta p { color:var(--text-secondary); margin-bottom:20px; }
+  footer { border-top:1px solid rgba(255,255,255,0.06); padding:40px 24px; text-align:center; }
+  footer p { color:var(--text-muted); font-size:0.875rem; }
+  footer a { color:var(--accent); text-decoration:none; }
+  @media(max-width:768px) { .nav-links { display:none; } .article { padding-top:80px; } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="https://seawise.site" class="nav-brand">
+      <img src="../seawise-logo.png" alt="SeaWise" class="nav-logo">
+      <span class="nav-wordmark">SEAWISE</span>
+    </a>
+    <div class="nav-links">
+      <a href="https://seawise.site/#blog">Blog</a>
+      <a href="https://app.seawise.site" class="btn btn-sm btn-green" target="_blank" rel="noopener">Launch App</a>
+    </div>
+  </div>
+</nav>
+
+<div class="article">
+  <div class="article-header">
+    <span class="article-tag">Comparison</span>
+    <h1>SeaWise vs. Spreadsheets: Why Maritime Professionals Are Making the Switch</h1>
+    <div class="article-meta"><span>May 2026</span><span>·</span><span>10 min read</span><span>·</span><span>SeaWise</span></div>
+  </div>
+  <div class="article-body">
+
+<a href="https://seawise.site/#blog" class="back-link">← Back to Blog</a>
+
+<p>A fleet manager at a top-20 yacht management company recently spent 14 hours building a voyage budget for a single Palma-to-Athens crossing. Three spreadsheets. Three distance websites. Two phone calls to ports. He still missed the fuel cost by 22% because he used last month's bunker prices. The voyage went over budget. This is not an edge case — it is the normal way most yacht voyages are planned today.</p>
+
+<p>Spreadsheets are free, flexible, and familiar. They are also slow, error-prone, and disconnected from the live data that determines whether a voyage budget holds up or falls apart. Here is an honest comparison — including where spreadsheets still win.</p>
+
+<h2>Where Spreadsheets Win</h2>
+<p>Let's be fair:</p>
+<ul><li><strong>Full customisation:</strong> Any formula, any layout, any report format</li><li><strong>No subscription cost:</strong> Google Sheets is free</li><li><strong>Offline access:</strong> Works without internet — important at sea</li><li><strong>Universal compatibility:</strong> Every accountant and owner can open one</li></ul>
+<p>If your operation is small, routes are predictable, and time is free, spreadsheets work. The problems start when scale, accuracy, and speed matter.</p>
+
+<h2>Where Spreadsheets Fail</h2>
+
+<h3>1. Distance Calculations Are Wrong</h3>
+<p>Most spreadsheet plans use straight-line distances. The distance from Gibraltar to Cannes is 760nm in a straight line. The actual navigable route is closer to 810nm — a 6.5% difference. On a 50m yacht burning 25 L/nm, that 50nm error equals 1,250 litres of unplanned fuel, worth ~€1,400. SeaWise uses the Haversine formula with waypoint-based routing for 200+ ports.</p>
+
+<h3>2. Fuel Prices Are Always Out of Date</h3>
+<p>Bunker prices move 5-15% week to week. A spreadsheet captures a snapshot. SeaWise pulls live prices from Bunker Index, OilMonster, and LiveBunkers.</p>
+
+<h3>3. Speed vs. Fuel Is Simplified to the Point of Uselessness</h3>
+<p>Most spreadsheets use a single burn rate. But fuel consumption is a curve, not a line. At 10 knots your 50m yacht burns 180 L/hr. At 14 knots, 420 L/hr. A single-rate spreadsheet will underestimate fuel at high speeds by 30-40%.</p>
+
+<h3>4. Port Data Is Stale Before You Save</h3>
+<p>Port fees, marina availability, and clearance requirements change constantly. A spreadsheet with last year's Monaco berth fee (€300) will break your budget when the actual July cost is €1,200.</p>
+
+<h3>5. No Visual Route Verification</h3>
+<p>A spreadsheet gives you numbers. It does not show you the route. If your captain plans a route through a traffic separation scheme or restricted zone, a spreadsheet will not flag it. SeaWise displays the route on an interactive map.</p>
+
+<h3>6. Collaboration Is a Nightmare</h3>
+<p>"voyage_plan_FINAL.xlsx", "voyage_plan_FINAL_v2.xlsx", "voyage_plan_FINAL_v2_ACTUALLY_FINAL.xlsx". SeaWise stores data in the cloud. Captain, fleet manager, and owner see the same information in real time.</p>
+
+<h2>The Real Cost of Spreadsheet Errors</h2>
+<table><thead><tr><th>Error Type</th><th>Frequency</th><th>Typical Impact</th></tr></thead><tbody>
+<tr><td>Wrong distance</td><td>Every voyage</td><td>5-15% fuel budget error</td></tr>
+<tr><td>Stale bunker prices</td><td>Every refuel</td><td>5-15% fuel cost variance</td></tr>
+<tr><td>Simplified burn rate</td><td>Every voyage</td><td>10-20% fuel estimate error</td></tr>
+<tr><td>Outdated port fees</td><td>Every port call</td><td>€200-1,000 per port</td></tr>
+<tr><td>No route verification</td><td>Every voyage</td><td>Safety risk</td></tr>
+<tr><td>Version control errors</td><td>Every collaboration</td><td>Hours of rework</td></tr>
+</tbody></table>
+<p>Over a 6-month season with 20+ voyages, these errors compound. A fleet manager using spreadsheets typically overshoots the annual voyage budget by 10-25%. For a fleet of three 50m yachts, that can mean €50,000-150,000 in unplanned costs.</p>
+
+<h2>Who Should Switch</h2>
+<p><strong>Switch to SeaWise if:</strong> You plan more than 5 voyages per season, manage fuel budgets for multiple vessels, need to present accurate estimates to owners, or have experienced budget variance from spreadsheet planning.</p>
+<p><strong>Stick with spreadsheets if:</strong> You plan 1-2 voyages per year, your routes are always the same, or you have no budget accountability.</p>
+
+<h2>The Bottom Line</h2>
+<p>Spreadsheets were never designed for voyage planning. The maritime industry has used them for decades because there was no alternative. SeaWise does not replace your spreadsheet — it replaces the 4-6 hours you spend building one.</p>
+
+<div class="article-cta">
+<h3>Stop Building Voyage Plans in Spreadsheets</h3>
+<p>Calculate fuel, distance, time, and cost in minutes — with live bunker prices and real route planning.</p>
+<a href="https://app.seawise.site" class="btn btn-green btn-lg" target="_blank" rel="noopener">Try SeaWise Free →</a>
+</div>
+
+  </div>
+</div>
+<footer><p>© 2026 SeaWise — JK Yacht Ops. · <a href="https://seawise.site">seawise.site</a> · <a href="https://seawise.site/blog">Blog</a></p></footer>
+</body>
+</html>

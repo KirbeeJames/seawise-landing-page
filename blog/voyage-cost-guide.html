@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Estimate the Cost of a Yacht Voyage — SeaWise Blog</title>
+<meta name="theme-color" content="#0a1628">
+<meta name="description" content="Complete cost breakdown for yacht voyages: fuel, crew, port fees, provisioning, insurance, and contingency. Worked example: Palma to Monaco.">
+<meta property="og:title" content="How to Estimate the Cost of a Yacht Voyage">
+<meta property="og:description" content="Every cost category broken down with real numbers, tables, and a worked €25,000 example.">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/png" href="../seawise-logo.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --bg-deep:#0a1628; --bg-card:#111d33; --accent:#2dd4a8; --accent-glow:rgba(45,212,168,0.25); --text-primary:#e8edf5; --text-secondary:#8899b4; --text-muted:#5a6f8f; --border:rgba(45,212,168,0.15); --radius:16px; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg-deep); color:var(--text-primary); overflow-x:hidden; line-height:1.7; }
+  nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(10,22,40,0.85); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.06); }
+  .nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+  .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text-primary); }
+  .nav-logo { width:32px; height:32px; border-radius:8px; object-fit:contain; }
+  .nav-wordmark { font-weight:800; font-size:1rem; letter-spacing:0.1em; }
+  .nav-links { display:flex; align-items:center; gap:24px; }
+  .nav-links a { color:var(--text-secondary); text-decoration:none; font-size:0.875rem; font-weight:500; }
+  .nav-links a:hover { color:var(--accent); }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-size:0.875rem; font-weight:600; text-decoration:none; transition:all 0.2s; }
+  .btn-green { background:var(--accent); color:#0a1628; }
+  .btn-green:hover { background:#20b892; }
+  .btn-sm { padding:8px 16px; font-size:0.8rem; }
+  .article { max-width:760px; margin:0 auto; padding:100px 24px 80px; }
+  .article-header { margin-bottom:40px; }
+  .article-tag { display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; font-weight:600; text-transform:uppercase; background:var(--accent-glow); color:var(--accent); margin-bottom:16px; }
+  .article-header h1 { font-size:clamp(1.75rem,4vw,2.5rem); font-weight:800; line-height:1.2; margin:16px 0; }
+  .article-meta { display:flex; align-items:center; gap:16px; color:var(--text-muted); font-size:0.875rem; }
+  .article-body { font-size:1.0625rem; }
+  .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--text-muted); text-decoration:none; font-size:0.875rem; margin-bottom:40px; transition:color 0.2s; }
+  .back-link:hover { color:var(--accent); }
+  .article-body h2 { font-size:1.5rem; font-weight:700; margin:40px 0 16px; padding-top:24px; border-top:1px solid var(--border); }
+  .article-body h3 { font-size:1.25rem; font-weight:600; margin:32px 0 12px; }
+  .article-body p { margin-bottom:16px; color:var(--text-secondary); }
+  .article-body strong { color:var(--text-primary); }
+  .article-body table { width:100%; border-collapse:collapse; margin:24px 0; font-size:0.9rem; }
+  .article-body th { background:var(--bg-card); color:var(--accent); padding:12px 16px; text-align:left; font-weight:600; border-bottom:2px solid var(--border); }
+  .article-body td { padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.06); color:var(--text-secondary); }
+  .article-body tr:hover td { background:rgba(255,255,255,0.02); }
+  .article-body ul, .article-body ol { margin:16px 0; padding-left:24px; }
+  .article-body li { margin-bottom:8px; color:var(--text-secondary); }
+  .article-body a { color:var(--accent); text-decoration:none; }
+  .article-body a:hover { text-decoration:underline; }
+  .faq { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin:16px 0; }
+  .faq h4 { font-size:1rem; font-weight:600; margin-bottom:8px; color:var(--accent); }
+  .faq p { color:var(--text-secondary); font-size:0.95rem; }
+  .article-cta { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:32px; margin:48px 0; text-align:center; }
+  .article-cta h3 { font-size:1.25rem; font-weight:700; margin-bottom:8px; }
+  .article-cta p { color:var(--text-secondary); margin-bottom:20px; }
+  footer { border-top:1px solid rgba(255,255,255,0.06); padding:40px 24px; text-align:center; }
+  footer p { color:var(--text-muted); font-size:0.875rem; }
+  footer a { color:var(--accent); text-decoration:none; }
+  @media(max-width:768px) { .nav-links { display:none; } .article { padding-top:80px; } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="https://seawise.site" class="nav-brand">
+      <img src="../seawise-logo.png" alt="SeaWise" class="nav-logo">
+      <span class="nav-wordmark">SEAWISE</span>
+    </a>
+    <div class="nav-links">
+      <a href="https://seawise.site/#blog">Blog</a>
+      <a href="https://app.seawise.site" class="btn btn-sm btn-green" target="_blank" rel="noopener">Launch App</a>
+    </div>
+  </div>
+</nav>
+
+<div class="article">
+  <div class="article-header">
+    <span class="article-tag">Voyage Planning</span>
+    <h1>How to Estimate the Cost of a Yacht Voyage</h1>
+    <div class="article-meta"><span>May 2026</span><span>·</span><span>14 min read</span><span>·</span><span>SeaWise</span></div>
+  </div>
+  <div class="article-body">
+
+<a href="https://seawise.site/#blog" class="back-link">← Back to Blog</a>
+
+<p>A 50-metre superyacht sailing from Palma de Mallorca to Monaco — 337 nautical miles — will spend between €8,000 and €15,000 on fuel alone, depending on speed and sea state. Add crew, port fees, provisioning, and insurance, and the true cost of that four-day Mediterranean passage can exceed €35,000. Most of that cost is avoidable with proper planning.</p>
+
+<p>This guide breaks down every cost category in a yacht voyage, shows you how to estimate each one before you leave the dock, and explains how to build a voyage budget that actually holds up against reality.</p>
+
+<h2>The 6 Cost Categories</h2>
+<table><thead><tr><th>Category</th><th>Typical % of Total</th><th>What It Covers</th></tr></thead><tbody>
+<tr><td>Fuel</td><td>40-55%</td><td>MGO/VLSFO for main engines and generators</td></tr>
+<tr><td>Crew</td><td>15-25%</td><td>Salaries, overtime, travel, per diems</td></tr>
+<tr><td>Port & Marina</td><td>10-20%</td><td>Berth fees, harbour dues, canal transit</td></tr>
+<tr><td>Provisioning</td><td>5-10%</td><td>Food, beverages, supplies</td></tr>
+<tr><td>Insurance & Admin</td><td>3-5%</td><td>Transit extensions, permits, agent fees</td></tr>
+<tr><td>Contingency</td><td>5-10%</td><td>Weather delays, repairs, medical, diversions</td></tr>
+</tbody></table>
+
+<h2>1. Fuel: The Biggest Line Item</h2>
+<p>Fuel is the single largest variable cost. It depends on vessel size, speed, and sea state.</p>
+
+<table><thead><tr><th>Vessel Length</th><th>Burn Rate (cruise)</th><th>Litres/NM</th></tr></thead><tbody>
+<tr><td>24-30m</td><td>80-150 L/hr</td><td>4-8 L/nm</td></tr>
+<tr><td>30-40m</td><td>150-300 L/hr</td><td>8-15 L/nm</td></tr>
+<tr><td>40-55m</td><td>300-500 L/hr</td><td>15-25 L/nm</td></tr>
+<tr><td>55-70m</td><td>500-900 L/hr</td><td>25-45 L/nm</td></tr>
+<tr><td>70m+</td><td>900-1,500+ L/hr</td><td>45-80+ L/nm</td></tr>
+</tbody></table>
+
+<p>Current Mediterranean MGO prices (May 2026): Rotterdam €600-640/MT, Gibraltar €620-660/MT, Palma €640-690/MT, Monaco €660-720/MT. A 50m yacht burning 25 L/nm on a 500nm voyage uses ~10.6 MT, costing €6,800-7,300.</p>
+
+<h2>2. Crew Costs</h2>
+<p>For a typical 50m yacht with 8-10 crew, budget €2,000-4,000 per day all-in. This includes overtime (1.5x base rate for passages exceeding 8 hours), per diems (€30-50/person/day), and travel for crew joining/leaving at different ports.</p>
+
+<h2>3. Port and Marina Fees</h2>
+<table><thead><tr><th>Port</th><th>Country</th><th>Overnight Fee (EUR)</th></tr></thead><tbody>
+<tr><td>Monaco (Port Hercule)</td><td>Monaco</td><td>€800-1,500</td></tr>
+<tr><td>Cannes (Vieux Port)</td><td>France</td><td>€400-800</td></tr>
+<tr><td>Palma de Mallorca</td><td>Spain</td><td>€200-400</td></tr>
+<tr><td>Porto Cervo</td><td>Italy</td><td>€500-900</td></tr>
+<tr><td>Dubrovnik</td><td>Croatia</td><td>€150-300</td></tr>
+<tr><td>Athens (Glyfada)</td><td>Greece</td><td>€100-250</td></tr>
+<tr><td>Gibraltar</td><td>UK</td><td>€150-300</td></tr>
+</tbody></table>
+
+<h2>4. Provisioning</h2>
+<p>For a 5-day Mediterranean passage with 6 guests, budget €3,000-7,500. Owner trips with premium wines run higher. Crew-only passages run €100-200/day.</p>
+
+<h2>5. Insurance and Administration</h2>
+<p>Transit insurance extensions: €500-2,000. Port agent fees: €100-500 per call. Flag state compliance: varies.</p>
+
+<h2>6. Contingency</h2>
+<p>Budget 5-10% of total voyage cost. This is not optional — it is the difference between a professional operation and an amateur one.</p>
+
+<h2>Worked Example: Palma to Monaco (337nm)</h2>
+<table><thead><tr><th>Category</th><th>Estimate (EUR)</th><th>Notes</th></tr></thead><tbody>
+<tr><td>Fuel (MGO)</td><td>€7,500</td><td>~6,500L at €1.15/L</td></tr>
+<tr><td>Crew (4 days)</td><td>€10,000</td><td>8 crew, overtime, per diems</td></tr>
+<tr><td>Port fees</td><td>€1,200</td><td>Palma + Monaco + 1 stop</td></tr>
+<tr><td>Provisioning</td><td>€4,000</td><td>6 guests, 4 days</td></tr>
+<tr><td>Insurance/admin</td><td>€800</td><td>Transit + agent fees</td></tr>
+<tr><td>Contingency (7%)</td><td>€1,650</td><td></td></tr>
+<tr><td><strong>Total</strong></td><td><strong>€25,150</strong></td><td></td></tr>
+<tr><td>Per NM</td><td>€74.63</td><td></td></tr>
+<tr><td>Per guest per day</td><td>€1,048</td><td></td></tr>
+</tbody></table>
+
+<h2>How to Build a Voyage Budget</h2>
+<ol><li>Define the route: ports, distance, speed</li><li>Calculate fuel: burn rate × distance × fuel price + 15% margin</li><li>Add crew: daily rate × voyage days + overtime + per diems</li><li>Research port fees: contact marinas directly</li><li>Estimate provisioning: guest count × duration</li><li>Add insurance/admin: transit endorsements, agent fees</li><li>Add contingency: 5-10% of subtotal</li><li>Present to owner/charterer with clear line items</li></ol>
+
+<p>Tools like <a href="https://app.seawise.site">SeaWise</a> automate the fuel, distance, and time calculations — the single largest cost category — in minutes rather than hours.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq">
+<h4>How much does it cost to run a yacht per nautical mile?</h4>
+<p>For a 50m superyacht, all-in cost per nm ranges from €50-100. Fuel alone at 12 knots is ~€20-25/nm. Add crew (€15-25/nm), port fees (€3-5/nm averaged), and provisioning (€5-10/nm). Larger vessels (70m+) can exceed €150-200/nm all-in.</p>
+</div>
+
+<div class="faq">
+<h4>What is the cheapest speed to run a yacht at?</h4>
+<p>The most fuel-efficient speed for a displacement hull is typically 8-10 knots. But the cheapest speed overall depends on crew costs — slower speeds mean more days at sea. For most yachts, 10-12 knots is the optimal balance. Use a voyage calculator like SeaWise to model different speeds for your specific vessel.</p>
+</div>
+
+<div class="faq">
+<h4>How do I budget fuel for a transatlantic crossing?</h4>
+<p>Las Palmas to Barbados (2,700nm) on a 50m yacht requires ~60,000-80,000L of MGO, costing €45,000-65,000. Plan for at least one en route fuel stop if tank capacity is below 80,000L. Budget 25-30% reserve for ocean passages.</p>
+</div>
+
+<div class="faq">
+<h4>What hidden costs catch captains off guard?</h4>
+<p>Port cancellation fees (50-100% of berth fee), waste disposal (€200-500), shore power (€50-150/day), crew travel repositioning, and weather delays (€3,000-5,000 per extra day). Build these into your budget from the start.</p>
+</div>
+
+<div class="faq">
+<h4>How do charter budgets handle fuel differently?</h4>
+<p>In standard MYBA charters, fuel is charged to the charterer at cost. The captain must track consumption and present receipts. Most charters include a fuel advance (30-40% of estimated cost) paid with the APA. Accurate pre-charter estimation is essential.</p>
+</div>
+
+<div class="article-cta">
+<h3>Plan Your Next Voyage with Accurate Cost Calculations</h3>
+<p>SeaWise gives you fuel, distance, time, and cost — with live bunker prices and real route planning.</p>
+<a href="https://app.seawise.site" class="btn btn-green btn-lg" target="_blank" rel="noopener">Try SeaWise Free →</a>
+</div>
+
+  </div>
+</div>
+<footer><p>© 2026 SeaWise — JK Yacht Ops. · <a href="https://seawise.site">seawise.site</a> · <a href="https://seawise.site/blog">Blog</a></p></footer>
+</body>
+</html>

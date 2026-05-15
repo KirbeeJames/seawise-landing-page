@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Calculate Fuel Consumption for a Yacht Voyage — SeaWise Blog</title>
+<meta name="theme-color" content="#0a1628">
+<meta name="description" content="Complete guide to calculating yacht fuel consumption: burn rates by vessel size, speed curves, real-world examples, and how to estimate fuel for any voyage.">
+<meta property="og:title" content="How to Calculate Fuel Consumption for a Yacht Voyage">
+<meta property="og:description" content="Complete guide to fuel burn rates, speed curves, and voyage fuel estimation for yacht captains and fleet managers.">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/png" href="../seawise-logo.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg-deep: #0a1628; --bg-card: #111d33; --bg-card-hover: #162440;
+    --accent: #2dd4a8; --accent-glow: rgba(45,212,168,0.25);
+    --text-primary: #e8edf5; --text-secondary: #8899b4; --text-muted: #5a6f8f;
+    --border: rgba(45,212,168,0.15); --radius: 16px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg-deep); color:var(--text-primary); overflow-x:hidden; line-height:1.7; }
+  nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(10,22,40,0.85); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.06); }
+  .nav-inner { max-width:1200px; margin:0 auto; padding:0 24px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+  .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text-primary); }
+  .nav-logo { width:32px; height:32px; border-radius:8px; object-fit:contain; }
+  .nav-wordmark { font-weight:800; font-size:1rem; letter-spacing:0.1em; }
+  .nav-links { display:flex; align-items:center; gap:24px; }
+  .nav-links a { color:var(--text-secondary); text-decoration:none; font-size:0.875rem; font-weight:500; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--accent); }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; font-size:0.875rem; font-weight:600; text-decoration:none; border:none; cursor:pointer; transition:all 0.2s; }
+  .btn-green { background:var(--accent); color:#0a1628; }
+  .btn-green:hover { background:#20b892; transform:translateY(-1px); }
+  .btn-sm { padding:8px 16px; font-size:0.8rem; }
+  .article { max-width:760px; margin:0 auto; padding:100px 24px 80px; }
+  .article-header { margin-bottom:40px; }
+  .article-tag { display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; font-weight:600; text-transform:uppercase; background:var(--accent-glow); color:var(--accent); margin-bottom:16px; }
+  .article-header h1 { font-size:clamp(1.75rem,4vw,2.5rem); font-weight:800; line-height:1.2; margin:16px 0; }
+  .article-meta { display:flex; align-items:center; gap:16px; color:var(--text-muted); font-size:0.875rem; }
+  .article-body { font-size:1.0625rem; }
+  .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--text-muted); text-decoration:none; font-size:0.875rem; margin-bottom:40px; transition:color 0.2s; }
+  .back-link:hover { color:var(--accent); }
+  .article-body h2 { font-size:1.5rem; font-weight:700; margin:40px 0 16px; padding-top:24px; border-top:1px solid var(--border); }
+  .article-body h3 { font-size:1.25rem; font-weight:600; margin:32px 0 12px; }
+  .article-body p { margin-bottom:16px; color:var(--text-secondary); }
+  .article-body strong { color:var(--text-primary); }
+  .article-body table { width:100%; border-collapse:collapse; margin:24px 0; font-size:0.9rem; }
+  .article-body th { background:var(--bg-card); color:var(--accent); padding:12px 16px; text-align:left; font-weight:600; border-bottom:2px solid var(--border); }
+  .article-body td { padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.06); color:var(--text-secondary); }
+  .article-body tr:hover td { background:rgba(255,255,255,0.02); }
+  .article-body ul, .article-body ol { margin:16px 0; padding-left:24px; }
+  .article-body li { margin-bottom:8px; color:var(--text-secondary); }
+  .article-body a { color:var(--accent); text-decoration:none; }
+  .article-body a:hover { text-decoration:underline; }
+  .article-body blockquote { border-left:3px solid var(--accent); padding:16px 24px; margin:24px 0; background:var(--bg-card); border-radius:0 8px 8px 0; }
+  .article-cta { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:32px; margin:48px 0; text-align:center; }
+  .article-cta h3 { font-size:1.25rem; font-weight:700; margin-bottom:8px; }
+  .article-cta p { color:var(--text-secondary); margin-bottom:20px; }
+  .faq { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin:16px 0; }
+  .faq h4 { font-size:1rem; font-weight:600; margin-bottom:8px; color:var(--accent); }
+  .faq p { color:var(--text-secondary); font-size:0.95rem; }
+  footer { border-top:1px solid rgba(255,255,255,0.06); padding:40px 24px; text-align:center; }
+  footer p { color:var(--text-muted); font-size:0.875rem; }
+  footer a { color:var(--accent); text-decoration:none; }
+  @media(max-width:768px) { .nav-links { display:none; } .article { padding-top:80px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="https://seawise.site" class="nav-brand">
+      <img src="../seawise-logo.png" alt="SeaWise" class="nav-logo">
+      <span class="nav-wordmark">SEAWISE</span>
+    </a>
+    <div class="nav-links">
+      <a href="https://seawise.site/#blog">Blog</a>
+      <a href="https://app.seawise.site" class="btn btn-sm btn-green" target="_blank" rel="noopener">Launch App</a>
+    </div>
+  </div>
+</nav>
+
+<div class="article">
+  <div class="article-header">
+    <span class="article-tag">Voyage Planning</span>
+    <h1>How to Calculate Fuel Consumption for a Yacht Voyage</h1>
+    <div class="article-meta">
+      <span>May 2026</span>
+      <span>·</span>
+      <span>12 min read</span>
+      <span>·</span>
+      <span>SeaWise</span>
+    </div>
+  </div>
+
+  <div class="article-body">
+
+<a href="https://seawise.site/#blog" class="back-link">← Back to Blog</a>
+
+<p>A 30-metre sailing yacht motoring from Barcelona to Palma de Mallorca at 8 knots burns roughly 40 litres of diesel per hour. The same yacht at 12 knots burns over 120 litres per hour — not 50% more, but 3x as much. Understanding this exponential relationship between speed and fuel consumption is the single most important skill in voyage planning.</p>
+
+<p>This guide covers how to calculate fuel consumption for any yacht voyage: the formulas, the real-world data, the common mistakes, and how to build a fuel estimate you can actually trust.</p>
+
+<h2>Why Fuel Calculation Matters</h2>
+
+<p>Fuel is the largest variable cost on any yacht voyage, typically representing 40-55% of the total budget. Get the fuel estimate wrong and the entire voyage budget fails. Underestimate and you are calling the owner for more funds mid-voyage. Overestimate and you are tying up working capital that could be used elsewhere.</p>
+
+<p>The difference between a good fuel estimate and a bad one is typically 15-30%. On a €30,000 voyage, that is €4,500-9,000 in variance. Over a season of 20 voyages, poor fuel estimation can cost a fleet €100,000 or more in unplanned costs.</p>
+
+<h2>The Basic Formula</h2>
+
+<p>Fuel consumption for a voyage is calculated as:</p>
+
+<p><strong>Total Fuel = Burn Rate (L/hr) × Voyage Time (hrs)</strong></p>
+
+<p>Where voyage time is:</p>
+
+<p><strong>Voyage Time = Distance (nm) ÷ Speed (knots)</strong></p>
+
+<p>So the full formula becomes:</p>
+
+<p><strong>Total Fuel = Burn Rate × (Distance ÷ Speed)</strong></p>
+
+<p>The problem is that burn rate is not constant. It changes with speed, sea state, hull condition, and load. This is where most estimates go wrong.</p>
+
+<h2>Fuel Burn Rates by Vessel Size</h2>
+
+<p>Every vessel is different, but these ranges are reliable starting points for estimation:</p>
+
+<table>
+<thead><tr><th>Vessel Length</th><th>Typical Cruise Speed</th><th>Burn Rate at Cruise</th><th>Litres per NM</th><th>Fuel Type</th></tr></thead>
+<tbody>
+<tr><td>24-30m (80-100ft)</td><td>8-10 kn</td><td>80-150 L/hr</td><td>8-15 L/nm</td><td>Diesel/MGO</td></tr>
+<tr><td>30-40m (100-130ft)</td><td>10-12 kn</td><td>150-300 L/hr</td><td>13-25 L/nm</td><td>MGO</td></tr>
+<tr><td>40-55m (130-180ft)</td><td>10-14 kn</td><td>300-500 L/hr</td><td>22-40 L/nm</td><td>MGO</td></tr>
+<tr><td>55-70m (180-230ft)</td><td>12-15 kn</td><td>500-900 L/hr</td><td>35-65 L/nm</td><td>MGO</td></tr>
+<tr><td>70m+ (230ft+)</td><td>12-16 kn</td><td>900-1,500+ L/hr</td><td>60-100+ L/nm</td><td>MGO</td></tr>
+</tbody>
+</table>
+
+<p><em>Note: These are approximate ranges for displacement and semi-displacement hulls. Planing hulls have very different consumption profiles. Always use your vessel's specific data when available.</em></p>
+
+<h2>The Speed-Consumption Curve</h2>
+
+<p>The relationship between speed and fuel burn is exponential, not linear. This is the most commonly misunderstood concept in voyage planning.</p>
+
+<p>On a typical 50-metre displacement hull:</p>
+
+<table>
+<thead><tr><th>Speed (knots)</th><th>Burn Rate (L/hr)</th><th>Litres per NM</th><th>Time for 337nm (Palma→Monaco)</th><th>Total Fuel (litres)</th></tr></thead>
+<tbody>
+<tr><td>10</td><td>180</td><td>18.0</td><td>33.7 hrs</td><td>6,066</td></tr>
+<tr><td>12</td><td>280</td><td>23.3</td><td>28.1 hrs</td><td>6,555</td></tr>
+<tr><td>14</td><td>420</td><td>30.0</td><td>24.1 hrs</td><td>7,221</td></tr>
+<tr><td>16</td><td>600</td><td>37.5</td><td>21.1 hrs</td><td>7,906</td></tr>
+<tr><td>18</td><td>850</td><td>47.2</td><td>18.7 hrs</td><td>8,833</td></tr>
+</tbody>
+</table>
+
+<p>Slowing from 14 knots to 12 knots saves approximately 10% of fuel on this route. Slowing from 16 to 12 knots saves 17%. Over a full season, these savings compound dramatically.</p>
+
+<p>The most fuel-efficient speed for a displacement hull is typically 70-75% of maximum speed. For most superyachts, this falls in the 10-12 knot range.</p>
+
+<h2>Real-World Factors That Change Consumption</h2>
+
+<p>The tables above assume calm water, clean hull, and moderate load. Real-world conditions add 10-40% to your base estimate:</p>
+
+<table>
+<thead><tr><th>Factor</th><th>Impact on Consumption</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Head seas (1-2m)</td><td>+10-25%</td><td>Higher in short, steep seas</td></tr>
+<tr><td>Beam seas</td><td>+5-15%</td><td>Rolling increases resistance</td></tr>
+<tr><td>Following seas</td><td>-5-15%</td><td>Can actually reduce consumption</td></tr>
+<tr><td>Hull fouling (6+ months)</td><td>+10-30%</td><td>Single biggest hidden cost</td></tr>
+<tr><td>Full fuel/water tanks</td><td>+5-10%</td><td>Heavier displacement</td></tr>
+<tr><td>Generator load</td><td>+5-15%</td><td>A/C, watermaker, electronics</td></tr>
+<tr><td>Current (adverse)</td><td>+5-20%</td><td>Depends on current strength</td></tr>
+</tbody>
+</table>>
+
+<p><strong>Practical tip:</strong> Add 15-20% to your base fuel estimate as a sea state and conditions margin. This is not contingency — it is the difference between calm-water theory and real-world consumption.</p>
+
+<h2>Worked Example: Palma to Monaco</h2>
+
+<p>Let's calculate the fuel for a 50m superyacht sailing from Palma de Mallorca to Monaco (337nm) at 12 knots:</p>
+
+<ol>
+<li><strong>Base burn rate:</strong> 280 L/hr at 12 knots (from vessel data)</li>
+<li><strong>Voyage time:</strong> 337nm ÷ 12 kn = 28.1 hours</li>
+<li><strong>Base fuel:</strong> 280 × 28.1 = 7,868 litres</li>
+<li><strong>Sea state margin (15%):</strong> 7,868 × 1.15 = 9,048 litres</li>
+<li><strong>Generator (10%):</strong> 9,048 × 1.10 = 9,953 litres</li>
+<li><strong>Total estimate:</strong> ~10,000 litres</li>
+</ol>
+
+<p>At current Mediterranean MGO prices (€1.10-1.20/L), the fuel cost for this voyage is approximately €11,000-12,000.</p>
+
+<h2>Common Mistakes</h2>
+
+<p><strong>Using a single burn rate for all speeds.</strong> As the table above shows, burn rate changes dramatically with speed. Using your 10-knot burn rate to estimate a 14-knot voyage will underestimate fuel by 30-40%.</p>
+
+<p><strong>Ignoring sea state.</strong> Calm-water consumption is a theoretical minimum. Real voyages encounter waves, current, and wind. Add 15-20%.</p>
+
+<p><strong>Forgetting generator consumption.</strong> Main engines are not the only fuel consumers. Generators, especially with A/C load in the Mediterranean summer, add 5-15% to total consumption.</p>
+
+<p><strong>Using straight-line distance.</strong> The great-circle distance from Palma to Monaco is 337nm. The actual navigable route, accounting for traffic lanes and coastal passages, is closer to 350-360nm. Use the actual planned route distance, not the straight-line distance.</p>
+
+<p><strong>Not accounting for manoeuvring.</strong> Departing and arriving in port, holding for traffic, and course changes add 30-60 minutes of low-speed running per port call. For a voyage with 2 port calls, add 50-100 litres.</p>
+
+<h2>How SeaWise Calculates Fuel</h2>
+
+<p>SeaWise automates the fuel calculation process using vessel-specific burn curves, live bunker pricing, and actual route distances (not straight-line). When you enter your origin and destination, SeaWise:</p>
+
+<ol>
+<li>Calculates the great-circle distance using the Haversine formula</li>
+<li>Applies waypoint-based routing for shipping lanes and navigable water</li>
+<li>Estimates voyage time based on your planned speed</li>
+<li>Calculates fuel consumption using burn curves matched to your vessel size</li>
+<li>Applies current bunker prices from Mediterranean and global hubs</li>
+<li>Outputs total fuel, cost, time, and distance in one view</li>
+</ol>
+
+<p>This replaces the 2-4 hours of manual calculation, spreadsheet building, and price checking that most captains and fleet managers go through for each voyage.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq">
+<h4>How accurate do fuel estimates need to be?</h4>
+<p>For owner-funded voyages, aim for ±10% accuracy. For charter operations where fuel is charged to the charterer at cost, ±5% is the standard. The biggest source of error is not the calculation method — it is using outdated burn rate data. If your vessel has not been profiled recently, the single most valuable thing you can do is log actual consumption at different speeds over 3-5 voyages and build your own burn curve.</p>
+</div>
+
+<div class="faq">
+<h4>What is the most fuel-efficient speed for a superyacht?</h4>
+<p>For displacement hulls, the most efficient speed is typically 70-75% of maximum speed, which for most superyachts falls in the 10-12 knot range. Semi-displacement hulls have a wider efficient range. Planing hulls are a different calculation entirely — they are most efficient at or near planing speed. The key insight is that the "efficient" speed is not the slowest speed — it is the speed that minimises litres per nautical mile, not litres per hour.</p>
+</div>
+
+<div class="faq">
+<h4>How do I account for fuel price differences between ports?</h4>
+<p>Bunker fuel prices vary by 10-20% between Mediterranean ports. Gibraltar and Rotterdam are typically the most competitive. Monaco and Cannes are among the most expensive. If your route allows flexibility, planning your bunkering stop at a cheaper port can save €500-2,000 on a single fill. SeaWise displays live prices at major hubs so you can factor this into your voyage plan.</p>
+</div>
+
+<div class="faq">
+<h4>How much fuel reserve should I carry?</h4>
+<p>IMO guidelines require sufficient fuel to reach the nearest safe port plus a 10% reserve. For Mediterranean operations, most captains carry 15-20% above the calculated voyage requirement. For offshore or ocean passages, 25-30% reserve is standard. This is not optional — running out of fuel at sea is a safety emergency and a professional failure.</p>
+</div>
+
+<div class="faq">
+<h4>Can I use SeaWise for fleet-wide fuel tracking?</h4>
+<p>SeaWise currently supports individual vessel profiles and voyage calculations. Fleet-wide tracking and comparison features are on the roadmap. For now, fleet managers can create profiles for each vessel and compare voyage costs across the fleet using the export function.</p>
+</div>
+
+<div class="article-cta">
+<h3>Calculate Your Next Voyage's Fuel in Minutes</h3>
+<p>SeaWise gives you accurate fuel, distance, and cost calculations — with live bunker prices and real route planning.</p>
+<a href="https://app.seawise.site" class="btn btn-green btn-lg" target="_blank" rel="noopener">Try SeaWise Free →</a>
+</div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 SeaWise — JK Yacht Ops. All rights reserved. · <a href="https://seawise.site">seawise.site</a> · <a href="https://seawise.site/blog">Blog</a></p>
+</footer>
+
+</body>
+</html>

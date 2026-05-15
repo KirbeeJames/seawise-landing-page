@@ -15,9 +15,10 @@
   * { margin:0; padding:0; box-sizing:border-box; }
   :root {
     --bg-deep: #0a1628; --bg-card: #111d33; --bg-card-hover: #162440;
-    --accent: #2dd4a8; --accent-glow: rgba(45,212,168,0.25);
+    --accent: #2dd4a8; --accent-cyan: #38bdf8; --accent-glow: rgba(45,212,168,0.25);
     --text-primary: #e8edf5; --text-secondary: #8899b4; --text-muted: #5a6f8f;
     --border: rgba(45,212,168,0.15); --radius: 16px;
+    --fuel-dark: #0d1628; --fuel-accent: #2dd4a8;
   }
   html { scroll-behavior: smooth; }
   body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg-deep); color:var(--text-primary); overflow-x:hidden; line-height:1.7; }
@@ -33,37 +34,264 @@
   .btn-green { background:var(--accent); color:#0a1628; }
   .btn-green:hover { background:#20b892; transform:translateY(-1px); }
   .btn-sm { padding:8px 16px; font-size:0.8rem; }
-  .article { max-width:760px; margin:0 auto; padding:100px 24px 80px; }
-  .article-header { margin-bottom:40px; }
-  .article-tag { display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; font-weight:600; text-transform:uppercase; background:var(--accent-glow); color:var(--accent); margin-bottom:16px; }
-  .article-header h1 { font-size:clamp(1.75rem,4vw,2.5rem); font-weight:800; line-height:1.2; margin:16px 0; }
-  .article-meta { display:flex; align-items:center; gap:16px; color:var(--text-muted); font-size:0.875rem; }
-  .article-body { font-size:1.0625rem; }
-  .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--text-muted); text-decoration:none; font-size:0.875rem; margin-bottom:40px; transition:color 0.2s; }
-  .back-link:hover { color:var(--accent); }
-  .article-body h2 { font-size:1.5rem; font-weight:700; margin:40px 0 16px; padding-top:24px; border-top:1px solid var(--border); }
-  .article-body h3 { font-size:1.25rem; font-weight:600; margin:32px 0 12px; }
-  .article-body p { margin-bottom:16px; color:var(--text-secondary); }
-  .article-body strong { color:var(--text-primary); }
-  .article-body table { width:100%; border-collapse:collapse; margin:24px 0; font-size:0.9rem; }
-  .article-body th { background:var(--bg-card); color:var(--accent); padding:12px 16px; text-align:left; font-weight:600; border-bottom:2px solid var(--border); }
-  .article-body td { padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.06); color:var(--text-secondary); }
-  .article-body tr:hover td { background:rgba(255,255,255,0.02); }
-  .article-body ul, .article-body ol { margin:16px 0; padding-left:24px; }
-  .article-body li { margin-bottom:8px; color:var(--text-secondary); }
-  .article-body a { color:var(--accent); text-decoration:none; }
-  .article-body a:hover { text-decoration:underline; }
-  .article-body blockquote { border-left:3px solid var(--accent); padding:16px 24px; margin:24px 0; background:var(--bg-card); border-radius:0 8px 8px 0; }
-  .article-cta { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:32px; margin:48px 0; text-align:center; }
-  .article-cta h3 { font-size:1.25rem; font-weight:700; margin-bottom:8px; }
-  .article-cta p { color:var(--text-secondary); margin-bottom:20px; }
-  .faq { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin:16px 0; }
-  .faq h4 { font-size:1rem; font-weight:600; margin-bottom:8px; color:var(--accent); }
-  .faq p { color:var(--text-secondary); font-size:0.95rem; }
-  footer { border-top:1px solid rgba(255,255,255,0.06); padding:40px 24px; text-align:center; }
-  footer p { color:var(--text-muted); font-size:0.875rem; }
-  footer a { color:var(--accent); text-decoration:none; }
-  @media(max-width:768px) { .nav-links { display:none; } .article { padding-top:80px; } }
+  
+  /* Magazine Hero */
+  .article-hero {
+    position: relative;
+    min-height: 520px;
+    padding: 80px 24px 60px;
+    background: linear-gradient(135deg, #0a1628 0%, #0d2847 50%, #0a1628 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .article-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(45,212,168,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(56,189,248,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  .article-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(45deg, transparent 48%, rgba(45,212,168,0.03) 49%, rgba(45,212,168,0.03) 51%, transparent 52%),
+      linear-gradient(-45deg, transparent 48%, rgba(56,189,248,0.03) 49%, rgba(56,189,248,0.03) 51%, transparent 52%);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  
+  .hero-fuel-gauge {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    top: -60px;
+    right: -40px;
+    opacity: 0.08;
+    z-index: 0;
+  }
+  
+  .hero-fuel-drops {
+    position: absolute;
+    width: 120px;
+    height: 200px;
+    bottom: -40px;
+    left: 10%;
+    opacity: 0.05;
+  }
+  
+  .article-hero-content {
+    max-width: 900px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .article-tag {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: linear-gradient(135deg, rgba(45,212,168,0.2), rgba(56,189,248,0.2));
+    color: var(--accent);
+    margin-bottom: 24px;
+    border: 1px solid rgba(45,212,168,0.3);
+  }
+  
+  .article-hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 20px 0;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #e8edf5 0%, #b8d4f8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 20px;
+  }
+  
+  /* Article Container */
+  .article-wrapper {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    margin-bottom: 40px;
+    transition: color 0.2s;
+  }
+  
+  .back-link:hover { color: var(--accent); }
+  
+  /* Article Body */
+  .article-body h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 56px 0 28px 0;
+    padding-top: 32px;
+    border-top: 2px solid var(--border);
+    letter-spacing: -0.01em;
+    background: linear-gradient(90deg, var(--text-primary), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .article-body h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin: 32px 0 16px 0;
+    color: var(--text-primary);
+  }
+  
+  .article-body p {
+    margin-bottom: 18px;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+  
+  .article-body strong { color: var(--text-primary); font-weight: 600; }
+  
+  .article-body ul, .article-body ol {
+    margin: 20px 0;
+    padding-left: 28px;
+  }
+  
+  .article-body li {
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  
+  .article-body a { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .article-body a:hover { text-decoration: underline; }
+  
+  .article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0;
+    font-size: 0.95rem;
+    background: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  
+  .article-body th {
+    background: linear-gradient(90deg, #0d2140 0%, #0f2847 100%);
+    color: var(--accent);
+    padding: 16px;
+    text-align: left;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(45,212,168,0.3);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+  
+  .article-body td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--text-secondary);
+  }
+  
+  .article-body tr:hover td {
+    background: rgba(45,212,168,0.05);
+  }
+  
+  .article-body blockquote {
+    border-left: 4px solid var(--accent);
+    padding: 24px;
+    margin: 32px 0;
+    background: linear-gradient(90deg, rgba(45,212,168,0.08) 0%, rgba(56,189,248,0.04) 100%);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+  
+  .faq {
+    background: linear-gradient(135deg, rgba(45,212,168,0.08), rgba(56,189,248,0.05));
+    border: 1px solid rgba(45,212,168,0.2);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 24px 0;
+  }
+  
+  .faq h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+  
+  .faq p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  /* CTA - Hidden per requirements */
+  .article-cta {
+    display: none;
+  }
+  
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 24px;
+    text-align: center;
+  }
+  
+  footer p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+  
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  
+  @media(max-width:768px) {
+    .nav-links { display: none; }
+    .article-hero { min-height: 400px; padding: 60px 24px; }
+    .article-hero h1 { font-size: 1.8rem; }
+    .article-wrapper { padding: 40px 24px 60px; }
+    .article-body h2 { font-size: 1.4rem; margin: 40px 0 20px 0; }
+    .article-body table { font-size: 0.85rem; }
+    .article-body th { padding: 12px; }
+    .article-body td { padding: 10px 12px; }
+  }
 </style>
 </head>
 <body>
@@ -81,19 +309,34 @@
   </div>
 </nav>
 
-<div class="article">
-  <div class="article-header">
-    <span class="article-tag">Voyage Planning</span>
+<!-- Magazine Hero -->
+<div class="article-hero">
+  <svg class="hero-fuel-gauge" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="90" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+    <path d="M100 20 Q150 50 150 100 Q150 150 100 150 Q50 150 50 100 Q50 50 100 20" stroke="currentColor" stroke-width="2.5" fill="none" opacity="0.5"/>
+    <circle cx="100" cy="100" r="30" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+  </svg>
+  
+  <svg class="hero-fuel-drops" viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 20 Q20 10 30 10 Q40 10 40 20 Q40 50 30 80 Q20 50 20 20" fill="currentColor" opacity="0.6"/>
+    <path d="M60 60 Q60 50 70 50 Q80 50 80 60 Q80 90 70 120 Q60 90 60 60" fill="currentColor" opacity="0.4"/>
+    <path d="M20 140 Q20 130 30 130 Q40 130 40 140 Q40 170 30 190 Q20 170 20 140" fill="currentColor" opacity="0.3"/>
+  </svg>
+  
+  <div class="article-hero-content">
+    <span class="article-tag">Fuel Management</span>
     <h1>How to Calculate Fuel Consumption for a Yacht Voyage</h1>
-    <div class="article-meta">
+    <p class="article-meta">
       <span>May 2026</span>
       <span>·</span>
       <span>12 min read</span>
       <span>·</span>
       <span>SeaWise</span>
-    </div>
+    </p>
   </div>
+</div>
 
+<div class="article-wrapper">
   <div class="article-body">
 
 <a href="https://seawise.site/#blog" class="back-link">← Back to Blog</a>
@@ -177,7 +420,7 @@
 <tr><td>Generator load</td><td>+5-15%</td><td>A/C, watermaker, electronics</td></tr>
 <tr><td>Current (adverse)</td><td>+5-20%</td><td>Depends on current strength</td></tr>
 </tbody>
-</table>>
+</table>
 
 <p><strong>Practical tip:</strong> Add 15-20% to your base fuel estimate as a sea state and conditions margin. This is not contingency — it is the difference between calm-water theory and real-world consumption.</p>
 
@@ -250,17 +493,11 @@
 <p>SeaWise currently supports individual vessel profiles and voyage calculations. Fleet-wide tracking and comparison features are on the roadmap. For now, fleet managers can create profiles for each vessel and compare voyage costs across the fleet using the export function.</p>
 </div>
 
-<div class="article-cta">
-<h3>Calculate Your Next Voyage's Fuel in Minutes</h3>
-<p>SeaWise gives you accurate fuel, distance, and cost calculations — with live bunker prices and real route planning.</p>
-<a href="https://app.seawise.site" class="btn btn-green btn-lg" target="_blank" rel="noopener">Try SeaWise Free →</a>
-</div>
-
   </div>
 </div>
 
 <footer>
-  <p>© 2026 SeaWise — JK Yacht Ops. All rights reserved. · <a href="https://seawise.site">seawise.site</a> · <a href="https://seawise.site/blog">Blog</a></p>
+  <p>© 2026 SeaWise — JK Yacht Ops. All rights reserved. · <a href="https://seawise.site">seawise.site</a> · <a href="https://seawise.site/#blog">Blog</a></p>
 </footer>
 
 </body>

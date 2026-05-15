@@ -782,24 +782,25 @@
   }
   .blog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
   }
   .blog-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
     text-decoration: none;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
   .blog-card:hover {
     background: var(--bg-card-hover);
-    transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
-    border-color: rgba(56,189,248,0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    border-color: rgba(56,189,248,0.4);
   }
   .blog-card-img {
     width: 100%;
@@ -811,60 +812,111 @@
     position: relative;
     overflow: hidden;
   }
-  .blog-card-img::before {
+  .blog-card-img[data-theme="fuel"] {
+    background: linear-gradient(135deg, #0a1628 0%, #1a3a0a 50%, #0a1628 100%);
+  }
+  .blog-card-img[data-theme="fuel"]::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 200px 120px at 30% 60%, rgba(56,189,248,0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at 20% 40%, rgba(45,212,168,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(34,197,94,0.1) 0%, transparent 50%);
+  }
+  .blog-card-img[data-theme="cost"] {
+    background: linear-gradient(135deg, #0a1628 0%, #2a1610 50%, #0a1628 100%);
+  }
+  .blog-card-img[data-theme="cost"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 40%, rgba(245,158,11,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(34,197,94,0.1) 0%, transparent 50%);
+  }
+  .blog-card-img[data-theme="compare"] {
+    background: linear-gradient(135deg, #0a1628 0%, #1a0d2e 50%, #0a1628 100%);
+  }
+  .blog-card-img[data-theme="compare"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 40%, rgba(139,92,246,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(56,189,248,0.1) 0%, transparent 50%);
+  }
+  .blog-card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.02) 49%, rgba(255,255,255,0.02) 51%, transparent 52%),
+      linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.02) 49%, rgba(255,255,255,0.02) 51%, transparent 52%);
+    background-size: 60px 60px;
+    pointer-events: none;
   }
   .blog-card-img svg {
-    width: 52px;
-    height: 52px;
+    width: 72px;
+    height: 72px;
     position: relative;
     z-index: 1;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
   }
   .blog-card-body {
-    padding: 28px;
+    padding: 32px;
     display: flex;
     flex-direction: column;
     flex: 1;
   }
   .blog-tag {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--accent-cyan);
-    margin-bottom: 10px;
+    margin-bottom: 14px;
     display: block;
+    padding: 6px 0;
+  }
+  .blog-card[href*="fuel"] .blog-tag {
+    color: #2dd4a8;
+  }
+  .blog-card[href*="voyage"] .blog-tag {
+    color: #f59e0b;
+  }
+  .blog-card[href*="vs-spreadsheets"] .blog-tag {
+    color: #8b5cf6;
   }
   .blog-card-body h3 {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 10px;
-    line-height: 1.35;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    transition: color 0.3s ease;
   }
   .blog-card:hover h3 { color: var(--accent-cyan); }
+  .blog-card[href*="voyage"]:hover h3 { color: #f59e0b; }
+  .blog-card[href*="vs-spreadsheets"]:hover h3 { color: #8b5cf6; }
   .blog-card-body p {
     color: var(--text-secondary);
-    font-size: 0.88rem;
-    line-height: 1.6;
+    font-size: 0.95rem;
+    line-height: 1.7;
     flex: 1;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
   .blog-meta {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
-    border-top: 1px solid rgba(255,255,255,0.04);
-    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 18px;
+    margin-top: auto;
   }
   .blog-meta .dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; flex-shrink: 0; }
   @media (max-width: 768px) {
     .blog-grid { grid-template-columns: 1fr; }
+    .blog-card-img svg { width: 60px; height: 60px; }
+    .blog-card-body { padding: 24px; }
   }
 
   /* ─── FAQ ─── */
@@ -1630,14 +1682,22 @@
     <div class="blog-grid">
 
       <a href="blog/fuel-consumption-guide.html" class="blog-card animate-in">
-        <div class="blog-card-img">
-          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="26" cy="26" r="20" stroke="#38bdf8" stroke-width="1.2" opacity="0.3"/>
-            <circle cx="26" cy="26" r="14" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3 4" opacity="0.4"/>
-            <path d="M14 22L18 18L22 21L26 14L30 19L34 16L38 22" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M14 30L18 26L22 29L26 22L30 27L34 24L38 30" stroke="#0ea5e9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
-            <circle cx="26" cy="14" r="2" fill="#38bdf8" opacity="0.8"/>
-            <circle cx="38" cy="22" r="2" fill="#38bdf8" opacity="0.8"/>
+        <div class="blog-card-img" data-theme="fuel">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Fuel gauge background -->
+            <circle cx="50" cy="50" r="35" stroke="#2dd4a8" stroke-width="2.5" opacity="0.3"/>
+            <circle cx="50" cy="50" r="28" stroke="#2dd4a8" stroke-width="1.5" opacity="0.2"/>
+            
+            <!-- Gauge needle -->
+            <line x1="50" y1="50" x2="55" y2="20" stroke="#2dd4a8" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="4" fill="#2dd4a8"/>
+            
+            <!-- Fuel drops on the side -->
+            <path d="M72 35 Q76 35 76 42 Q76 55 72 65 Q68 55 68 42 Q68 35 72 35" fill="#2dd4a8" opacity="0.6"/>
+            <path d="M82 50 Q85 50 85 56 Q85 68 82 78 Q79 68 79 56 Q79 50 82 50" fill="#2dd4a8" opacity="0.4"/>
+            
+            <!-- Speed curves indicator -->
+            <path d="M25 45 Q30 35 35 40 Q40 50 45 38 Q50 28 55 42" stroke="#10b981" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
           </svg>
         </div>
         <div class="blog-card-body">
@@ -1653,15 +1713,22 @@
       </a>
 
       <a href="blog/voyage-cost-guide.html" class="blog-card animate-in">
-        <div class="blog-card-img">
-          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="12" y="10" width="28" height="32" rx="3" stroke="#0ea5e9" stroke-width="1.2" opacity="0.3"/>
-            <path d="M12 18h28" stroke="#0ea5e9" stroke-width="0.8" opacity="0.2"/>
-            <path d="M17 24h8" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M17 28h14" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-            <path d="M17 32h10" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-            <circle cx="36" cy="14" r="6" fill="#0a1628" stroke="#f59e0b" stroke-width="1.5"/>
-            <path d="M36 11.5V14L37.5 15.5" stroke="#f59e0b" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <div class="blog-card-img" data-theme="cost">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Budget ledger -->
+            <rect x="25" y="20" width="50" height="55" rx="4" stroke="#f59e0b" stroke-width="2.5" opacity="0.4"/>
+            <line x1="25" y1="32" x2="75" y2="32" stroke="#f59e0b" stroke-width="1.5" opacity="0.3"/>
+            <line x1="25" y1="42" x2="75" y2="42" stroke="#f59e0b" stroke-width="1.5" opacity="0.2"/>
+            <line x1="25" y1="52" x2="75" y2="52" stroke="#f59e0b" stroke-width="1.5" opacity="0.2"/>
+            
+            <!-- Currency symbol -->
+            <circle cx="70" cy="25" r="10" fill="none" stroke="#f59e0b" stroke-width="2.5" opacity="0.8"/>
+            <path d="M70 20 V30 M66 22 Q70 24 74 22 M66 28 Q70 26 74 28" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+            
+            <!-- Cost breakdown bars -->
+            <rect x="30" y="58" width="8" height="14" fill="#f59e0b" opacity="0.7"/>
+            <rect x="41" y="54" width="8" height="18" fill="#f59e0b" opacity="0.6"/>
+            <rect x="52" y="56" width="8" height="16" fill="#f59e0b" opacity="0.5"/>
           </svg>
         </div>
         <div class="blog-card-body">
@@ -1677,14 +1744,24 @@
       </a>
 
       <a href="blog/vs-spreadsheets.html" class="blog-card animate-in">
-        <div class="blog-card-img">
-          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="26" cy="26" r="18" stroke="#8b5cf6" stroke-width="1.2" opacity="0.3"/>
-            <path d="M16 30C18 28 20 24 22 23C24 22 26 27 28 25C30 23.5 32 20 33 19" stroke="#8b5cf6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-            <path d="M14 36C17 34 20 32 23 33C26 34 29 32 32 31C35 30 37 31 38 30" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="23" cy="33" r="2.5" fill="#38bdf8" opacity="0.8"/>
-            <circle cx="38" cy="30" r="2.5" fill="#38bdf8" opacity="0.8"/>
-            <path d="M24 18L26 14L28 18" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+        <div class="blog-card-img" data-theme="compare">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Spreadsheet grid -->
+            <rect x="22" y="20" width="28" height="55" rx="2" stroke="#8b5cf6" stroke-width="2" opacity="0.3"/>
+            <line x1="28" y1="20" x2="28" y2="75" stroke="#8b5cf6" stroke-width="1" opacity="0.2"/>
+            <line x1="34" y1="20" x2="34" y2="75" stroke="#8b5cf6" stroke-width="1" opacity="0.2"/>
+            <line x1="40" y1="20" x2="40" y2="75" stroke="#8b5cf6" stroke-width="1" opacity="0.2"/>
+            <line x1="22" y1="30" x2="50" y2="30" stroke="#8b5cf6" stroke-width="1" opacity="0.15"/>
+            <line x1="22" y1="40" x2="50" y2="40" stroke="#8b5cf6" stroke-width="1" opacity="0.15"/>
+            <line x1="22" y1="50" x2="50" y2="50" stroke="#8b5cf6" stroke-width="1" opacity="0.15"/>
+            <line x1="22" y1="60" x2="50" y2="60" stroke="#8b5cf6" stroke-width="1" opacity="0.15"/>
+            
+            <!-- SeaWise indicator - streamlined design -->
+            <circle cx="65" cy="42" r="12" fill="none" stroke="#10b981" stroke-width="2.5" opacity="0.9"/>
+            <path d="M65 38 L61 45 L65 48 L69 45 Z" fill="#10b981" opacity="0.8"/>
+            
+            <!-- Arrow indicating switch -->
+            <path d="M53 42 L60 42" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
           </svg>
         </div>
         <div class="blog-card-body">
